@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250.3 150.15">
+    <path id="mask" fill="#ff0000" d="M225.15,75c0,18.5-10.05,34.66-25,43.3l-150-.3h0c-14.95-8.64-25-24.5-25-43s10.05-34.36,25-43h150c14.95,8.64,25,24.5,25,43Z" stroke-width="0"/>
+    <g id="center">
+        <line x1="125.15" y1=".5" x2="125.15" y2="149.65" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="122.88" y=".15" width="4.55" height=".7" stroke-width="0"/>
+        <rect x="121.9" y="149.15" width="6.5" height="1" stroke-width="0"/>
+        <line x1="249.8" y1="75.15" x2=".65" y2="75.15" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="249.45" y="72.88" width=".7" height="4.55" stroke-width="0"/>
+        <rect x=".15" y="71.9" width="1" height="6.5" stroke-width="0"/>
+    </g>
+</svg>
