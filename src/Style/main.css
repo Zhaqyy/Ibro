@@ -51,20 +51,20 @@ html.lenis, html.lenis body {
   
 
 
-  /* kufam-regular */
+  /* syne-regular */
 @font-face {
   font-display: swap;
-  font-family: "Kufam";
+  font-family: "Syne";
   font-style: normal;
   /* // font-weight: 400; */
-  src: url("/Font/kufam.woff2") format("woff2");
+  src: url("/Font/Syne.woff2") format("woff2");
 }
 /* //   @font-face {
-//     font-family: 'Kufam';
+//     font-family: 'Syne';
 //     src:
-//       url('./Font/kufam.woff2')
+//       url('./Font/syne.woff2')
 //       format(‘woff2 supports variations’),
-//       url('./Font/kufamVar.woff2')
+//       url('./Font/syneVar.woff2')
 //       format('woff2-variations');
 //     // font-stretch: 25% 150%;
 //     // font-style: oblique 0deg 10deg;
@@ -121,7 +121,7 @@ min-height: 100vh;
 }
 
 body {
-  font-family: "kufam", helvetica neue, helvetica, arial, sans-serif;
+  font-family: "Syne", helvetica neue, helvetica, arial, sans-serif;
   font-weight: 400;
   font-synthesis: none;
   color: white;

@@ -1,18 +1,51 @@
-.hero{
+.hero {
   height: 100vh;
   width: 100%;
+  padding-inline: 5vw;
   position: relative;
-  background: url('./scene.webp');
+  background: url("./ibro.jpg");
+  // background: url("./scene.webp");
   background-size: cover;
+  background-position: bottom;
 
-  &::before{
-    content: '';
+  &::before {
+    content: "";
     position: absolute;
     top: 0;
+    left: 0;
     width: inherit;
     height: inherit;
     backdrop-filter: blur(15px);
-    mask: url('./mask.svg#mask');
-    mask-repeat: no-repeat;
+    // mask: url("./mask.svg#mask");
+    // mask-repeat: no-repeat;
+  }
+
+  .bigName {
+    font-size: 7vw;
+    text-align: center;
+    scale: 1 1.5;
+    // font-size: clamp(7VW, 5.333vw + 0.333rem, 30VW);
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: -10px;
+  }
+
+  .menu {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    position: relative;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+
+    .menuCol {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100%;
+    }
   }
 }
