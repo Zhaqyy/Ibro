@@ -33,7 +33,7 @@ function Home() {
           <Link to={"#"}>Press</Link>
         </div>
         <div className='menuCol'>
-          <Link to={"#"}>Work</Link>
+          <Link to={"#"}>Works</Link>
           <Link to={"#"}>Media</Link>
         </div>
         <div className='menuCol'>

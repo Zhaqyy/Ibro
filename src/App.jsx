@@ -4,6 +4,7 @@ import { ReactLenis } from "lenis/react";
 import gsap from "gsap";
 
 import Router from "./Routes/Router";
+import Cursor from "./Component/Cursor";
 
 const App = () => {
   const lenisRef = useRef();
@@ -34,7 +35,7 @@ const App = () => {
           touchMultiplier: 0,
         }}
       >
- 
+        <Cursor />
         <Router />
       </ReactLenis>
     </>

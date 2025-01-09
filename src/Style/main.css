@@ -118,6 +118,7 @@ body,
   background-size: cover;
   height: auto;
 min-height: 100vh;
+overflow: hidden;
 }
 
 body {

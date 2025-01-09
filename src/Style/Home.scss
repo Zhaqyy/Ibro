@@ -16,8 +16,24 @@
     width: inherit;
     height: inherit;
     backdrop-filter: blur(15px);
-    // mask: url("./mask.svg#mask");
-    // mask-repeat: no-repeat;
+  //   mask: url("./mask.svg"),
+  //   linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
+  // mask-composite: exclude;
+  //   mask-repeat: no-repeat;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    // backdrop-filter: blur(15px);
+    mask: url("./mask.svg"),
+    linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
+  mask-composite: exclude;
+    mask-repeat: no-repeat;
+    z-index: -1;
   }
 
   .bigName {
