@@ -4,36 +4,40 @@
   padding-inline: 5vw;
   position: relative;
   background: url("./ibro.jpg");
-  // background: url("./scene.webp");
   background-size: cover;
   background-position: bottom;
+
+  #masker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%); /* Center SVG relative to mouse */
+    pointer-events: none; /* Prevent interaction with the SVG */
+  }
 
   &::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
     backdrop-filter: blur(15px);
-  //   mask: url("./mask.svg"),
-  //   linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
-  // mask-composite: exclude;
-  //   mask-repeat: no-repeat;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: inherit;
-    height: inherit;
-    // backdrop-filter: blur(15px);
-    mask: url("./mask.svg"),
-    linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
-  mask-composite: exclude;
-    mask-repeat: no-repeat;
-    z-index: -1;
+    // mask: radial-gradient(midnightblue 9px, transparent 10px),
+    // repeating-radial-gradient(midnightblue 0, midnightblue 4px, transparent 5px, transparent 20px, midnightblue 21px, midnightblue 25px, transparent 26px, transparent 50px);
+
+    // mask: url(#mask),
+    // linear-gradient(#000 0 0); /* Use the DOM SVG as mask */
+    // -webkit-mask: url(#mask),
+    // linear-gradient(#000 0 0); /* Safari compatibility */
+    // mask-composite: exclude;
+    // -webkit-mask-composite: exclude;
+    // mask-repeat: no-repeat;
+    // mask-repeat: repeat;
+    // mask-size: 15px 15px, 90px 90px;
+
+    -webkit-clip-path: url(#mask);
+    clip-path: url(#mask);
   }
 
   .bigName {

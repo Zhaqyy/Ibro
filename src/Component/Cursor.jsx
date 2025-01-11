@@ -2,12 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 
 const Cursor = () => {
-  const lottieRef = useRef();
   const ref = useRef();
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    // Center the duck
     gsap.set(ref.current, { xPercent: -50, yPercent: -50 });
 
     // Setup the gsap quickTo for smooth movement
@@ -44,7 +42,6 @@ const Cursor = () => {
       if (distance > 50) {
         if (!isMoving) {
           setIsMoving(true);
-          lottieRef.current.goToAndPlay(0, true); // Play walking animation
         }
         xTo(mouseX);
         yTo(mouseY);
@@ -56,7 +53,6 @@ const Cursor = () => {
 
       if (distance < 50 && isMoving) {
         setIsMoving(false);
-        lottieRef.current.goToAndStop(0, true); // Stop animation
       }
     });
 
@@ -85,12 +81,12 @@ const Cursor = () => {
     >
       <svg id='target' xmlns='http://www.w3.org/2000/svg'>
         <g id='center'>
-          <line x1='125.15' y1='.5' x2='125.15' y2='149.65' fill='none' stroke='#fff' stroke-linecap='round' stroke-linejoin='round' />
-          <rect x='122.88' y='.15' width='4.55' height='.7' stroke-width='0' fill='#fff' />
-          <rect x='121.9' y='149.15' width='6.5' height='1' stroke-width='0' fill='#fff' />
-          <line x1='249.8' y1='75.15' x2='.65' y2='75.15' fill='none' stroke='#fff' stroke-linecap='round' stroke-linejoin='round' />
-          <rect x='249.45' y='72.88' width='.7' height='4.55' stroke-width='0' fill='#fff' />
-          <rect x='.15' y='71.9' width='1' height='6.5' stroke-width='0' fill='#fff' />
+          <line x1='125.15' y1='.5' x2='125.15' y2='149.65' fill='none' stroke='#fff' strokeLinecap='round' strokeLinejoin='round' />
+          <rect x='122.88' y='.15' width='4.55' height='.7' strokeWidth='0' fill='#fff' />
+          <rect x='121.9' y='149.15' width='6.5' height='1' strokeWidth='0' fill='#fff' />
+          <line x1='249.8' y1='75.15' x2='.65' y2='75.15' fill='none' stroke='#fff' strokeLinecap='round' strokeLinejoin='round' />
+          <rect x='249.45' y='72.88' width='.7' height='4.55' strokeWidth='0' fill='#fff' />
+          <rect x='.15' y='71.9' width='1' height='6.5' strokeWidth='0' fill='#fff' />
         </g>
       </svg>
     </div>
