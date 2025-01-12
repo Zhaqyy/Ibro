@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Stage, Sprite, Container, Graphics } from "@pixi/react";
 // import { BLEND_MODES, BlurFilter } from "pixi.js";
 import * as PIXI from "pixi.js";
@@ -10,50 +10,60 @@ import { Link } from "react-router-dom";
 function Home() {
   const svgRef = useRef(null);
   const heroRef = useRef(null);
-  useEffect(() => {
-    const svg = svgRef.current;
-    const heroElement = heroRef.current;
 
-    // Set mask dynamically
-    // if (heroElement) {
-    //   heroElement.style.maskImage = `  <svg
-    //   id="mask"
-    //   ref={svgRef}
-    //   xmlns="http://www.w3.org/2000/svg"
-    //   height="150px" width="250px" 
-    // >
-    //   <path
-    //     fill="#ff0000"
-    //     d="M225.15,75c0,18.5-10.05,34.66-25,43.3l-150-.3h0c-14.95-8.64-25-24.5-25-43s10.05-34.36,25-43h150c14.95,8.64,25,24.5,25,43Z"
-    //   />
-    // </svg>`;
-    //   // heroElement.style.webkitMaskImage = `url(#mask)`; // Safari support
-    // }
-    // GSAP animation to follow mouse
-    const onMouseMove = event => {
-      const { clientX, clientY } = event;
-      gsap.to(svg, {
-        duration: 0.3,
-        x: clientX - window.innerWidth / 2,
-        y: clientY - window.innerHeight / 2,
-        ease: "power3.out",
-      });
+
+  useEffect(() => {
+    gsap.set(svgRef.current, { xPercent: -50, yPercent: -50 });
+
+    // Setup the gsap quickTo for smooth movement
+    const xTo = gsap.quickTo(svgRef.current, "x", { duration: 1, ease: "power3" });
+    const yTo = gsap.quickTo(svgRef.current, "y", { duration: 1, ease: "power3" });
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+
+    const handleMouseMove = e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+        xTo(mouseX);
+        yTo(mouseY);
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
+    // Attach mousemove event listener
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
     <section className='hero' ref={heroRef}>
-      <svg id='masker' xmlns='http://www.w3.org/2000/svg' height='150px' width='250px'>
-        <clipPath ref={svgRef}  id='mask'>
-          <path
-            fill='#ff0000'
-            clip-rule="evenodd"
-            d='M225.15,75c0,18.5-10.05,34.66-25,43.3l-150-.3h0c-14.95-8.64-25-24.5-25-43s10.05-34.36,25-43h150c14.95,8.64,25,24.5,25,43Z'
-          />
-        </clipPath>
+
+      <svg
+        version='1.1'
+        xmlns='http://www.w3.org/2000/svg'
+        xmlnsXlink='http://www.w3.org/1999/xlink'
+        width='100%'
+        height='100%'
+        id='masker'
+      >
+        <filter id='blur-image'>
+          <feGaussianBlur in='SourceGraphic' stdDeviation='15'></feGaussianBlur>
+        </filter>
+        <mask id='blur-mask'>
+          <rect x="0" y="0" height="150" width="250" rx="10"fill="#fff"   ref={svgRef} id='mask' />
+          {/* <g ref={svgRef} id='mask'>
+            <path
+              fill='#000'
+              d='M225.15,75c0,18.5-10.05,34.66-25,43.3l-150-.3h0c-14.95-8.64-25-24.5-25-43s10.05-34.36,25-43h150c14.95,8.64,25,24.5,25,43Z'
+            />
+          </g> */}
+        </mask>
+        <image xlinkHref='./ibro.jpg' width='100%' height='100%' filter='url(#blur-image)' preserveAspectRatio="xMidYMax slice" />
+        <image xlinkHref='./ibro.jpg' width='100%' height='100%' mask='url(#blur-mask)' preserveAspectRatio="xMidYMax slice" />
       </svg>
       <h1 className='bigName'>IBRAHIM SHUAIB</h1>
       <div className='menu'>
@@ -75,69 +85,3 @@ function Home() {
 }
 
 export default Home;
-
-// const HeroBg = () => {
-//   const blurFilter = useMemo(() => new PIXI.BlurFilter(20), []);
-//   const maskSprite = useRef();
-
-//   useEffect(() => {
-//     const handleMouseMove = event => {
-//       const { offsetX, offsetY } = event.nativeEvent;
-//       if (maskSprite.current) {
-//         maskSprite.current.x = offsetX - maskSprite.current.width / 2;
-//         maskSprite.current.y = offsetY - maskSprite.current.height / 2;
-//       }
-//     };
-
-//     const stageElement = document.querySelector(".pixi-react-stage");
-//     stageElement.addEventListener("mousemove", handleMouseMove);
-
-//     return () => {
-//       stageElement.removeEventListener("mousemove", handleMouseMove);
-//     };
-//   }, []);
-
-//   const image = "./ibro.jpg";
-//   const texture = new PIXI.Texture(new PIXI.BaseTexture(image, { scaleMode: PIXI.SCALE_MODES.LINEAR }));
-//   const texture2 = new PIXI.Texture(new PIXI.BaseTexture(image, { scaleMode: PIXI.SCALE_MODES.LINEAR }));
-//   return (
-//     <div className='pixi-react-stage' style={{ position: "absolute", top: 0, left: 0, height: "100vh", width: "100%" }}>
-//       <Stage width={window.innerWidth} height={window.innerHeight} options={{ backgroundColor: 0xeef1f5 }}>
-//         <Container>
-//           {/* Background Image */}
-//           <Sprite
-//             width={window.innerWidth}
-//             height={window.innerHeight}
-//             texture={texture2}
-//             // filters={[blurFilter]}
-//             // mask={maskSprite.current}
-//             // onmousemove={handleMouseMove}
-//           />
-
-//           {/* Mask */}
-//           <Graphics
-//             x={200}
-//             y={200}
-//             preventRedraw={true}
-//             draw={g => {
-//               g.beginFill(0x000000);
-//               // g.drawCircle(-25, -25, 50);
-//               g.drawRoundedRect(-150, -50, 300, 100, 40);
-//               g.endFill();
-//             }}
-//             // eventMode='dynamic'
-//             ref={maskSprite}
-//           />
-//           <Sprite
-//             width={window.innerWidth}
-//             height={window.innerHeight}
-//             texture={texture}
-//             filters={[blurFilter]}
-//             // mask={maskSprite.current}
-//             // onmousemove={handleMouseMove}
-//           />
-//         </Container>
-//       </Stage>
-//     </div>
-//   );
-// };
