@@ -50,17 +50,12 @@ function Home() {
         height='100%'
         id='masker'
       >
-        <filter id='blur-image'>
-          <feGaussianBlur in='SourceGraphic' stdDeviation='15'></feGaussianBlur>
+        <filter id='blur-image' color-interpolation-filters="sRGB">
+          <feGaussianBlur in='SourceGraphic' stdDeviation='15 30'></feGaussianBlur>
         </filter>
         <mask id='blur-mask'>
           <rect x="0" y="0" height="150" width="250" rx="10"fill="#fff"   ref={svgRef} id='mask' />
-          {/* <g ref={svgRef} id='mask'>
-            <path
-              fill='#000'
-              d='M225.15,75c0,18.5-10.05,34.66-25,43.3l-150-.3h0c-14.95-8.64-25-24.5-25-43s10.05-34.36,25-43h150c14.95,8.64,25,24.5,25,43Z'
-            />
-          </g> */}
+
         </mask>
         <image xlinkHref='./ibro.jpg' width='100%' height='100%' filter='url(#blur-image)' preserveAspectRatio="xMidYMax slice" />
         <image xlinkHref='./ibro.jpg' width='100%' height='100%' mask='url(#blur-mask)' preserveAspectRatio="xMidYMax slice" />

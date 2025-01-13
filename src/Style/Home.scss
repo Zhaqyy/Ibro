@@ -43,13 +43,13 @@
   // }
 
   .bigName {
-    font-size: 7vw;
+    font-size: 5vw;
     text-align: center;
     scale: 1 1.5;
     // font-size: clamp(7VW, 5.333vw + 0.333rem, 30VW);
     text-transform: uppercase;
     font-weight: 900;
-    letter-spacing: -10px;
+    // letter-spacing: -10px;
   }
 
   .menu {
@@ -61,6 +61,7 @@
     z-index: 1;
     position: relative;
     font-size: 1.5rem;
+    font-weight: 700;
     text-transform: uppercase;
 
     .menuCol {
