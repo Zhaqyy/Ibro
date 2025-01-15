@@ -5,6 +5,7 @@ import Loader from "../Component/Loader/Loader";
 import Transitioner from "../Util/Transition";
 
 import Home from "../Pages/Home";
+import Contact from "../Pages/Contact";
 
 // import Header from "../Component/Header";
 
@@ -30,15 +31,15 @@ const Router = () => {
                 </Transitioner>
               }
             />
-            {/* <Route
-              path='/about'
+            <Route
+              path='/contact'
               element={
                 <Transitioner>
-                  <About />
+                  <Contact />
                 </Transitioner>
               }
             />
-            <Route
+            {/* <Route
               path='/Project/:id'
               element={
                 <Transitioner>

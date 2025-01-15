@@ -13,8 +13,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    // transform: translate(-50%, -50%); /* Center SVG relative to mouse */
-    pointer-events: none; /* Prevent interaction with the SVG */
+    // transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 
   // &::before {
