@@ -3,19 +3,19 @@ import "../Style/Contact.scss";
 import gsap from "gsap";
 
 const Contact = () => {
-    // useEffect(() => {
-    //     gsap.set("text.circleText", { transformOrigin: "50% 50%" });
-    //     gsap.to("text.circleText", {
-    //       duration: 10,
-    //       ease: "none",
-    //       rotation: "+=360",
-    //       repeat: -1
-    //     });
-    
-    //   return () => {
-    //   }
-    // }, [])
-    
+  // useEffect(() => {
+  //     gsap.set("text.circleText", { transformOrigin: "50% 50%" });
+  //     gsap.to("text.circleText", {
+  //       duration: 10,
+  //       ease: "none",
+  //       rotation: "+=360",
+  //       repeat: -1
+  //     });
+
+  //   return () => {
+  //   }
+  // }, [])
+
   return (
     <section className='contact'>
       <div className='cHalf'></div>
@@ -48,8 +48,8 @@ const Contact = () => {
         </g>
       </svg>
 
-      <div className='cInfo'>
-        {/* <svg id='circlePath' viewBox="0 0 250 250">
+      {/* <div className='cInfo'>
+        <svg id='circlePath' viewBox="0 0 250 250">
           <def>
             <path
               id='circle'
@@ -64,10 +64,9 @@ const Contact = () => {
               CONTACT ME&nbsp;
             </textPath>
           </text>
-        </svg> */}
+        </svg>
 
         <div className='cItem'>
-          {/* <h2>Email</h2> */}
           <a href={"mailto:zaqrashyy7@gmail.com"} target='_blank' rel='noopener noreferrer'>
             Mail
           </a>
@@ -76,6 +75,25 @@ const Contact = () => {
           <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
             Instagram
           </a>
+          <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
+            Twitter
+          </a>
+        </div>
+      </div> */}
+
+      <div className='cInfos'>
+        <div className='cList'>
+          {" "}
+          <a href={"mailto:zaqrashyy7@gmail.com"} target='_blank' rel='noopener noreferrer'>
+            Mail
+          </a>
+        </div>
+        <div className='cList'>
+          <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
+            Instagram
+          </a>
+        </div>
+        <div className='cList'>
           <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
             Twitter
           </a>
