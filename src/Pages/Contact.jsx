@@ -18,8 +18,7 @@ const Contact = () => {
 
   return (
     <section className='contact'>
-      <div className='cHalf'></div>
-      <div className='cHalf'></div>
+      <div className='cCover'></div>
 
       <svg id='crossLine' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 250'>
         <g>
@@ -48,43 +47,10 @@ const Contact = () => {
         </g>
       </svg>
 
-      {/* <div className='cInfo'>
-        <svg id='circlePath' viewBox="0 0 250 250">
-          <def>
-            <path
-              id='circle'
-            d="m125,250.00001c-69.06077,0 -125,-55.93923 -125,-125c0,-69.06077 55.93923,-125 125,-125c69.06077,0 125,55.93923 125,125c0,69.06077 -55.93923,125 -125,125z"
-              stroke='#fff'
-              fill='none'
-              strokeWidth={3}
-            />
-          </def>
-          <text class='circleText'>
-            <textPath className='circles__text-path' xlinkHref='#circle' ariaLabel=''  >
-              CONTACT ME&nbsp;
-            </textPath>
-          </text>
-        </svg>
-
-        <div className='cItem'>
-          <a href={"mailto:zaqrashyy7@gmail.com"} target='_blank' rel='noopener noreferrer'>
-            Mail
-          </a>
-        </div>
-        <div className='cItem'>
-          <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
-            Instagram
-          </a>
-          <a href={"https://x.com/Zharqyy"} target='_blank' rel='noopener noreferrer'>
-            Twitter
-          </a>
-        </div>
-      </div> */}
-
-      <div className='cInfos'>
+      <div className='cInfo'>
         <div className='cList'>
           {" "}
-          <a href={"mailto:zaqrashyy7@gmail.com"} target='_blank' rel='noopener noreferrer'>
+          <a href={"mailto:Shuaibibrahim111@gmail.com"} target='_blank' rel='noopener noreferrer'>
             Mail
           </a>
         </div>
