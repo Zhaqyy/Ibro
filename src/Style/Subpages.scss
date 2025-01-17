@@ -1,0 +1,101 @@
+// Contact page
+
+.contact {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  .cCover {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    // background: url("./ibro.jpg");
+    background-size: cover;
+    background-position: center;
+    -webkit-filter: grayscale(0) blur(15px) contrast(1) brightness(0.55);
+    filter: grayscale(0) blur(15px) contrast(1) brightness(0.55);
+    background: darkgreen;
+  }
+
+  #crossLine {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .cInfo {
+    width: 100%;
+    //   height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //   position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+
+    .cList {
+      width: 100%;
+      display: flex;
+      border-block: 1px white solid;
+      padding-inline: 5vw;
+      padding-block: 0.5rem;
+      justify-content: left;
+
+      &:nth-of-type(2) {
+        justify-content: center;
+      }
+      &:nth-of-type(3) {
+        justify-content: right;
+      }
+    }
+  }
+}
+
+
+
+// Bio Page
+
+.bio{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-inline: 20%;
+  // padding-inline: 5vw;
+  
+  hr{
+    width: 100%;
+  }
+
+  .bImage{
+    width: 100%;
+    // height: 50%;
+    aspect-ratio: 16/9;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: 0 80%;
+       object-position: 0 80%;
+  }
+
+  .bDetail{
+    -moz-column-count: 3;
+    column-count: 3;
+    text-align: justify;
+  }
+}

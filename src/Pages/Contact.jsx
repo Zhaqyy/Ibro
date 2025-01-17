@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../Style/Contact.scss";
+import "../Style/Subpages.scss";
 import gsap from "gsap";
 
 const Contact = () => {

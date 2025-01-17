@@ -62,7 +62,7 @@ function Home() {
       <h1 className='bigName'>IBRAHIM SHUAIB</h1>
       <div className='menu'>
         <div className='menuCol'>
-          <Link to={"#"}>Bio</Link>
+          <Link to={"/bio"}>Bio</Link>
           <Link to={"#"}>Press</Link>
         </div>
         <div className='menuCol'>
@@ -71,7 +71,7 @@ function Home() {
         </div>
         <div className='menuCol'>
           <Link to={"#"}>CV</Link>
-          <Link to={"/Contact"}>Contact</Link>
+          <Link to={"/contact"}>Contact</Link>
         </div>
       </div>
     </section>
