@@ -47,7 +47,7 @@ function Home() {
         height='100%'
         id='masker'
       >
-        <filter id='blur-image' color-interpolation-filters='sRGB'>
+        <filter id='blur-image' colorInterpolationFilters='sRGB'>
           <feGaussianBlur in='SourceGraphic' stdDeviation='15 30' result="blur"></feGaussianBlur>
           {/* <feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch' />
           <feColorMatrix type='saturate' values='0' result='grain' />

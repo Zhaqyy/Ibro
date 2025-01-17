@@ -78,13 +78,14 @@
   align-items: center;
   padding-inline: 20%;
   // padding-inline: 5vw;
+  background: #ffffff10;
   
   hr{
-    width: 100%;
+    width: 80%;
   }
 
-  .bImage{
-    width: 100%;
+  #bImage{
+    width: 80%;
     // height: 50%;
     aspect-ratio: 16/9;
     -o-object-fit: cover;
@@ -97,5 +98,6 @@
     -moz-column-count: 3;
     column-count: 3;
     text-align: justify;
+    font-size: 1.25rem;
   }
 }
