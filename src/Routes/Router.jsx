@@ -7,6 +7,7 @@ import Transitioner from "../Util/Transition";
 import Home from "../Pages/Home";
 import Contact from "../Pages/Contact";
 import Bio from "../Pages/Bio";
+import CV from "../Pages/CV";
 
 // import Header from "../Component/Header";
 
@@ -45,6 +46,14 @@ const Router = () => {
               element={
                 <Transitioner>
                   <Bio />
+                </Transitioner>
+              }
+            />
+            <Route
+              path='/cv'
+              element={
+                <Transitioner>
+                  <CV />
                 </Transitioner>
               }
             />

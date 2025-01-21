@@ -70,7 +70,7 @@ function Home() {
           <Link to={"#"}>Media</Link>
         </div>
         <div className='menuCol'>
-          <Link to={"#"}>CV</Link>
+          <Link to={"/cv"}>CV</Link>
           <Link to={"/contact"}>Contact</Link>
         </div>
       </div>
