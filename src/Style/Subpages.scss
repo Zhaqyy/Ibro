@@ -8,6 +8,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // not really needed
+  padding-block: 5vh;
 
   .cCover {
     height: 100%;
@@ -75,7 +77,6 @@
   align-items: center;
   padding-inline: 20%;
   // padding-inline: 5vw;
-  background: #ffffff10;
 
   hr {
     width: 80%;
@@ -112,6 +113,7 @@
   align-items: start;
   justify-content: center;
   grid-auto-flow: row;
+  overflow: unset;
 
   .godHand {
     width: 100%;
@@ -135,6 +137,8 @@
   }
 
   .cvGroup {
+    margin-top: 10vh;
+    
     .gItemList {
       display: flex;
       flex-direction: column;

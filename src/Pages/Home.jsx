@@ -63,14 +63,10 @@ function Home() {
       <div className='menu'>
         <div className='menuCol'>
           <Link to={"/bio"}>Bio</Link>
-          <Link to={"#"}>Press</Link>
+          <Link to={"/cv"}>CV</Link>
         </div>
         <div className='menuCol'>
           <Link to={"#"}>Works</Link>
-          <Link to={"#"}>Media</Link>
-        </div>
-        <div className='menuCol'>
-          <Link to={"/cv"}>CV</Link>
           <Link to={"/contact"}>Contact</Link>
         </div>
       </div>
