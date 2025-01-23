@@ -17,7 +17,7 @@ const Bio = () => {
   
         const generateRandomWidth = () => {
           const svgWidth = bImageRef.current.clientWidth;
-          return Math.random() * (svgWidth * 0.4) + (svgWidth * 0.1); // Between 10% to 50% of SVG width
+          return Math.random() * (svgWidth * 0.4) + (svgWidth * 0.2); // Between 10% to 50% of SVG width
         };
     
         const updateMaskPositions = () => {
@@ -230,7 +230,7 @@ const Bio = () => {
         </mask>
       {/* Images */}
       <image
-        xlinkHref="./ibro.jpg"
+        xlinkHref="./ibroAscii.png"
         width="100%"
         height="100%"
         mask="url(#staticMask)"
