@@ -7,31 +7,39 @@ const Header = () => {
   const navRef = useRef(null);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
- 
+  useEffect(() => {
+    gsap.to(headerRef.current, {
+      autoAlpha: 1,
+      duration: 0.5,
+      ease: "expo.inOut",
+      delay: 1.5,
+    });
+  }, []);
+
   return (
-    <header className='header' ref={headerRef}>
+    <header id='header' ref={headerRef} data-hidden>
       <div className='logo'>
-      <Link to={"/"}>IBRAHIM SHUAIB</Link>
+        <Link to={"/"}>IBRAHIM SHUAIB</Link>
       </div>
       <ul className='menu' ref={navRef}>
         <li className='menu-item'>
           <div>
-          <Link to={"/bio"}>Bio</Link>
+            <Link to={"/bio"}>Bio</Link>
           </div>
         </li>
         <li className='menu-item'>
           <div>
-          <Link to={"/works"}>Works</Link>
+            <Link to={"/works"}>Works</Link>
           </div>
         </li>
         <li className='menu-item'>
           <div>
-          <Link to={"/cv"}>CV</Link>
+            <Link to={"/cv"}>CV</Link>
           </div>
         </li>
         <li className='menu-item'>
           <div>
-          <Link to={"/contact"}>Contact</Link>
+            <Link to={"/contact"}>Contact</Link>
           </div>
         </li>
       </ul>

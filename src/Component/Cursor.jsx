@@ -1,12 +1,33 @@
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
+import { useLocation } from "react-router-dom";
 
 const Cursor = () => {
   const ref = useRef();
   const [isMoving, setIsMoving] = useState(false);
+  const location = useLocation();
+
+  // Routes where specific style shouldn't apply
+  const excludedRoutes = ["/"];
 
   useEffect(() => {
-    gsap.set(ref.current, { xPercent: -50, yPercent: -50 });
+    const isExcluded = excludedRoutes.includes(location.pathname);
+
+    // gsap.set(ref.current, {
+    //   xPercent: -50,
+    //   yPercent: -50,
+    // });
+    // gsap.set(ref.current, { x: -100, y: -100, xPercent: -50, yPercent: -50 });
+    // start from center
+    gsap.set(ref.current, { x: window.innerWidth / 2, y: window.innerHeight / 2, xPercent: -50, yPercent: -50 });
+
+    gsap.to(ref.current, {
+      scale: isExcluded ? 1 : 0.25,
+      strokeWidth: isExcluded ? 1 : 5,
+      duration: 0.5,
+      ease: "expo.inOut",
+      delay: 1.5,
+    });
 
     // Setup the gsap quickTo for smooth movement
     const xTo = gsap.quickTo(ref.current, "x", { duration: 1, ease: "power3" });
@@ -27,7 +48,7 @@ const Cursor = () => {
       mouseY = e.clientY;
 
       // Calculate distance and rotation on each mouse move
-    //   calculateDistance();
+      //   calculateDistance();
 
       // Compute direction for rotation (flipping on Y axis)
       const dx = mouseX - gsap.getProperty(ref.current, "x");
@@ -39,13 +60,13 @@ const Cursor = () => {
       gsap.to(ref.current, { rotationY, rotationZ, duration: 1.5, ease: "power3" });
 
       // Move the duck if beyond the proximity distance
-    //   if (distance > 50) {
-    //     if (!isMoving) {
-    //       setIsMoving(true);
-    //     }
-        xTo(mouseX);
-        yTo(mouseY);
-    //   }
+      //   if (distance > 50) {
+      //     if (!isMoving) {
+      //       setIsMoving(true);
+      //     }
+      xTo(mouseX);
+      yTo(mouseY);
+      //   }
     };
 
     // const ticker = gsap.ticker.add(() => {
@@ -61,9 +82,9 @@ const Cursor = () => {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-    //   gsap.ticker.remove(ticker);
+      //   gsap.ticker.remove(ticker);
     };
-  }, []);
+  }, [location.pathname]); // Re-run effect when location changes
 
   return (
     <div

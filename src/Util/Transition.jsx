@@ -20,7 +20,7 @@ const Transitioner = ({ children }) => {
       ease: "expo.inOut",
       delay: 0.5,
       onComplete: () => {
-        gsap.set(overlay, { opacity: 0, display: "none",rotate: 0, });
+        gsap.set(overlay, { opacity: 0, display: "none", rotate: 0 });
       },
     });
   };
@@ -39,15 +39,28 @@ const Transitioner = ({ children }) => {
   const handleEnterTransition = () => {
     // fadeInSound();
     if (header) {
-      setTimeout(() => {
-        header.style.pointerEvents = "auto";
-      }, 1000);
+      // setTimeout(() => {
+      //   header.style.pointerEvents = "auto";
+      // }, 1000);
+      // gsap.to(header, {
+      //   autoAlpha: 1,
+      //   duration: 0.5,
+      //   ease: "expo.inOut",
+      //   delay: 1.5,
+      // })
     }
   };
 
   const handleExitTransition = () => {
     // fadeOutSound();
-    if (header) header.style.pointerEvents = "none";
+    if (header) {
+      // gsap.to(header, {
+      //   autoAlpha: 0,
+      //   duration: 0.5,
+      //   ease: "expo.inOut",
+      //   delay: 1.5,
+      // })
+    }
   };
 
   useEffect(() => {
@@ -95,7 +108,7 @@ const Transitioner = ({ children }) => {
               display: "none",
               zIndex: 999,
               transformOrigin: "top center",
-              pointerEvents: 'none',
+              pointerEvents: "none",
             }}
           />
           {children}

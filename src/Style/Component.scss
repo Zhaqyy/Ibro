@@ -40,7 +40,7 @@
   text-transform: inherit;
 }
 
-.header {
+#header {
   width: 100%;
   min-height: 5vh;
   position: absolute;
@@ -53,23 +53,22 @@
   padding-block: 2.5vh;
   padding-inline: 5vw;
   font-size: 1.25rem;
-  
 
-  .logo{
+  .logo {
     font-size: 2rem;
     font-weight: 700;
   }
 
   .menu {
-        position: relative;
-        max-width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        justify-content: space-evenly;
-        flex: auto;
-        flex-direction: row;
-        gap: 1rem;
+    position: relative;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-evenly;
+    flex: auto;
+    flex-direction: row;
+    gap: 1rem;
   }
 }
 

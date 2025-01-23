@@ -12,8 +12,12 @@ function Home() {
   const heroRef = useRef(null);
 
   useEffect(() => {
-    gsap.set(svgRef.current, { xPercent: -50, yPercent: -50 });
-
+    // gsap.set(svgRef.current, { xPercent: -50, yPercent: -50 });
+    // gsap.set(svgRef.current, { x: -100, y: -100, xPercent: -50, yPercent: -50 });
+    
+    // start from center
+    gsap.set(svgRef.current, { x: window.innerWidth / 2, y: window.innerHeight / 2, xPercent: -50, yPercent: -50 });
+    
     // Setup the gsap quickTo for smooth movement
     const xTo = gsap.quickTo(svgRef.current, "x", { duration: 1, ease: "power3" });
     const yTo = gsap.quickTo(svgRef.current, "y", { duration: 1, ease: "power3" });
