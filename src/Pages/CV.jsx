@@ -13,7 +13,7 @@ const CV = () => {
       gsap.set(handRef.current, { yPercent: -98 });
 
       // Setup the gsap quickTo for smooth movement
-      const yTo = gsap.quickTo(handRef.current, "y", { duration: 0.5, ease: "" });
+      const yTo = gsap.quickTo(handRef.current, "y", { duration: 0.5, ease: "power3" });
 
       yTo(clientY);
     };
@@ -28,7 +28,7 @@ const CV = () => {
   return (
     <section className='cv'>
       <div className='godHand'>
-        <img ref={handRef} src='./hand.png' alt='hand pointer' />
+        <img ref={handRef} src='./hand.png' alt='hand pointer' fetchPriority="high" loading="eager" />
       </div>
       <div className='cvWrapper'>
         <div className='cvGroup'>

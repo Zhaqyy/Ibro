@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "../../Style/Component.css";
+import "../../Style/Component.scss";
 import gsap from "gsap";
 import Logo from "../Logo";
 import useIsMobile from "../../Util/isMobile";

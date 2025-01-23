@@ -154,7 +154,9 @@ section {
   padding-inline: 5vw;
   overflow: hidden;
 }
-
+section:nth-of-type(1) {
+padding-top: 5vh;
+}
 ul {
   list-style: none;
 }

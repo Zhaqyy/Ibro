@@ -66,7 +66,7 @@ function Home() {
           <Link to={"/cv"}>CV</Link>
         </div>
         <div className='menuCol'>
-          <Link to={"#"}>Works</Link>
+          <Link to={"/works"}>Works</Link>
           <Link to={"/contact"}>Contact</Link>
         </div>
       </div>

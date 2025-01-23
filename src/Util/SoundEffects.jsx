@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 
-import "../Style/Component.css";
+import "../Style/Component.scss";
 
 // Ambient sounds setup
 const ambientSound = new Howl({ src: ["/Sounds/homeAmb.mp3"], loop: true, volume: 0 });

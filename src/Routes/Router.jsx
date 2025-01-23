@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Loader from "../Component/Loader/Loader";
 import Transitioner from "../Util/Transition";
@@ -8,11 +8,17 @@ import Home from "../Pages/Home";
 import Contact from "../Pages/Contact";
 import Bio from "../Pages/Bio";
 import CV from "../Pages/CV";
+import Header from "../Component/Header";
 
 // import Header from "../Component/Header";
 
 const Router = () => {
   // const [loaderFinished, setLoaderFinished] = useState(false);
+  const location = useLocation();
+
+  // routes where <header /> should not render
+  const excludedRoutes = ["/"];
+
 
   return (
     <>
@@ -21,7 +27,8 @@ const Router = () => {
       {/* Render routes only after the loader signals completion */}
       {/* {loaderFinished && ( */}
         <>
-          {/* <Header /> */}
+                  {/* Conditionally render Header based on the route */}
+        {!excludedRoutes.includes(location.pathname) && <Header />}
 
           <Routes>
             <Route
