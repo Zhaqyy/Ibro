@@ -8,9 +8,9 @@ import Home from "../Pages/Home";
 import Contact from "../Pages/Contact";
 import Bio from "../Pages/Bio";
 import CV from "../Pages/CV";
-import Header from "../Component/Header";
+import Works from "../Pages/Works";
 
-// import Header from "../Component/Header";
+import Header from "../Component/Header";
 
 const Router = () => {
   // const [loaderFinished, setLoaderFinished] = useState(false);
@@ -61,6 +61,14 @@ const Router = () => {
               element={
                 <Transitioner>
                   <CV />
+                </Transitioner>
+              }
+            />
+            <Route
+              path='/works'
+              element={
+                <Transitioner>
+                  <Works />
                 </Transitioner>
               }
             />

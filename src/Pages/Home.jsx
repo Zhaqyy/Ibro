@@ -1,8 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Stage, Sprite, Container, Graphics } from "@pixi/react";
-// import { BLEND_MODES, BlurFilter } from "pixi.js";
-import * as PIXI from "pixi.js";
-
 import "../Style/Home.scss";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
@@ -14,7 +10,7 @@ function Home() {
   useEffect(() => {
     // gsap.set(svgRef.current, { xPercent: -50, yPercent: -50 });
     // gsap.set(svgRef.current, { x: -100, y: -100, xPercent: -50, yPercent: -50 });
-    
+
     // start from center
     gsap.set(svgRef.current, { x: window.innerWidth / 2, y: window.innerHeight / 2, xPercent: -50, yPercent: -50 });
     
