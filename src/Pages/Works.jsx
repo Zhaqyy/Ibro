@@ -43,7 +43,7 @@ const Work = () => {
         opacity: 1,
         // y: 0,
         duration: 0.5,
-        stagger: 0.1,
+        stagger: 0.05,
         ease: "power1.in",
       }
     );
@@ -57,9 +57,9 @@ const Work = () => {
     <section className='works'>
       <div className='wGrid' ref={gridRef} style={{ display: "grid", gridTemplateRows: `repeat(${workData.length}, 1fr)` }}>
         {workData.map((category, rowIndex) => (
-          <div key={rowIndex} className='categoryRow'>
+          <div key={rowIndex} className='categoryRow'  onClick={() => handleCategoryClick(category.category)}>
             {/* Category Title */}
-            <div className='grid-item categoryTitle' onClick={() => handleCategoryClick(category.category)}>
+            <div className='grid-item categoryTitle'>
               <p>[I]</p>
               <h4>
                 {category.category}
@@ -68,7 +68,7 @@ const Work = () => {
 
             {/* X Format for images/text */}
             {[...Array(5)].map((_, colIndex) => (
-              <div key={`${rowIndex}-${colIndex}`} className='grid-item image-container overflow-hidden rounded-lg shadow-lg'>
+              <div key={`${rowIndex}-${colIndex}`} className='grid-item image-container'>
                 {/* Center poem */}
                 {category.category === "Poems" && colIndex === 2 ? (
                   <div className='poem'>
