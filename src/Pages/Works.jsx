@@ -1,31 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
+import { workData } from '../Data/WorkData';
 import "../Style/Subpages.scss";
 
-// Example dynamic data file
-const workData = [
-  {
-    category: "Sculpture",
-    images: ["ibro.jpg", "ibro.jpg"],
-  },
-  {
-    category: "Painting",
-    images: ["ibro.jpg", "ibro.jpg"],
-  },
-  {
-    category: "Poems",
-    text: "The beauty of words, flowing like rivers.",
-  },
-  {
-    category: "Objects",
-    images: ["ibro.jpg", "ibro.jpg"],
-  },
-  {
-    category: "Installation",
-    images: ["ibro.jpg", "ibro.jpg"],
-  },
-];
 
 const Work = () => {
   const gridRef = useRef(null);
@@ -50,16 +28,19 @@ const Work = () => {
   }, []);
 
   const handleCategoryClick = category => {
-    navigate(`/${category.toLowerCase()}`);
+    navigate(`/works/overview`);
   };
+  // const handleCategoryClick = category => {
+  //   navigate(`/${category.toLowerCase()}`);
+  // };
 
   return (
     <section className='works'>
       <div className='wGrid' ref={gridRef} style={{ display: "grid", gridTemplateRows: `repeat(${workData.length}, 1fr)` }}>
         {workData.map((category, rowIndex) => (
-          <div key={rowIndex} className='categoryRow'  onClick={() => handleCategoryClick(category.category)}>
+          <div key={rowIndex} className='categoryRow'>
             {/* Category Title */}
-            <div className='grid-item categoryTitle'>
+            <div className='grid-item categoryTitle' onClick={() => handleCategoryClick(category.category)}>
               <p>[I]</p>
               <h4>
                 {category.category}

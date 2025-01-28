@@ -9,6 +9,7 @@ import Contact from "../Pages/Contact";
 import Bio from "../Pages/Bio";
 import CV from "../Pages/CV";
 import Works from "../Pages/Works";
+import Overview from "../Pages/Overview";
 
 import Header from "../Component/Header";
 
@@ -72,11 +73,19 @@ const Router = () => {
                 </Transitioner>
               }
             />
-            {/* <Route
-              path='/Project/:id'
+            <Route
+              path='/works/overview'
               element={
                 <Transitioner>
-                  <Work />
+                  <Overview />
+                </Transitioner>
+              }
+            />
+            {/* <Route
+              path='/works/:category'
+              element={
+                <Transitioner>
+                  <Category />
                 </Transitioner>
               }
             /> */}
