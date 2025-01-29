@@ -209,8 +209,8 @@ const Bio = () => {
             height="50%"
             width="40%"
             rx="2"
-            stroke="gray"
-            strokeWidth={10}
+            // stroke="gray"
+            // strokeWidth={10}
             fill="#fff"
             ref={(el) => (svgRef.current[index] = el)}
           />

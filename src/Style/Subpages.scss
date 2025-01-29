@@ -311,17 +311,18 @@
 
   .cateGallery {
     display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
     align-items: center;
     justify-items: center;
     justify-content: center;
     gap: 1rem;
     width: 150px;
-    overflow: auto;
+    overflow: visible;
     -ms-scroll-chaining: chained;
     overscroll-behavior: auto;
     height: 100%;
     z-index: 1;
+
 
     &::-webkit-scrollbar {
       display: none;
@@ -383,9 +384,7 @@
 
   .cateInfo {
     min-height: 400px;
-    // background: #f8f8f8;
-    // padding: 2rem;
-  }
+     }
 
   .image-info {
     position: relative;
@@ -452,6 +451,11 @@
         border-inline-style: dashed;
       }
     }
+    .image-title {
+      position: absolute;
+      font-size: 1.25rem;
+      display: none;
+  }
     img {
       width: auto;
       height: auto;
