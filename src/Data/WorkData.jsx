@@ -7,7 +7,7 @@ export const workData = [
       { src: "ibro.jpg", title: "Metallic Dreams" },
       { src: "ibro.jpg", title: "Metallic Dreams" },
       { src: "hand.png", title: "Human Touch" },
-      { src: "hand.png", title: "Human Touch" }
+      // { src: "hand.png", title: "Human Touch" }
     ]
   },
   {

@@ -323,7 +323,6 @@
     height: 100%;
     z-index: 1;
 
-
     &::-webkit-scrollbar {
       display: none;
     }
@@ -384,7 +383,15 @@
 
   .cateInfo {
     min-height: 400px;
-     }
+  }
+  .cateInfo:has(.poem-container) {
+    height: 100%;
+
+    .poem-container{
+      height: 100%;
+      justify-items: center;
+    }
+  }
 
   .image-info {
     position: relative;
@@ -455,7 +462,7 @@
       position: absolute;
       font-size: 1.25rem;
       display: none;
-  }
+    }
     img {
       width: auto;
       height: auto;
