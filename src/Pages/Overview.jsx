@@ -12,12 +12,39 @@ const Overview = () => {
   const galleryWrapRef = useRef(null);
   const containerRef = useRef(null);
   const draggableRef = useRef(null);
-
+  const infoRef = useRef(null);
+  const loopRef = useRef();
+  
   const currentCategory = workData[activeCategory];
   const itemCount = currentCategory.items.length;
   const safeActiveItem = activeItem >= itemCount ? 0 : activeItem;
 
-  // Handle active item changes
+ // Reset active item and animate on category change
+ useEffect(() => {
+  setActiveItem(0); // Immediately reset active item
+
+  const tl = gsap.timeline();
+  tl.fromTo(
+    [galleryWrapRef.current, infoRef.current],
+    { opacity: 0.5, filter: "blur(2px)" },
+    { opacity: 1, filter: "blur(0px)", duration: 0.5 }
+  );
+}, [activeCategory]);
+
+// Animation on gallery item change
+useEffect(() => {
+  const tl = gsap.timeline();
+  tl.fromTo([infoRef.current], { opacity: 0.5, filter: "blur(2px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5 });
+}, [activeItem]);
+
+
+  // Modified handleActiveItem with infinite carousel logic
+  const handleActiveItem = newIndex => {
+    const wrappedIndex = (newIndex + itemCount) % itemCount;
+    setActiveItem(wrappedIndex);
+  };
+
+  // Updated useEffect for active item changes
   useEffect(() => {
     if (isDragging) return;
 
@@ -27,93 +54,87 @@ const Overview = () => {
     const items = galleryWrap.children;
     if (items.length === 0) return;
 
-    const itemWidth = items[0].offsetWidth;
-    const gap = 16; // Should match your CSS gap
-    const targetY = -safeActiveItem * (itemWidth + gap);
+    const itemHeight = items[0].offsetHeight;
+    const gap = 16;
+    const targetY = -safeActiveItem * (itemHeight + gap);
 
     gsap.to(galleryWrap, {
       y: targetY,
       duration: 0.5,
-      ease: "power3.out"
+      ease: "power3.out",
+      onComplete: () => setIsDragging(false),
     });
   }, [safeActiveItem, isDragging, currentCategory]);
 
-  // Initialize Draggable
-  useEffect(() => {
-    const galleryWrap = galleryWrapRef.current;
-    if (!galleryWrap) return;
+  // Updated Draggable config with infinite logic
+  // useEffect(() => {
+  //   const galleryWrap = galleryWrapRef.current;
+  //   if (!galleryWrap) return;
 
-    const items = galleryWrap.children;
-    if (items.length === 0) return;
+  //   const items = galleryWrap.children;
+  //   if (items.length === 0) return;
 
-    const itemWidth = items[0].offsetWidth;
-    const gap = 20;
-    const totalItems = currentCategory.items.length;
+  //   const itemHeight = items[0].offsetHeight;
+  //   const gap = 16;
 
-    draggableRef.current = Draggable.create(galleryWrap, {
-      type: "y",
-      inertia: true,
-      bounds: {
-        minX: -(totalItems - 1) * (itemWidth + gap),
-        maxX: 0
-      },
-      snap: {
-        y: Array.from({ length: totalItems }, (_, i) => -i * (itemWidth + gap))
-      },
-      onPress: () => setIsDragging(true),
-      onDragEnd: () => {
-        const currentY = gsap.getProperty(galleryWrap, "y");
-        const newIndex = Math.round(Math.abs(currentY) / (itemWidth + gap));
-        setActiveItem(newIndex);
-        setIsDragging(false);
-      }
-    });
+  //   const totalItems = currentCategory.items.length;
 
-    return () => {
-      if (draggableRef.current) {
-        draggableRef.current[0].kill();
-        draggableRef.current = null;
-      }
-    };
-  }, [currentCategory, activeCategory]);
 
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (!galleryWrapRef.current || isDragging) return;
+  //   draggableRef.current = Draggable.create(galleryWrap, {
+  //     type: "y",
+  //     inertia: true,
+  //     onPress: () => setIsDragging(true),
+  //     onDrag: function () {
+  //       const currentY = this.y;
+  //       const maxY = 0;
+  //       const minY = -((itemHeight + gap) * (totalItems - 1));
 
-      const items = galleryWrapRef.current.children;
-      if (items.length === 0) return;
+  //       // Infinite scroll logic
+  //       if (currentY > maxY + itemHeight) {
+  //         this.y -= totalItems * (itemHeight + gap);
+  //       } else if (currentY < minY - itemHeight) {
+  //         this.y += totalItems * (itemHeight + gap);
+  //       }
+  //     },
+  //     onDragEnd: function () {
+  //       const currentY = this.y;
+  //       const wrappedY =
+  //         ((currentY % (totalItems * (itemHeight + gap))) + totalItems * (itemHeight + gap)) % (totalItems * (itemHeight + gap));
 
-      const itemWidth = items[0].offsetWidth;
-      const gap = 16;
-      const targetY = -safeActiveItem * (itemWidth + gap);
+  //       const newIndex = Math.round(Math.abs(wrappedY) / (itemHeight + gap)) % totalItems;
+  //       handleActiveItem(newIndex);
+  //       setIsDragging(false);
+  //     },
+  //   });
+  // }, [currentCategory, activeCategory]);
 
-      gsap.set(galleryWrapRef.current, { y: targetY });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [safeActiveItem, isDragging]);
-
-  // Wheel handler
-  const handleWheel = (e) => {
+  // Updated wheel handler with infinite logic
+  const handleWheel = e => {
     e.preventDefault();
     if (isDragging || !currentCategory.items.length) return;
 
     const delta = Math.sign(e.deltaY);
-    let newIndex = safeActiveItem + delta;
-
-    if (newIndex >= itemCount) newIndex = itemCount - 1;
-    if (newIndex < 0) newIndex = 0;
-
-    setActiveItem(newIndex);
+    handleActiveItem(safeActiveItem + delta);
   };
 
+  // Click handler for gallery items
+  const handleItemClick = index => {
+    setIsDragging(false); // Reset dragging state
+    handleActiveItem(index);
+  };
+
+  // SVG line component
+  const EndMarker = ({ position }) => (
+    <div className={`end-marker ${position}`}>
+      <svg viewBox='0 0 100 2'>
+        <path d='M0 1 L100 1' stroke='currentColor' strokeWidth='1' />
+      </svg>
+    </div>
+  );
   return (
-    <section className="overview" ref={containerRef} onWheel={handleWheel}>
+    <section className='overview' ref={containerRef} onWheel={handleWheel}>
       {/* Category selector */}
-      <div className="cateList">
+      <div className='cateList'>
         {workData.map((category, index) => (
           <button
             key={category.category}
@@ -126,46 +147,41 @@ const Overview = () => {
       </div>
 
       {/* Active item display */}
-      <div className="cateInfo">
+      <div className='cateInfo' ref={infoRef}>
         {currentCategory.type === "text" ? (
-          <div className="poem-container">
+          <div className='poem-container'>
             <h3>{currentCategory.items[safeActiveItem].title}</h3>
             <pre>{currentCategory.items[safeActiveItem].content}</pre>
           </div>
         ) : (
-          <div className="image-info">
+          <div className='image-info'>
             <span>
-              <div className="image-title">{currentCategory.items[safeActiveItem].title}</div>
-              <img
-                src={`/${currentCategory.items[safeActiveItem].src}`}
-                alt={currentCategory.items[safeActiveItem].title}
-              />
+              <div className='image-title'>{currentCategory.items[safeActiveItem].title}</div>
+              <img src={`/${currentCategory.items[safeActiveItem].src}`} alt={currentCategory.items[safeActiveItem].title} />
             </span>
           </div>
         )}
       </div>
 
       {/* Gallery carousel */}
-      <div className="cateGallery">
-        <div className="galleryWrap" ref={galleryWrapRef}>
+      <div className='cateGallery'>
+        <EndMarker position='top' />
+        <div className='galleryWrap' ref={galleryWrapRef}>
           {currentCategory.items.map((item, index) => (
-            <div
-              key={index}
-              className={`gallery-item ${index === safeActiveItem ? "active" : ""}`}
-              onClick={() => setActiveItem(index)}
-            >
+            <div key={index} className={`gallery-item ${index === safeActiveItem ? "active" : ""}`} onClick={() => handleItemClick(index)}>
               {currentCategory.type === "text" ? (
-                <div className="poem-title">{item.title}</div>
+                <div className='poem-title'>{item.title}</div>
               ) : (
                 <img src={`/${item.src}`} alt={item.title} />
               )}
             </div>
           ))}
         </div>
+        <EndMarker position='bottom' />
       </div>
 
       {/* Counter display */}
-      <div className="counter">
+      <div className='counter'>
         {safeActiveItem + 1} / {`${currentCategory.items.length}`}
       </div>
     </section>
