@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { workData } from "../Data/WorkData";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 gsap.registerPlugin(Draggable);
 
@@ -11,13 +12,26 @@ const Overview = () => {
   const [isDragging, setIsDragging] = useState(false);
   const galleryWrapRef = useRef(null);
   const containerRef = useRef(null);
-  const draggableRef = useRef(null);
   const infoRef = useRef(null);
-  const loopRef = useRef();
 
   const currentCategory = workData[activeCategory];
   const itemCount = currentCategory.items.length;
   const safeActiveItem = activeItem >= itemCount ? 0 : activeItem;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const state = location.state || {};
+
+    if (typeof state.category === "number") {
+      setActiveCategory(Math.min(state.category, workData.length - 1));
+    }
+
+    if (typeof state.item === "number") {
+      const maxItem = workData[activeCategory]?.items?.length - 1 || 0;
+      setActiveItem(Math.min(state.item, maxItem));
+    }
+  }, [location.state]);
 
   // Reset active item and animate on category change
   useEffect(() => {
@@ -107,15 +121,11 @@ const Overview = () => {
       <div className='cateInfo' ref={infoRef}>
         {currentCategory.type === "text" ? (
           <div className='poemContainer'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              version='1.1'
-              xmlnsXlink='http://www.w3.org/1999/xlink'
-            >
+            <svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlnsXlink='http://www.w3.org/1999/xlink'>
               <defs>
                 <linearGradient gradientTransform='rotate(0, 0.5, 0.5)' x1='50%' y1='0%' x2='50%' y2='100%' id='trippygradient'>
-                  <stop stop-color='hsl(0, 87%, 50%)' stop-opacity='1' offset='0%'></stop>
-                  <stop stop-color='hsl(24, 81%, 18%)' stop-opacity='1' offset='100%'></stop>
+                  <stop stopColor='hsl(0, 87%, 50%)' stopOpacity='1' offset='0%'></stop>
+                  <stop stopColor='hsl(24, 81%, 18%)' stopOpacity='1' offset='100%'></stop>
                 </linearGradient>
                 <filter
                   id='trippyfilter'
