@@ -14,29 +14,28 @@ const Overview = () => {
   const draggableRef = useRef(null);
   const infoRef = useRef(null);
   const loopRef = useRef();
-  
+
   const currentCategory = workData[activeCategory];
   const itemCount = currentCategory.items.length;
   const safeActiveItem = activeItem >= itemCount ? 0 : activeItem;
 
- // Reset active item and animate on category change
- useEffect(() => {
-  setActiveItem(0); // Immediately reset active item
+  // Reset active item and animate on category change
+  useEffect(() => {
+    setActiveItem(0); // Immediately reset active item
 
-  const tl = gsap.timeline();
-  tl.fromTo(
-    [galleryWrapRef.current, infoRef.current],
-    { opacity: 0.5, filter: "blur(2px)" },
-    { opacity: 1, filter: "blur(0px)", duration: 0.5 }
-  );
-}, [activeCategory]);
+    const tl = gsap.timeline();
+    tl.fromTo(
+      [galleryWrapRef.current, infoRef.current],
+      { opacity: 0.5, filter: "blur(2px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.5 }
+    );
+  }, [activeCategory]);
 
-// Animation on gallery item change
-useEffect(() => {
-  const tl = gsap.timeline();
-  tl.fromTo([infoRef.current], { opacity: 0.5, filter: "blur(2px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5 });
-}, [activeItem]);
-
+  // Animation on gallery item change
+  useEffect(() => {
+    const tl = gsap.timeline();
+    tl.fromTo([infoRef.current], { opacity: 0.5, filter: "blur(2px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5 });
+  }, [activeItem]);
 
   // Modified handleActiveItem with infinite carousel logic
   const handleActiveItem = newIndex => {
@@ -65,48 +64,6 @@ useEffect(() => {
       onComplete: () => setIsDragging(false),
     });
   }, [safeActiveItem, isDragging, currentCategory]);
-
-  // Updated Draggable config with infinite logic
-  // useEffect(() => {
-  //   const galleryWrap = galleryWrapRef.current;
-  //   if (!galleryWrap) return;
-
-  //   const items = galleryWrap.children;
-  //   if (items.length === 0) return;
-
-  //   const itemHeight = items[0].offsetHeight;
-  //   const gap = 16;
-
-  //   const totalItems = currentCategory.items.length;
-
-
-  //   draggableRef.current = Draggable.create(galleryWrap, {
-  //     type: "y",
-  //     inertia: true,
-  //     onPress: () => setIsDragging(true),
-  //     onDrag: function () {
-  //       const currentY = this.y;
-  //       const maxY = 0;
-  //       const minY = -((itemHeight + gap) * (totalItems - 1));
-
-  //       // Infinite scroll logic
-  //       if (currentY > maxY + itemHeight) {
-  //         this.y -= totalItems * (itemHeight + gap);
-  //       } else if (currentY < minY - itemHeight) {
-  //         this.y += totalItems * (itemHeight + gap);
-  //       }
-  //     },
-  //     onDragEnd: function () {
-  //       const currentY = this.y;
-  //       const wrappedY =
-  //         ((currentY % (totalItems * (itemHeight + gap))) + totalItems * (itemHeight + gap)) % (totalItems * (itemHeight + gap));
-
-  //       const newIndex = Math.round(Math.abs(wrappedY) / (itemHeight + gap)) % totalItems;
-  //       handleActiveItem(newIndex);
-  //       setIsDragging(false);
-  //     },
-  //   });
-  // }, [currentCategory, activeCategory]);
 
   // Updated wheel handler with infinite logic
   const handleWheel = e => {
@@ -149,9 +106,68 @@ useEffect(() => {
       {/* Active item display */}
       <div className='cateInfo' ref={infoRef}>
         {currentCategory.type === "text" ? (
-          <div className='poem-container'>
-            <h3>{currentCategory.items[safeActiveItem].title}</h3>
-            <pre>{currentCategory.items[safeActiveItem].content}</pre>
+          <div className='poemContainer'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              version='1.1'
+              xmlnsXlink='http://www.w3.org/1999/xlink'
+            >
+              <defs>
+                <linearGradient gradientTransform='rotate(0, 0.5, 0.5)' x1='50%' y1='0%' x2='50%' y2='100%' id='trippygradient'>
+                  <stop stop-color='hsl(0, 87%, 50%)' stop-opacity='1' offset='0%'></stop>
+                  <stop stop-color='hsl(24, 81%, 18%)' stop-opacity='1' offset='100%'></stop>
+                </linearGradient>
+                <filter
+                  id='trippyfilter'
+                  x='-20%'
+                  y='-20%'
+                  width='140%'
+                  height='140%'
+                  filterUnits='objectBoundingBox'
+                  primitiveUnits='userSpaceOnUse'
+                  colorInterpolationFilters='sRGB'
+                >
+                  <feTurbulence
+                    type='fractalNoise'
+                    baseFrequency='0.005 0.003'
+                    numOctaves='1'
+                    seed='2'
+                    stitchTiles='stitch'
+                    x='0%'
+                    y='0%'
+                    width='100%'
+                    height='100%'
+                    result='turbulence'
+                  ></feTurbulence>
+                  <feGaussianBlur
+                    stdDeviation='20 0'
+                    x='0%'
+                    y='0%'
+                    width='100%'
+                    height='100%'
+                    in='turbulence'
+                    edgeMode='duplicate'
+                    result='blur'
+                  ></feGaussianBlur>
+                  <feBlend
+                    mode='color-burn'
+                    x='0%'
+                    y='0%'
+                    width='100%'
+                    height='100%'
+                    in='SourceGraphic'
+                    in2='blur'
+                    result='blend'
+                  ></feBlend>
+                </filter>
+              </defs>
+              <rect fill='url(#trippygradient)' filter='url(#trippyfilter)'></rect>
+            </svg>
+
+            <h3>`-` {currentCategory.items[safeActiveItem].title}</h3>
+            <div className='poemBody'>
+              <pre>{currentCategory.items[safeActiveItem].content}</pre>
+            </div>
           </div>
         ) : (
           <div className='image-info'>

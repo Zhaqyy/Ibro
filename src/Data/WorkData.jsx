@@ -8,8 +8,8 @@ export const workData = [
       { src: "ibro.jpg", title: "Metallic Dreams" },
       { src: "hand.png", title: "Human Touch" },
       { src: "hand.png", title: "Human Touch" },
-      { src: "hand.png", title: "Human Touch" }
-    ]
+      { src: "hand.png", title: "Human Touch" },
+    ],
   },
   {
     category: "Sculpture",
@@ -18,22 +18,157 @@ export const workData = [
       { src: "scene.webp", title: "Urban Landscape" },
       { src: "ibro.jpg", title: "Abstract Emotions" },
       { src: "ibro.jpg", title: "Abstract Emotions" },
-      { src: "ibroAscii.png", title: "Digital Fusion" }
-    ]
+      { src: "ibroAscii.png", title: "Digital Fusion" },
+    ],
   },
   {
     category: "Spoken Words",
     type: "text",
     items: [
-      { 
-        title: "Flowing Rivers", 
-        content: `Beneath the moon's soft silver gaze,\nRivers carve their winding ways.\nWords like water, cool and clear,\nShape the stones of yesteryear.` 
+      {
+        title: "Flowing Rivers",
+        content: (
+          <>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+            <p>
+              Beneath the moon's soft silver gaze,
+              <br />
+              Beneath the moon's soft silver gaze,
+              <br />
+              Rivers carve their winding ways.
+              <br />
+              Words like water, cool and clear,
+              <br />
+              Shape the stones of yesteryear.
+            </p>
+          </>
+        ),
       },
-      { 
-        title: "Chaos Theory", 
-        content: `From tangled threads, patterns emerge,\nChaos dances, galaxies converge.\nIn randomness we find our course,\nNature's unforgiving force.` 
-      }
-    ]
+      {
+        title: "Chaos Theory",
+        content: (
+          <>
+            <p>
+              From tangled threads, patterns emerge,
+              <br />
+              Chaos dances, galaxies converge.
+              <br />
+              In randomness we find our course,
+              <br />
+              Nature's unforgiving force.
+            </p>
+            <p>
+              From tangled threads, patterns emerge,
+              <br />
+              Chaos dances, galaxies converge.
+              <br />
+              In randomness we find our course,
+              <br />
+              Nature's unforgiving force.
+            </p>
+            <p>
+              From tangled threads, patterns emerge,
+              <br />
+              Chaos dances, galaxies converge.
+              <br />
+              In randomness we find our course,
+              <br />
+              Nature's unforgiving force.
+            </p>
+          </>
+        ),
+      },
+    ],
   },
   {
     category: "Painting",
@@ -43,7 +178,7 @@ export const workData = [
       { src: "scene.webp", title: "Urban Landscape" },
       { src: "ibro.jpg", title: "Abstract Emotions" },
       { src: "ibro.jpg", title: "Abstract Emotions" },
-    ]
+    ],
   },
   {
     category: "Video Work",
@@ -52,7 +187,7 @@ export const workData = [
       { src: "hand.png", title: "Urban Landscape" },
       { src: "scene.webp", title: "Urban Landscape" },
       { src: "ibro.jpg", title: "Abstract Emotions" },
-      { src: "ibroAscii.png", title: "Digital Fusion" }
-    ]
+      { src: "ibroAscii.png", title: "Digital Fusion" },
+    ],
   },
 ];
