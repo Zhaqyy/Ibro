@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { workData } from "../Data/WorkData";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 gsap.registerPlugin(Draggable);
 
@@ -102,6 +102,79 @@ const Overview = () => {
       </svg>
     </div>
   );
+
+  // randomized poem block alignment
+  function roundRandom(n) {
+    return Math.floor(Math.random() * n);
+  }
+
+  const preRef = useRef(null);
+  const svgRef = useRef(null);
+
+  useEffect(() => {
+    if (preRef.current && currentCategory.type === "text") {
+      const lines = preRef.current.children;
+      Array.from(lines).forEach(line => {
+        const alignments = ["flex-start", "center", "flex-end"];
+        line.style.alignSelf = alignments[roundRandom(3)];
+      });
+    }
+  }, [safeActiveItem, activeCategory]);
+
+  // randomized poem svg gradient colors
+  const [gradientColors, setGradientColors] = useState(() => [
+    `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(30)}%)`,
+    `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(20)}%)`,
+  ]);
+
+  // Update colors on category change
+  useEffect(() => {
+    setGradientColors([
+      `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(30)}%)`,
+      `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(20)}%)`,
+    ]);
+  }, [safeActiveItem, activeCategory]);
+
+  // gradient rotation with mouse
+  const gradientRotationRef = useRef(0);
+
+  // Initialize GSAP quickTo for smooth rotation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // GSAP quickTo for smooth gradient rotation
+    const gradientTween = gsap.quickTo(gradientRotationRef, "current", {
+      duration: 1.5,
+      ease: "power1.out",
+      onUpdate: () => {
+        // Update the gradient rotation in the DOM
+        const gradient = svgRef.current?.querySelector("#trippygradient");
+        if (gradient) {
+          gradient.setAttribute("gradientTransform", `rotate(${gradientRotationRef.current}, 0.5, 0.5)`);
+        }
+      },
+    });
+
+    // Mouse move handler
+    const handleMouseMove = e => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Calculate rotation based on both x and y
+      const xRotation = (x / rect.width) * 360; // X contributes to rotation
+      const yRotation = (y / rect.height) * 180; // Y contributes to rotation (scaled down for subtlety)
+      const targetRotation = xRotation + yRotation; // Combine both axes
+
+      // Update GSAP tween
+      gradientTween(targetRotation);
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    return () => container.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <section className='overview' ref={containerRef} onWheel={handleWheel}>
       {/* Category selector */}
@@ -120,12 +193,12 @@ const Overview = () => {
       {/* Active item display */}
       <div className='cateInfo' ref={infoRef}>
         {currentCategory.type === "text" ? (
-          <div className='poemContainer'>
-            <svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlnsXlink='http://www.w3.org/1999/xlink'>
+          <div className='poemContainer' ref={containerRef}>
+            <svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlnsXlink='http://www.w3.org/1999/xlink' ref={svgRef}>
               <defs>
-                <linearGradient gradientTransform='rotate(0, 0.5, 0.5)' x1='50%' y1='0%' x2='50%' y2='100%' id='trippygradient'>
-                  <stop stopColor='hsl(0, 87%, 50%)' stopOpacity='1' offset='0%'></stop>
-                  <stop stopColor='hsl(24, 81%, 18%)' stopOpacity='1' offset='100%'></stop>
+                <linearGradient gradientTransform={`rotate(0, 0.5, 0.5)`} x1='50%' y1='0%' x2='50%' y2='100%' id='trippygradient'>
+                  <stop stopColor={gradientColors[0]} stopOpacity='1' offset='0%'></stop>
+                  <stop stopColor={gradientColors[1]} stopOpacity='1' offset='100%'></stop>
                 </linearGradient>
                 <filter
                   id='trippyfilter'
@@ -176,7 +249,7 @@ const Overview = () => {
 
             <h3>`-` {currentCategory.items[safeActiveItem].title}</h3>
             <div className='poemBody'>
-              <pre>{currentCategory.items[safeActiveItem].content}</pre>
+              <pre ref={preRef}>{currentCategory.items[safeActiveItem].content}</pre>
             </div>
           </div>
         ) : (

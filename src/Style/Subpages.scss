@@ -496,7 +496,63 @@
           gap: 0.75rem;
           font-size: 0.9rem;
           -moz-column-gap: 10%;
-               column-gap: 10%;
+          column-gap: 10%;
+          & > * {
+            position: relative;
+            // &::before,
+            // &::after {
+            // }
+          }
+          & > *:hover {
+            &::before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: 0;
+              width: 70px;
+              // height: 100%;
+              aspect-ratio: 1;
+              background-image: url("/hand.png");
+              background-size: contain;
+              background-repeat: no-repeat;
+              transform: translateY(-50%) rotateY(180deg);
+              transform-origin: left;
+              -webkit-animation: fade 0.5s ease-in-out;
+                      animation: fade 0.5s ease-in-out;
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: 100%;
+              width: 70px;
+              // height: 100%;
+              aspect-ratio: 1;
+              background-image: url("/hand.png");
+              background-size: contain;
+              background-repeat: no-repeat;
+              transform: translateY(-50%) rotateY(0deg);
+              transform-origin: left;
+              -webkit-animation: fade 0.5s ease-in-out;
+                      animation: fade 0.5s ease-in-out;
+            }
+          }
+          @-webkit-keyframes fade {
+            from{
+              opacity: 0;
+            }
+            to{
+              opacity: 1;
+            }
+          }
+          @keyframes fade {
+            from{
+              opacity: 0;
+            }
+            to{
+              opacity: 1;
+            }
+          }
         }
       }
       h3 {
