@@ -269,9 +269,11 @@ const Bio = () => {
           As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the
           existential questions of life to better understand them and help ease the difficulties of life's journeys.
           <br />
+          <br />
           Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most consistent
           and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium he works with to
           create works that are both thought-provoking and aesthetically pleasing.
+          <br />
           <br />
           Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a unique
           and impactful way.

@@ -664,6 +664,7 @@
 }
 
 @media (width <= 900px) {
+  // cv page
   .cv {
     grid-template-columns: 1fr;
 
@@ -671,7 +672,23 @@
       display: none;
     }
   }
+
+  // bio page
+  .bio{
+    padding-inline: 5vw;
+
+    #bImage{
+      width: 100%;
+    }
+
+    .bDetail{
+      -moz-column-count: unset;
+           column-count: unset;
+           font-size: 1.1rem;
+    }
+  }
 }
+
 @media (width <= 500px) {
   .cv {
     grid-template-columns: 1fr;
@@ -684,4 +701,16 @@
       }
     }
   }
+
+
+  .bio .bDetail{
+    font-size: 1rem;
+  }
+}
+
+@media (width <= 350px) {
+  .bio .bDetail {
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
 }
