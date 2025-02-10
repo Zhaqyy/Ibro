@@ -95,13 +95,13 @@ const Overview = () => {
   };
 
   // SVG line component
-  const EndMarker = ({ position }) => (
-    <div className={`end-marker ${position}`}>
-      <svg viewBox='0 0 100 2'>
-        <path d='M0 1 L100 1' stroke='currentColor' strokeWidth='1' />
-      </svg>
-    </div>
-  );
+  // const EndMarker = ({ position }) => (
+  //   <div className={`end-marker ${position}`}>
+  //     <svg viewBox='0 0 100 2'>
+  //       <path d='M0 1 L100 1' stroke='currentColor' strokeWidth='1' />
+  //     </svg>
+  //   </div>
+  // );
 
   // randomized poem block alignment
   function roundRandom(n) {
@@ -123,14 +123,14 @@ const Overview = () => {
 
   // randomized poem svg gradient colors
   const [gradientColors, setGradientColors] = useState(() => [
-    `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(30)}%)`,
+    `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(40)}%)`,
     `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(20)}%)`,
   ]);
 
   // Update colors on category change
   useEffect(() => {
     setGradientColors([
-      `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(30)}%)`,
+      `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(40)}%)`,
       `hsl(${roundRandom(360)}, ${30 + roundRandom(70)}%, ${10 + roundRandom(20)}%)`,
     ]);
   }, [safeActiveItem, activeCategory]);
@@ -264,7 +264,7 @@ const Overview = () => {
 
       {/* Gallery carousel */}
       <div className='cateGallery'>
-        <EndMarker position='top' />
+        {/* <EndMarker position='top' /> */}
         <div className='galleryWrap' ref={galleryWrapRef}>
           {currentCategory.items.map((item, index) => (
             <div key={index} className={`gallery-item ${index === safeActiveItem ? "active" : ""}`} onClick={() => handleItemClick(index)}>
@@ -276,7 +276,7 @@ const Overview = () => {
             </div>
           ))}
         </div>
-        <EndMarker position='bottom' />
+        {/* <EndMarker position='bottom' /> */}
       </div>
 
       {/* Counter display */}
