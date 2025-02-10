@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import Loader from "../Component/Loader/Loader";
 import Transitioner from "../Util/Transition";
@@ -12,6 +12,7 @@ import Works from "../Pages/Works";
 import Overview from "../Pages/Overview";
 
 import Header from "../Component/Header";
+import useIsMobile from "../Util/isMobile";
 
 const Router = () => {
   // const [loaderFinished, setLoaderFinished] = useState(false);
@@ -19,7 +20,7 @@ const Router = () => {
 
   // routes where <header /> should not render
   const excludedRoutes = ["/"];
-
+  const isMobile = useIsMobile(650);
 
   return (
     <>
@@ -69,7 +70,7 @@ const Router = () => {
               path='/works'
               element={
                 <Transitioner>
-                  <Works />
+                  {isMobile? <Navigate to="/works/overview" /> : <Works />}
                 </Transitioner>
               }
             />

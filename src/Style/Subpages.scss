@@ -286,6 +286,11 @@
   padding: 2rem;
 
   --borderOpac: 0.1;
+  --gallerySize: 150px;
+  --gap: 16px;
+  --b: 0.125rem;
+  --c: 1.25rem;
+  --r: 1rem;
 
   .cateList {
     display: flex;
@@ -311,12 +316,14 @@
   }
 
   .cateGallery {
-    width: 150px;
+    width: var(--gallerySize);
     overflow: visible;
     -ms-scroll-chaining: chained;
     overscroll-behavior: auto;
     height: 100%;
     z-index: 1;
+    position: relative;
+    align-self: flex-end;
 
     -webkit-mask-image: linear-gradient(0deg, #00000000 0%, #000000ff 20%, #000000ff 80%, #00000000 100%);
 
@@ -332,19 +339,19 @@
 
     .galleryWrap {
       position: absolute;
-      top: 50%;
+      top: calc(50% - var(--gallerySize)/2 + var(--b) * 2 - var(--gap));
       // left: 50%;
       // translate: -50% -50%;
 
       // display: grid;
-      // grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
+      // grid-template-rows: repeat(auto-fit, minmax(var(--gallerySize), 1fr));
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-items: center;
       justify-content: center;
-      gap: 16px;
-      width: 150px;
+      gap: var(--gap);
+      width: var(--gallerySize);
       overflow: visible;
       -ms-scroll-chaining: chained;
       overscroll-behavior: auto;
@@ -361,7 +368,7 @@
 
       &:has(.poem-title) {
         height: auto;
-        min-height: 150px;
+        min-height: var(--gallerySize);
         justify-content: space-between;
       }
 
@@ -377,9 +384,9 @@
     .gallery-item {
       cursor: pointer;
       transition: transform 0.3s ease;
-      max-height: 150px;
+      max-height: var(--gallerySize);
       width: auto;
-      max-width: 150px;
+      max-width: var(--gallerySize);
 
       &:has(.poem-title) {
         width: -webkit-fit-content;
@@ -389,7 +396,7 @@
       }
 
       img {
-        max-height: 150px;
+        max-height: var(--gallerySize);
         height: auto;
         -o-object-fit: scale-down;
         object-fit: scale-down;
@@ -401,9 +408,6 @@
     }
 
     .gallery-item.active {
-      --b: 0.125rem;
-      --c: 1.25rem;
-      --r: 1rem;
       position: relative;
       border: solid var(--b) transparent;
       z-index: 1;
@@ -454,15 +458,16 @@
   }
 
   .cateInfo {
-    min-height: 400px;
+    // min-height: 400px;
 
     &:has(.poemContainer) {
       height: 100%;
+      max-height: calc(90vh - 2rem);
     }
     .poemContainer {
       height: 100%;
       justify-items: center;
-      padding: 2.5rem;
+      padding: 2.5%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -510,8 +515,9 @@
               position: absolute;
               top: 50%;
               left: 0;
-              width: 70px;
-              // height: 100%;
+              width: 100%;
+              max-width: 70px;
+              height: 80%;
               aspect-ratio: 1;
               background-image: url("/hand.png");
               background-size: contain;
@@ -526,8 +532,9 @@
               position: absolute;
               top: 50%;
               left: 100%;
-              width: 70px;
-              // height: 100%;
+              width: 100%;
+              max-width: 70px;
+              height: 80%;
               aspect-ratio: 1;
               background-image: url("/hand.png");
               background-size: contain;
@@ -561,6 +568,9 @@
         -webkit-writing-mode: sideways-lr;
         -ms-writing-mode: sideways-lr;
         writing-mode: sideways-lr;
+        -webkit-writing-mode: vertical-lr;
+        -ms-writing-mode: tb-lr;
+        writing-mode: vertical-lr;
         font-synthesis-style: auto;
         font-style: italic;
         font-weight: 100;
@@ -642,6 +652,7 @@
       img {
         width: auto;
         height: auto;
+        min-height: 400px;
         max-height: 600px;
         max-width: 100%;
         -o-object-fit: scale-down;
@@ -658,8 +669,11 @@
   .counter {
     position: absolute;
     top: 50%;
-    right: 0%;
-    translate: -50% -50%;
+    right: calc(2.5% + var(--gallerySize));
+    // translate: -50% -50%;
+    // min-width: 40px;
+    text-align: center;
+    // width: 100%;
   }
 }
 
@@ -674,20 +688,93 @@
   }
 
   // bio page
-  .bio{
+  .bio {
     padding-inline: 5vw;
 
-    #bImage{
+    #bImage {
       width: 100%;
     }
 
-    .bDetail{
+    .bDetail {
       -moz-column-count: unset;
-           column-count: unset;
-           font-size: 1.1rem;
+      column-count: unset;
+      font-size: 1.1rem;
+    }
+  }
+
+  .works .wGrid .categoryRow {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+    .grid-item.categoryTitle h4 {
+      line-break: auto;
+      overflow-wrap: anywhere;
+      hyphenate-character: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+    }
+  }
+
+  .overview {
+    --gallerySize: 100px;
+    --itemAmount: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    .cateList {
+      flex-direction: row;
+      justify-content: center;
+      align-self: flex-start;
+    }
+
+    .cateGallery {
+      height: auto;
+      // height: var(--gallerySize);
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 20%, black 80%, rgba(0, 0, 0, 0) 100%);
+      mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 20%, black 80%, rgba(0, 0, 0, 0) 100%);
+
+      .galleryWrap {
+        position: relative;
+        top: 0;
+        left: calc(50% - var(--gallerySize)/2 + var(--b) * 2 - var(--gap));
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        justify-content: flex-start;
+        height: var(--gallerySize);
+        width: 100%;
+      }
+    }
+    .cateInfo .poemContainer .poemBody pre {
+      font-size: 0.8rem;
+    }
+
+    .counter {
+      // position: relative;
+      // padding-block: 1rem;
+      width: 100%;
+      top: unset;
+      bottom: calc(5% + var(--gallerySize));
+      right: 0%;
+      // translate: -50% -50%;
     }
   }
 }
+
+// @media (width <= 800px) {
+
+// }
 
 @media (width <= 500px) {
   .cv {
@@ -702,9 +789,16 @@
     }
   }
 
-
-  .bio .bDetail{
+  .bio .bDetail {
     font-size: 1rem;
+  }
+
+  .overview {
+    --gallerySize: 100px;
+
+    .cateInfo .poemContainer .poemBody pre {
+      font-size: 0.6rem;
+    }
   }
 }
 
@@ -712,5 +806,5 @@
   .bio .bDetail {
     font-size: 0.8rem;
     line-height: 1.3;
-}
+  }
 }

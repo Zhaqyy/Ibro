@@ -3,6 +3,7 @@ import { workData } from "../Data/WorkData";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { useLocation } from "react-router-dom";
+import useIsMobile from "../Util/isMobile";
 
 gsap.registerPlugin(Draggable);
 
@@ -13,6 +14,7 @@ const Overview = () => {
   const galleryWrapRef = useRef(null);
   const containerRef = useRef(null);
   const infoRef = useRef(null);
+  const isMobile = useIsMobile(900);
 
   const currentCategory = workData[activeCategory];
   const itemCount = currentCategory.items.length;
@@ -62,21 +64,30 @@ const Overview = () => {
     if (isDragging) return;
 
     const galleryWrap = galleryWrapRef.current;
+    const overview = containerRef.current;
     if (!galleryWrap) return;
 
     const items = galleryWrap.children;
     if (items.length === 0) return;
-
+    const itemAmount = items.length;
     const itemHeight = items[0].offsetHeight;
+    const itemWidth = items[0].offsetWidth;
     const gap = 16;
     const targetY = -safeActiveItem * (itemHeight + gap);
+    const targetX = -safeActiveItem * (itemWidth + gap);
 
     gsap.to(galleryWrap, {
-      y: targetY,
+      y: isMobile ? 0 : targetY,
+      x: isMobile ? targetX : 0,
       duration: 0.5,
       ease: "power3.out",
       onComplete: () => setIsDragging(false),
     });
+
+    gsap.set(overview, {
+      '--itemAmount': itemAmount,
+    });
+    
   }, [safeActiveItem, isDragging, currentCategory]);
 
   // Updated wheel handler with infinite logic
@@ -262,9 +273,14 @@ const Overview = () => {
         )}
       </div>
 
+      {/* Counter display */}
+      <div className='counter'>
+        <p>
+          {safeActiveItem + 1} / {`${currentCategory.items.length}`}
+        </p>
+      </div>
       {/* Gallery carousel */}
       <div className='cateGallery'>
-        {/* <EndMarker position='top' /> */}
         <div className='galleryWrap' ref={galleryWrapRef}>
           {currentCategory.items.map((item, index) => (
             <div key={index} className={`gallery-item ${index === safeActiveItem ? "active" : ""}`} onClick={() => handleItemClick(index)}>
@@ -277,11 +293,6 @@ const Overview = () => {
           ))}
         </div>
         {/* <EndMarker position='bottom' /> */}
-      </div>
-
-      {/* Counter display */}
-      <div className='counter'>
-        {safeActiveItem + 1} / {`${currentCategory.items.length}`}
       </div>
     </section>
   );
