@@ -609,6 +609,7 @@
         max-height: 600px;
         text-align: center;
         display: flex;
+        justify-content: center;
         &::before {
           content: "";
           width: 100vw;
@@ -765,12 +766,13 @@
     }
 
     .counter {
-      // position: relative;
+      position: relative;
       // padding-block: 1rem;
       width: 100%;
       top: unset;
-      bottom: calc(5% + var(--gallerySize));
-      right: 0%;
+      // bottom: calc(5% + var(--gallerySize));
+      right: 0;
+      margin-block: -2rem;
       // translate: -50% -50%;
     }
   }
@@ -799,7 +801,8 @@
 
   .overview {
     --gallerySize: 100px;
-
+    gap: 0.5rem;
+    
     .cateList {
       gap: 0.5rem;
       .category-btn {
@@ -820,7 +823,7 @@
 
     .cateInfo {
       min-height: 350px;
-      max-height: 355px;
+      // max-height: 355px;
       display: flex;
 
       .image-info {

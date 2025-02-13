@@ -82,7 +82,6 @@ const Overview = () => {
       ease: "power3.out",
       onComplete: () => setIsDragging(false),
     });
-
   }, [safeActiveItem, isDragging, currentCategory]);
 
   // Updated wheel handler with infinite logic
@@ -100,6 +99,33 @@ const Overview = () => {
     handleActiveItem(index);
   };
 
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+
+  // Touch handlers for mobile swipe
+  const handleTouchStart = e => {
+    if (!isMobile) return;
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = e => {
+    if (!isMobile) return;
+    const touch = e.changedTouches[0];
+    const touchEndX = touch.clientX;
+    const touchEndY = touch.clientY;
+    const deltaX = touchEndX - touchStart.x;
+    const deltaY = touchEndY - touchStart.y;
+    const threshold = 50;
+
+    // Check if horizontal swipe exceeds threshold
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        handleActiveItem(safeActiveItem - 1); // Swipe right
+      } else {
+        handleActiveItem(safeActiveItem + 1); // Swipe left
+      }
+    }
+  };
 
   // randomized poem block alignment
   function roundRandom(n) {
@@ -189,7 +215,7 @@ const Overview = () => {
       </div>
 
       {/* Active item display */}
-      <div className='cateInfo' ref={infoRef}>
+      <div className='cateInfo' onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}  ref={infoRef}>
         {currentCategory.type === "text" ? (
           <div className='poemContainer' ref={containerRef}>
             <svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlnsXlink='http://www.w3.org/1999/xlink' ref={svgRef}>
@@ -268,7 +294,7 @@ const Overview = () => {
       </div>
       {/* Gallery carousel */}
       <div className='cateGallery'>
-        <div className='galleryWrap' ref={galleryWrapRef}>
+        <div className='galleryWrap' onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} ref={galleryWrapRef}>
           {currentCategory.items.map((item, index) => (
             <div key={index} className={`gallery-item ${index === safeActiveItem ? "active" : ""}`} onClick={() => handleItemClick(index)}>
               {currentCategory.type === "text" ? (
