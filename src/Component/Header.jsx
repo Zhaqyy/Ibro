@@ -12,9 +12,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile(800);
 
-  const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
-  const overlayRef = useRef(null);
 
   const menuData = [
     { path: "/", label: "Home" },
@@ -30,7 +28,7 @@ const Header = () => {
       autoAlpha: 1,
       duration: 0.5,
       ease: "expo.inOut",
-      delay: 1.5,
+      delay: 1,
     });
   }, []);
 

@@ -69,7 +69,6 @@ const Overview = () => {
 
     const items = galleryWrap.children;
     if (items.length === 0) return;
-    const itemAmount = items.length;
     const itemHeight = items[0].offsetHeight;
     const itemWidth = items[0].offsetWidth;
     const gap = 16;
@@ -84,10 +83,6 @@ const Overview = () => {
       onComplete: () => setIsDragging(false),
     });
 
-    gsap.set(overview, {
-      '--itemAmount': itemAmount,
-    });
-    
   }, [safeActiveItem, isDragging, currentCategory]);
 
   // Updated wheel handler with infinite logic
@@ -105,14 +100,6 @@ const Overview = () => {
     handleActiveItem(index);
   };
 
-  // SVG line component
-  // const EndMarker = ({ position }) => (
-  //   <div className={`end-marker ${position}`}>
-  //     <svg viewBox='0 0 100 2'>
-  //       <path d='M0 1 L100 1' stroke='currentColor' strokeWidth='1' />
-  //     </svg>
-  //   </div>
-  // );
 
   // randomized poem block alignment
   function roundRandom(n) {
