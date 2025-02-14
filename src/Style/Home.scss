@@ -72,3 +72,15 @@
     }
   }
 }
+
+@media (width <= 500px) {
+  .hero {
+
+    .bigName{
+      font-size: clamp(2rem, 10vw + 0.333rem, 3rem);
+    }
+    .menu {
+      justify-content: space-between;
+    }
+  }
+}
