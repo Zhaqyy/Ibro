@@ -84,13 +84,28 @@ const Overview = () => {
     });
   }, [safeActiveItem, isDragging, currentCategory]);
 
-  // Updated wheel handler with infinite logic
+  const scrollTimeout = useRef(null); // Add this ref for throttling
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+    };
+  }, []);
+
+  // Throttled wheel handler
   const handleWheel = e => {
     e.preventDefault();
-    if (isDragging || !currentCategory.items.length) return;
+    if (isDragging || !currentCategory.items.length || scrollTimeout.current) return;
 
     const delta = Math.sign(e.deltaY);
     handleActiveItem(safeActiveItem + delta);
+
+    // Set timeout to prevent rapid firing
+    scrollTimeout.current = setTimeout(() => {
+      scrollTimeout.current = null;
+    }, 500); 
   };
 
   // Click handler for gallery items

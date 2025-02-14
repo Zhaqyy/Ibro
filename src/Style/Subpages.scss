@@ -719,7 +719,8 @@
   .overview {
     --gallerySize: 100px;
     --itemAmount: 1;
-
+    height: auto;
+    min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -739,7 +740,7 @@
       height: auto;
       // height: var(--gallerySize);
       width: 100%;
-
+      padding-block: 0.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -759,10 +760,42 @@
         justify-content: flex-start;
         height: var(--gallerySize);
         width: 100%;
+
+        &:has(.poem-title) {
+          min-height: unset;
+        }
       }
     }
-    .cateInfo .poemContainer .poemBody pre {
-      font-size: 0.8rem;
+
+    .cateInfo:has(.poemContainer) {
+      width: 100%;
+      max-height: unset;
+      min-height: 500px;
+      display: block;
+      height: auto;
+    }
+    .cateInfo .poemContainer {
+      min-height: inherit;
+      justify-content: space-evenly;
+      flex-direction: column;
+      align-items: normal;
+      gap: 1.5rem;
+      h3 {
+        height: auto;
+        -webkit-writing-mode: unset;
+        -ms-writing-mode: unset;
+        writing-mode: unset;
+      }
+      .poemBody pre {
+        font-size: 0.8rem;
+        -moz-column-gap: unset;
+        column-gap: unset;
+
+        & > *:hover::before,
+        & > *:hover::after {
+          height: 30%;
+        }
+      }
     }
 
     .counter {
@@ -802,7 +835,7 @@
   .overview {
     --gallerySize: 100px;
     gap: 0.5rem;
-
+    padding: 1rem;
     .cateList {
       gap: 0.5rem;
       .category-btn {
@@ -811,8 +844,14 @@
       }
     }
 
-    .cateInfo .poemContainer .poemBody pre {
-      font-size: 0.6rem;
+    .cateInfo .poemContainer {
+      padding: 0.5rem;
+      h3 {
+        font-size: 0.8rem;
+      }
+      .poemBody pre {
+        font-size: 0.6rem;
+      }
     }
 
     .cateGallery .galleryWrap {
