@@ -802,7 +802,7 @@
   .overview {
     --gallerySize: 100px;
     gap: 0.5rem;
-    
+
     .cateList {
       gap: 0.5rem;
       .category-btn {
@@ -833,6 +833,7 @@
         }
         img {
           min-height: auto;
+          max-height: 400px;
         }
       }
     }
