@@ -1,15 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { useLocation } from "react-router-dom";
+import useIsMobile from "../Util/isMobile";
 
 const Cursor = () => {
   const ref = useRef();
   const [isMoving, setIsMoving] = useState(false);
   const location = useLocation();
+  const isMobile = useIsMobile(800);
 
   // Routes where specific style shouldn't apply
   const excludedRoutes = ["/"];
-
   useEffect(() => {
     const isExcluded = excludedRoutes.includes(location.pathname);
 
@@ -28,6 +29,16 @@ const Cursor = () => {
       ease: "expo.inOut",
       delay: 1.5,
     });
+
+    if (isMobile & !isExcluded) {
+      gsap.set(ref.current, {
+        display: "none",
+      });
+    } else {
+      gsap.set(ref.current, {
+        display: "block",
+      });
+    }
 
     // Setup the gsap quickTo for smooth movement
     const xTo = gsap.quickTo(ref.current, "x", { duration: 1, ease: "power3" });
@@ -78,10 +89,10 @@ const Cursor = () => {
     // });
 
     // Attach mousemove event listener
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("pointermove", handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handleMouseMove);
       //   gsap.ticker.remove(ticker);
     };
   }, [location.pathname]); // Re-run effect when location changes

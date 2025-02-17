@@ -27,10 +27,10 @@ function Home() {
     };
 
     // Attach mousemove event listener
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("pointermove", handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handleMouseMove);
     };
   }, []);
 
