@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "../Style/Home.scss";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
+import { animateHome } from "../Util/PageAnimations";
 
 function Home() {
   const svgRef = useRef(null);
@@ -34,8 +35,21 @@ function Home() {
     };
   }, []);
 
+// Page intro
+  useEffect(() => {
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({delay:0.5});
+
+      tl.add(animateHome(heroRef));
+      // tl.add(animateHomeFoot(containerRef), "-=90%");
+
+    }, heroRef);
+
+    return () => context.revert(); // Cleanup on unmount
+  }, []);
+
   return (
-    <section className='hero' ref={heroRef}>
+    <section className='hero' ref={heroRef} data-hidden>
       <svg
         version='1.1'
         xmlns='http://www.w3.org/2000/svg'

@@ -196,7 +196,7 @@
   flex-direction: column;
   background-color: white;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1000;
 
   &Wrapper {
     position: relative;

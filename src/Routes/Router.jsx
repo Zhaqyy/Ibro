@@ -15,7 +15,7 @@ import Header from "../Component/Header";
 import useIsMobile from "../Util/isMobile";
 
 const Router = () => {
-  // const [loaderFinished, setLoaderFinished] = useState(false);
+  const [loaderFinished, setLoaderFinished] = useState(false);
   const location = useLocation();
 
   // routes where <header /> should not render
@@ -24,13 +24,13 @@ const Router = () => {
 
   return (
     <>
-      {/* <Loader onComplete={() => setLoaderFinished(true)} /> */}
+      <Loader onComplete={() => setLoaderFinished(true)} />
 
       {/* Render routes only after the loader signals completion */}
-      {/* {loaderFinished && ( */}
+      {loaderFinished && (
         <>
-                  {/* Conditionally render Header based on the route */}
-        {!excludedRoutes.includes(location.pathname) && <Header />}
+          {/* Conditionally render Header based on the route */}
+          {!excludedRoutes.includes(location.pathname) && <Header />}
 
           <Routes>
             <Route
@@ -66,14 +66,7 @@ const Router = () => {
                 </Transitioner>
               }
             />
-            <Route
-              path='/works'
-              element={
-                <Transitioner>
-                  {isMobile? <Navigate to="/works/overview" /> : <Works />}
-                </Transitioner>
-              }
-            />
+            <Route path='/works' element={<Transitioner>{isMobile ? <Navigate to='/works/overview' /> : <Works />}</Transitioner>} />
             <Route
               path='/works/overview'
               element={
@@ -92,8 +85,7 @@ const Router = () => {
             /> */}
           </Routes>
         </>
-      {/* )} */}
-
+      )}
     </>
   );
 };

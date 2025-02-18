@@ -318,102 +318,42 @@ export const animateImage = imageWrapRefs => {
   Home Page Animation
   --------------------*/
 
-export const animateHome = homeRef => {
+export const animateHome = heroRef => {
   const tl = gsap.timeline();
 
-  // Staggered clipPath animation for h1 elements
   tl.fromTo(
-    homeRef.current.querySelector(".main-hero .name h1"),
-    { clipPath: "inset(0 0 100% 0)", autoAlpha: 0 },
+    heroRef.current,
+    { autoAlpha: 0 },
     {
-      clipPath: "inset(0 0 0% 0)",
       autoAlpha: 1,
-      duration: 1.5,
+      duration: 0.5,
+      ease: "sine.in",
+    },
+    ">"
+  );
+
+  tl.fromTo(
+    heroRef.current.querySelectorAll(".bigName"),
+    { 
+      filter: "blur(2px)",
+     autoAlpha: 0 },
+    {
+      filter: "blur(0px)",
+      autoAlpha: 1,
+      duration: 0.5,
       ease: "expo.in",
     }
   );
   tl.fromTo(
-    homeRef.current.querySelector(".main-hero .name h2"),
+    heroRef.current.querySelectorAll(".menu a"),
     { clipPath: "inset(0 0 100% 0)", autoAlpha: 0 },
     {
       clipPath: "inset(0 0 0% 0)",
       autoAlpha: 1,
-      duration: 1.5,
-      ease: "expo.in",
-    },
-    "-=1"
-  );
-
-  tl.fromTo(
-    homeRef.current.querySelector(".main-hero .project h3"),
-    { autoAlpha: 0 },
-    {
-      autoAlpha: 1,
-      duration: 0.5,
-      ease: "expo.out",
-    },
-    ">"
-  );
-
-  tl.fromTo(
-    homeRef.current.querySelectorAll(".main-hero .project li"),
-    { autoAlpha: 0 },
-    {
-      autoAlpha: 1,
       stagger: 0.25,
       duration: 1,
-      ease: "expo.out",
-    },
-    ">"
-  );
-  tl.fromTo(
-    homeRef.current.querySelector(".main-hero .detail h5"),
-    { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 },
-    {
-      clipPath: "inset(0 0% 0 0)",
-      autoAlpha: 1,
-      duration: 1,
-      ease: "expo.out",
-    },
-    ">"
-  );
-  tl.fromTo(
-    homeRef.current.querySelectorAll(".titleMobile"),
-    { autoAlpha: 0 },
-    {
-      autoAlpha: 1,
-      duration: 1,
-      ease: "expo.out",
-    },
-    ">"
-  );
-  tl.fromTo(
-    homeRef.current.querySelectorAll(".titleMobile .titlePrev"),
-    {
-      x: -10,
-      autoAlpha: 0,
-    },
-    {
-      x: 0,
-      autoAlpha: 1,
-      duration: 0.5,
-      ease: "elastic.out(0.5, 0.25)",
-    },
-    ">"
-  );
-  tl.fromTo(
-    homeRef.current.querySelectorAll(".titleMobile .titleNext"),
-    {
-      x: 10,
-      autoAlpha: 0,
-    },
-    {
-      x: 0,
-      autoAlpha: 1,
-      duration: 0.5,
-      ease: "elastic.out(0.5, 0.25)",
-    },
-    "<"
+      ease: "expo.in",
+    }
   );
 
   return tl;
@@ -502,13 +442,11 @@ export const animateLogoRot1 = headerRef => {
     },
   });
 
-
-  tl.to(
-    "#logo",
-    {
-      rotate:0,duration: 0.25, ease: "elastic.out(.5)"
-    }
-  )
+  tl.to("#logo", {
+    rotate: 0,
+    duration: 0.25,
+    ease: "elastic.out(.5)",
+  });
 
   return tl;
 };
@@ -522,13 +460,11 @@ export const animateLogoRot2 = headerRef => {
     },
   });
 
-
-  tl.to(
-    "#logo",
-    {
-      rotate:90,duration: 0.25, ease: "elastic.out(.5)"
-    }
-  )
+  tl.to("#logo", {
+    rotate: 90,
+    duration: 0.25,
+    ease: "elastic.out(.5)",
+  });
 
   return tl;
 };
@@ -553,18 +489,8 @@ export const animateLogo2 = headerRef => {
 
   // Animate Logo parts
 
-  tl.fromTo(
-    "#bow1", 
-  { y: "0%" }, 
-  { y: "-100%",x: "50%", duration: 0.5, ease: "elastic.out(.5)" },
-   "+=0.5")
-   
-   .fromTo(
-    "#bow2",
-    { y: "0%" },
-    { y: "100%",x: "-50%", duration: 0.5, ease: "elastic.out(.5)" },
-    "<"
-  );
+  tl.fromTo("#bow1", { y: "0%" }, { y: "-100%", x: "50%", duration: 0.5, ease: "elastic.out(.5)" }, "+=0.5")
+  .fromTo("#bow2", { y: "0%" }, { y: "100%", x: "-50%", duration: 0.5, ease: "elastic.out(.5)" }, "<");
 
   return tl;
 };
@@ -573,18 +499,8 @@ export const animateLogo3 = headerRef => {
 
   // Animate Logo parts
 
-  tl.fromTo(
-    "#bow1", 
-  { y: "0%" }, 
-  { y: "-100%",x: "-50%", duration: 0.5, ease: "elastic.out(.5)" },
-   "+=0.5")
-   
-   .fromTo(
-    "#bow2",
-    { y: "0%" },
-    { y: "100%",x: "50%", duration: 0.5, ease: "elastic.out(.5)" },
-    "<"
-  );
+  tl.fromTo("#bow1", { y: "0%" }, { y: "-100%", x: "-50%", duration: 0.5, ease: "elastic.out(.5)" }, "+=0.5")
+  .fromTo("#bow2", { y: "0%" }, { y: "100%", x: "50%", duration: 0.5, ease: "elastic.out(.5)" }, "<");
 
   return tl;
 };
@@ -593,18 +509,8 @@ export const animateLogo4 = headerRef => {
 
   // Animate Logo parts
 
-  tl.fromTo(
-    "#bow1", 
-  { y: "0%" }, 
-  { y: "50%", duration: 0.5, ease: "elastic.out(.5)" },
-   "+=0.5")
-   
-   .fromTo(
-    "#bow2",
-    { y: "0%" },
-    { y: "-50%", duration: 0.5, ease: "elastic.out(.5)" },
-    "<"
-  );
+  tl.fromTo("#bow1", { y: "0%" }, { y: "50%", duration: 0.5, ease: "elastic.out(.5)" }, "+=0.5")
+  .fromTo("#bow2", { y: "0%" }, { y: "-50%", duration: 0.5, ease: "elastic.out(.5)" }, "<");
 
   return tl;
 };
@@ -613,18 +519,8 @@ export const animateLogo5 = headerRef => {
 
   // Animate Logo parts
 
-  tl.fromTo(
-    "#bow1", 
-  { y: "0%" }, 
-  { y: "100%", duration: 0.5, ease: "elastic.out(.5)" },
-   "+=0.5")
-   
-   .fromTo(
-    "#bow2",
-    { y: "0%" },
-    { y: "-100%", duration: 0.5, ease: "elastic.out(.5)" },
-    "<"
-  );
+  tl.fromTo("#bow1", { y: "0%" }, { y: "100%", duration: 0.5, ease: "elastic.out(.5)" }, "+=0.5")
+  .fromTo("#bow2", { y: "0%" }, { y: "-100%", duration: 0.5, ease: "elastic.out(.5)" }, "<");
 
   return tl;
 };

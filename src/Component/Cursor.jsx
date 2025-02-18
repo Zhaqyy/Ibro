@@ -13,7 +13,7 @@ const Cursor = () => {
   const excludedRoutes = ["/"];
   useEffect(() => {
     const isExcluded = excludedRoutes.includes(location.pathname);
-
+    // if (ref.current) return;
     // gsap.set(ref.current, {
     //   xPercent: -50,
     //   yPercent: -50,
