@@ -287,6 +287,8 @@
 
   --borderOpac: 0.1;
   --gallerySize: 150px;
+  --itemAmount: 1;
+  --itemsfullWidth: 100px;
   --gap: 16px;
   --b: 0.125rem;
   --c: 1.25rem;
@@ -718,7 +720,6 @@
 
   .overview {
     --gallerySize: 100px;
-    --itemAmount: 1;
     height: auto;
     min-height: 100vh;
     display: flex;
@@ -748,11 +749,11 @@
 
       -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 20%, black 80%, rgba(0, 0, 0, 0) 100%);
       mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 20%, black 80%, rgba(0, 0, 0, 0) 100%);
-
       .galleryWrap {
         position: relative;
         top: 0;
-        left: calc(50% - var(--gallerySize) / 2 + var(--b) * 2 - var(--gap));
+        // left: calc(50% - var(--gallerySize) / 2 + var(--b) * 2 - var(--gap));
+        left: calc((var(--itemsfullWidth) * (var(--itemAmount) / 2)) - var(--gallerySize) / 2 + var(--b) * 2);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -760,6 +761,9 @@
         justify-content: flex-start;
         height: var(--gallerySize);
         width: 100%;
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
+        min-width: max-content;
 
         &:has(.poem-title) {
           min-height: unset;

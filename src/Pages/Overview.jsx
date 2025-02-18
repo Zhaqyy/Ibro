@@ -68,12 +68,23 @@ const Overview = () => {
     if (!galleryWrap) return;
 
     const items = galleryWrap.children;
+    const itemsAmount = items.length;
+
     if (items.length === 0) return;
     const itemHeight = items[0].offsetHeight;
     const itemWidth = items[0].offsetWidth;
+    const itemsfullWidth = galleryWrap.offsetWidth;
+    // const itemsfullHeight = galleryWrap.offsetHeight;
+
     const gap = 16;
     const targetY = -safeActiveItem * (itemHeight + gap);
     const targetX = -safeActiveItem * (itemWidth + gap);
+
+    gsap.set(galleryWrap, {
+   '--itemsAmount': itemsAmount,
+   '--itemsfullWidth': itemsfullWidth,
+  //  '--itemsfullHeight': itemsfullHeight,
+    });
 
     gsap.to(galleryWrap, {
       y: isMobile ? 0 : targetY,
@@ -308,8 +319,8 @@ const Overview = () => {
         </p>
       </div>
       {/* Gallery carousel */}
-      <div className='cateGallery'>
-        <div className='galleryWrap' onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} ref={galleryWrapRef}>
+      <div className='cateGallery'  onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} >
+        <div className='galleryWrap'ref={galleryWrapRef}>
           {currentCategory.items.map((item, index) => (
             <div key={index} className={`gallery-item ${index === safeActiveItem ? "active" : ""}`} onClick={() => handleItemClick(index)}>
               {currentCategory.type === "text" ? (
