@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tests",
+  "info": {
+    "singularName": "test",
+    "pluralName": "tests",
+    "displayName": "test"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "testtt": {
+      "type": "string"
+    },
+    "uuu": {
+      "type": "boolean"
+    },
+    "ssss": {
+      "type": "integer"
+    }
+  }
+}
