@@ -327,6 +327,30 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBioBio extends Struct.CollectionTypeSchema {
+  collectionName: "bios";
+  info: {
+    description: "";
+    displayName: "Bio";
+    pluralName: "bios";
+    singularName: "bio";
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bioBody: Schema.Attribute.Blocks;
+    bioHead: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<"oneToMany", "api::bio.bio"> & Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCvGroupCvGroup extends Struct.CollectionTypeSchema {
   collectionName: "cv_groups";
   info: {
@@ -779,6 +803,7 @@ declare module "@strapi/strapi" {
       "admin::transfer-token": AdminTransferToken;
       "admin::transfer-token-permission": AdminTransferTokenPermission;
       "admin::user": AdminUser;
+      "api::bio.bio": ApiBioBio;
       "api::cv-group.cv-group": ApiCvGroupCvGroup;
       "api::test.test": ApiTestTest;
       "plugin::content-releases.release": PluginContentReleasesRelease;

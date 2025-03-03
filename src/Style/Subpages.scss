@@ -140,6 +140,7 @@
     top: 0;
     left: 0;
     translate: 0 -2.5vh;
+    overflow: visible;
 
     img {
       -o-object-fit: cover;
@@ -174,6 +175,15 @@
         align-items: flex-start;
         border-bottom: 1px solid white;
         gap: 1rem;
+        text-transform: capitalize;
+
+        .gItemTitle {
+          min-width: 20%;
+        }
+
+        .gItemPlace {
+          width: 100%;
+        }
       }
     }
   }
@@ -251,7 +261,9 @@
           font-size: 0.5rem;
         }
       }
-
+      &.image-container:has(.poem) {
+        cursor: pointer;
+      }
       .poem {
         font-synthesis-style: auto;
         font-weight: bold;
@@ -279,6 +291,7 @@
       &:hover:has(img):not(.categoryTitle) {
         // transform: scale(1.05);
         &.image-container img {
+          cursor: pointer;
           transform: scale(1.05);
         }
 
@@ -732,7 +745,7 @@
       column-count: unset;
 
       font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-  
+
       span {
         display: block;
         font-size: clamp(1rem, 2vw, 1.5rem);
@@ -743,7 +756,6 @@
       }
     }
   }
-
 
   .works .wGrid .categoryRow {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));

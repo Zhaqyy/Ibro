@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bios",
+  "info": {
+    "singularName": "bio",
+    "pluralName": "bios",
+    "displayName": "Bio",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "bioHead": {
+      "type": "blocks"
+    },
+    "bioBody": {
+      "type": "blocks"
+    }
+  }
+}
