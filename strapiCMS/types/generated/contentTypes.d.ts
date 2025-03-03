@@ -339,8 +339,10 @@ export interface ApiBioBio extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    bioBody: Schema.Attribute.Blocks;
-    bioHead: Schema.Attribute.Blocks;
+    bioBody: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the existential questions of life to better understand them and help ease the difficulties of life's journeys. Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most consistent and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium he works with to create works that are both thought-provoking and aesthetically pleasing. Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a unique and impactful way.">;
+    bioHead: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"Ibrahim Shuaib is a multidisciplinary visual artist hailing from Nigeria, who currently resides on Treaty 1 Territory in Winnipeg.">;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

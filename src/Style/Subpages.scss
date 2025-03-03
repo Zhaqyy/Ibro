@@ -101,6 +101,8 @@
     width: -moz-fit-content;
     width: fit-content;
     max-width: 50%;
+    min-width: 49%;
+
   }
   .bDetail {
     // text-align: justify;
@@ -113,6 +115,9 @@
       text-transform: uppercase;
       text-align: right;
       margin-bottom: 1rem;
+    }
+    &>p{
+      white-space: pre-line;
     }
   }
 }

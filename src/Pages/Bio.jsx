@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "../Style/Subpages.scss";
 import gsap from "gsap";
+import useFetch from "../Hooks/useFetch";
 
 const Bio = () => {
   const svgRef = useRef([]);
@@ -143,6 +144,10 @@ const Bio = () => {
     };
   }, []);
 
+  const { loading, data, error } = useFetch(
+    "http://localhost:1337/api/bios?"
+  );
+
   return (
     <section className='bio'>
       <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' id='bImage' ref={bImageRef}>
@@ -200,8 +205,8 @@ const Bio = () => {
         <mask id='staticMask'>
           <rect
             x='25%'
-            y='15%'
-            height='15%'
+            y='50%'
+            height='10%'
             width='50%'
             rx='2'
             // stroke="gray"
@@ -247,12 +252,18 @@ const Bio = () => {
       <div>
         <div className='bDetail'>
           <span>
+          {data?.map((bio) => (
             <p>
-              Ibrahim Shuaib is a multidisciplinary visual artist hailing from Nigeria, who currently resides on Treaty 1 Territory in
-              Winnipeg.
+              {bio?.bioHead}
             </p>
+          ))}
           </span>
-          <p>
+          {data?.map((bio) => (
+            <p>
+              {bio?.bioBody}
+            </p>
+          ))}
+          {/* <p>
             As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the
             existential questions of life to better understand them and help ease the difficulties of life's journeys.
             <br />
@@ -264,7 +275,7 @@ const Bio = () => {
             <br />
             Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a
             unique and impactful way.
-          </p>
+          </p> */}
         </div>
       </div>
     </section>
