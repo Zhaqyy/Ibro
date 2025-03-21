@@ -122,7 +122,7 @@
     justify-content: space-evenly;
     flex: auto;
     flex-direction: row;
-    gap: 1rem;
+    gap: 0.5rem;
 
     @media (max-width: 800px) {
       position: absolute;
@@ -144,16 +144,22 @@
 
       .menu-item {
         padding: 0.5rem 1rem;
+        min-height: 50px;
+        align-content: center;
         --b: 0.125rem;
         --c: 0.25rem;
         --r: 1rem;
-
+        
+        a {
+          border: solid var(--b) transparent;
+          padding: 2px;
+          transition: all 0.5s ease;
+        }
         .active {
           display: block;
           position: relative;
-          border: solid var(--b) transparent;
           z-index: 1;
-          padding: 2px;
+          transition: all 0.5s ease;
 
           &::before {
             position: absolute;

@@ -128,8 +128,8 @@ function Home() {
           />
 
           <text
-            text-anchor='middle'
-            alignment-baseline='hanging'
+            textAnchor='middle'
+            alignmentBaseline='hanging'
             // x="5"
             style={{
               fill: "white",
