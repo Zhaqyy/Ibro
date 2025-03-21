@@ -10,15 +10,13 @@ function Home() {
   const heroRef = useRef(null);
   const textPathRef = useRef(null);
   const [currentText, setCurrentText] = useState("      ");
-  const animationFrameRef = useRef(null);
-  const offsetRef = useRef(0);
   const marqueeTween = useRef(null);
   // Mouse follow animation
   useEffect(() => {
     gsap.set([svgRef.current, maskRef.current], {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
-      transformOrigin: '0%',
+      transformOrigin: "0%",
       xPercent: -50,
       yPercent: -50,
     });
@@ -35,39 +33,51 @@ function Home() {
     return () => window.removeEventListener("pointermove", handleMouseMove);
   }, []);
 
+  // Text path animation on hover
   useEffect(() => {
     const textPath = textPathRef.current;
-    const pathElement = document.getElementById('textPath'); // Get the path element
-  
-    // Get the total length of the path (since it wraps twice)
-    const pathLength = pathElement.getTotalLength() ; // Divide by 2 for one loop
-  
+
+    if (currentText.trim() !== "") {
+      // Entry animation
+      gsap.fromTo(textPath, { filter: "blur(2px)", opacity: 0 }, { filter: "blur(0px)", opacity: 1, duration: 1, ease: "power2.out" });
+    } else {
+      // Exit animation
+      gsap.to(textPath, { filter: "blur(2px)", opacity: 0, duration: 1, ease: "power2.in" });
+    }
+  }, [currentText]);
+
+  useEffect(() => {
+    const textPath = textPathRef.current;
+    const pathElement = document.getElementById("textPath");
+
+    const pathLength = Math.round(pathElement.getTotalLength());
+
     // Calculate dynamic repetitions based on text length
     const baseText = currentText.trim();
     const textLength = textPath.getComputedTextLength(); // Get the length of the base text
-    const repetitions = Math.ceil(pathLength / textLength); // Calculate repetitions needed
+    const repetitions = Math.ceil(pathLength / textLength);
     const dynamicText = baseText.repeat(repetitions);
-  
+
     // Update text content
     textPath.textContent = dynamicText;
-  
+
     // Set textLength to match the path length
     textPath.setAttributeNS(null, "textLength", pathLength);
-  
+
     // GSAP marquee animation
-    if (marqueeTween.current) marqueeTween.current.kill(); // Kill existing tween
-  
+    if (marqueeTween.current) marqueeTween.current.kill();
+
     marqueeTween.current = gsap.fromTo(
       textPath,
       { attr: { startOffset: "0%" } },
       {
-        attr: { startOffset: "50%" }, 
+        attr: { startOffset: "50%" },
         duration: 25,
         ease: "none",
         repeat: -1,
       }
     );
-  
+
     return () => {
       if (marqueeTween.current) marqueeTween.current.kill();
     };
@@ -106,9 +116,11 @@ function Home() {
         <image xlinkHref='./ibro.jpg' width='100%' height='100%' preserveAspectRatio='xMidYMax slice' filter='url(#blur-image)' />
         <image xlinkHref='./ibro.jpg' width='100%' height='100%' preserveAspectRatio='xMidYMax slice' mask='url(#blur-mask)' />
 
-        <g >
+        <g>
           <path
-          ref={svgRef} x='0' y='0'
+            ref={svgRef}
+            x='0'
+            y='0'
             id='textPath'
             fill='none'
             d='M10 0h205s10 0 10 10v105s0 10 -10 10h-205s-10 0 -10 -10v-105s0 -10 10 -10
@@ -126,14 +138,14 @@ function Home() {
               fontVariantNumeric: "tabular-nums",
               fontFamily: "monospace",
               fontWeight: "bolder",
-              whiteSpace: 'pre'
+              whiteSpace: "pre",
             }}
           >
-            <textPath ref={textPathRef} 
-            href='#textPath' 
-            // lengthAdjust='spacingAndGlyphs' 
-            spacing='auto' 
-            // textLength='2712'
+            <textPath
+              ref={textPathRef}
+              href='#textPath'
+              spacing='auto'
+              // textLength='2712'
             >
               {currentText}
             </textPath>
