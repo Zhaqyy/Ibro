@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../Style/Home.scss";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
@@ -6,46 +6,87 @@ import { animateHome } from "../Util/PageAnimations";
 
 function Home() {
   const svgRef = useRef(null);
+  const maskRef = useRef(null);
   const heroRef = useRef(null);
-
+  const textPathRef = useRef(null);
+  const [currentText, setCurrentText] = useState("      ");
+  const animationFrameRef = useRef(null);
+  const offsetRef = useRef(0);
+  const marqueeTween = useRef(null);
+  // Mouse follow animation
   useEffect(() => {
-    // start from center
-    gsap.set(svgRef.current, { x: window.innerWidth / 2, y: window.innerHeight / 2, xPercent: -50, yPercent: -50 });
+    gsap.set([svgRef.current, maskRef.current], {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      transformOrigin: '0%',
+      xPercent: -50,
+      yPercent: -50,
+    });
 
-    // Setup the gsap quickTo for smooth movement
-    const xTo = gsap.quickTo(svgRef.current, "x", { duration: 1, ease: "power3" });
-    const yTo = gsap.quickTo(svgRef.current, "y", { duration: 1, ease: "power3" });
-
-    let mouseX = 0;
-    let mouseY = 0;
+    const xTo = gsap.quickTo([svgRef.current, maskRef.current], "x", { duration: 1, ease: "power3" });
+    const yTo = gsap.quickTo([svgRef.current, maskRef.current], "y", { duration: 1, ease: "power3" });
 
     const handleMouseMove = e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      xTo(mouseX);
-      yTo(mouseY);
+      xTo(e.clientX);
+      yTo(e.clientY);
     };
 
-    // Attach mousemove event listener
     window.addEventListener("pointermove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("pointermove", handleMouseMove);
-    };
+    return () => window.removeEventListener("pointermove", handleMouseMove);
   }, []);
 
-// Page intro
+  useEffect(() => {
+    const textPath = textPathRef.current;
+    const pathElement = document.getElementById('textPath'); // Get the path element
+  
+    // Get the total length of the path (since it wraps twice)
+    const pathLength = pathElement.getTotalLength() ; // Divide by 2 for one loop
+  
+    // Calculate dynamic repetitions based on text length
+    const baseText = currentText.trim();
+    const textLength = textPath.getComputedTextLength(); // Get the length of the base text
+    const repetitions = Math.ceil(pathLength / textLength); // Calculate repetitions needed
+    const dynamicText = baseText.repeat(repetitions);
+  
+    // Update text content
+    textPath.textContent = dynamicText;
+  
+    // Set textLength to match the path length
+    textPath.setAttributeNS(null, "textLength", pathLength);
+  
+    // GSAP marquee animation
+    if (marqueeTween.current) marqueeTween.current.kill(); // Kill existing tween
+  
+    marqueeTween.current = gsap.fromTo(
+      textPath,
+      { attr: { startOffset: "0%" } },
+      {
+        attr: { startOffset: "50%" }, 
+        duration: 25,
+        ease: "none",
+        repeat: -1,
+      }
+    );
+  
+    return () => {
+      if (marqueeTween.current) marqueeTween.current.kill();
+    };
+  }, [currentText]);
+
+  const handleHover = text => {
+    setCurrentText(`${text} •`);
+  };
+
+  const handleleave = () => {
+    setCurrentText(`      `);
+  };
+
   useEffect(() => {
     const context = gsap.context(() => {
-      const tl = gsap.timeline({delay:0.5});
-
-      tl.add(animateHome(heroRef));
-      // tl.add(animateHomeFoot(containerRef), "-=90%");
-
+      gsap.timeline({ delay: 0.5 }).add(animateHome(heroRef));
     }, heroRef);
 
-    return () => context.revert(); // Cleanup on unmount
+    return () => context.revert();
   }, []);
 
   return (
@@ -59,28 +100,68 @@ function Home() {
         id='masker'
       >
         <filter id='blur-image' colorInterpolationFilters='sRGB'>
-          <feGaussianBlur in='SourceGraphic' stdDeviation='15 30' result='blur'></feGaussianBlur>
-          {/* <feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch' />
-          <feColorMatrix type='saturate' values='0' result='grain' />
-          <feComposite operator='in' in='blur' in2='grain' /> */}
+          <feGaussianBlur in='SourceGraphic' stdDeviation='15 30' result='blur' />
         </filter>
 
-        <mask id='blur-mask'>
-          <rect x='0' y='0' height='150' width='250' rx='10' fill='#fff' ref={svgRef} id='mask' />
-        </mask>
+        <image xlinkHref='./ibro.jpg' width='100%' height='100%' preserveAspectRatio='xMidYMax slice' filter='url(#blur-image)' />
+        <image xlinkHref='./ibro.jpg' width='100%' height='100%' preserveAspectRatio='xMidYMax slice' mask='url(#blur-mask)' />
 
-        <image xlinkHref='./ibro.jpg' width='100%' height='100%' filter='url(#blur-image)' preserveAspectRatio='xMidYMax slice' />
-        <image xlinkHref='./ibro.jpg' width='100%' height='100%' mask='url(#blur-mask)' preserveAspectRatio='xMidYMax slice' />
+        <g >
+          <path
+          ref={svgRef} x='0' y='0'
+            id='textPath'
+            fill='none'
+            d='M10 0h205s10 0 10 10v105s0 10 -10 10h-205s-10 0 -10 -10v-105s0 -10 10 -10
+            M10 0h205s10 0 10 10v105s0 10 -10 10h-205s-10 0 -10 -10v-105s0 -10 10 -10'
+          />
+
+          <text
+            text-anchor='middle'
+            alignment-baseline='hanging'
+            // x="5"
+            style={{
+              fill: "white",
+              fontSize: "100%",
+              textTransform: "uppercase",
+              fontVariantNumeric: "tabular-nums",
+              fontFamily: "monospace",
+              fontWeight: "bolder",
+              whiteSpace: 'pre'
+            }}
+          >
+            <textPath ref={textPathRef} 
+            href='#textPath' 
+            // lengthAdjust='spacingAndGlyphs' 
+            spacing='auto' 
+            // textLength='2712'
+            >
+              {currentText}
+            </textPath>
+          </text>
+        </g>
+        <mask id='blur-mask'>
+          <rect x='0' y='0' ref={maskRef} width='250' height='150' rx='10' fill='#fff' />
+        </mask>
       </svg>
+
       <h1 className='bigName'>IBRAHIM SHUAIB</h1>
+
       <div className='menu'>
         <div className='menuCol'>
-          <Link to={"/bio"}>Bio</Link>
-          <Link to={"/cv"}>CV</Link>
+          <Link to='/bio' onMouseEnter={() => handleHover("BIO ")} onMouseLeave={() => handleleave()}>
+            Bio
+          </Link>
+          <Link to='/cv' onMouseEnter={() => handleHover("CV")} onMouseLeave={() => handleleave()}>
+            CV
+          </Link>
         </div>
         <div className='menuCol'>
-          <Link to={"/works"}>Works</Link>
-          <Link to={"/contact"}>Contact</Link>
+          <Link to='/works' onMouseEnter={() => handleHover("WORKS")} onMouseLeave={() => handleleave()}>
+            Works
+          </Link>
+          <Link to='/contact' onMouseEnter={() => handleHover("CONTACT")} onMouseLeave={() => handleleave()}>
+            Contact
+          </Link>
         </div>
       </div>
     </section>
