@@ -94,6 +94,9 @@
     object-fit: cover;
     -o-object-position: 0 100%;
     object-position: 0 100%;
+    mask {
+      will-change: transform, opacity;
+    }
   }
 
   div:has(.bDetail) {

@@ -2,14 +2,20 @@ import React, { useEffect, useRef } from "react";
 import "../Style/Subpages.scss";
 import gsap from "gsap";
 import useFetch from "../Hooks/useFetch";
+import useIsMobile from "../Util/isMobile";
 
 const Bio = () => {
   const svgRef = useRef([]);
   const bImageRef = useRef(null);
+  const isMobile = useIsMobile(700);
+
   useEffect(() => {
+    const svgWidth = bImageRef.current.clientWidth;
+    const svgHeight = bImageRef.current.clientHeight;
+
     const generateRandomPosition = (maskWidth, maskHeight) => {
-      const maxWidth = bImageRef.current.clientWidth - maskWidth;
-      const maxHeight = bImageRef.current.clientHeight - maskHeight;
+      const maxWidth = svgWidth - maskWidth;
+      const maxHeight = svgHeight - maskHeight;
       return {
         x: Math.random() * maxWidth,
         y: Math.random() * maxHeight,
@@ -17,7 +23,6 @@ const Bio = () => {
     };
 
     const generateRandomWidth = () => {
-      const svgWidth = bImageRef.current.clientWidth;
       return Math.random() * (svgWidth * 0.4) + svgWidth * 0.2; // Between 10% to 50% of SVG width
     };
 
@@ -29,40 +34,56 @@ const Bio = () => {
         let position;
         let maskWidth;
         let attempts = 0;
+        const maxAttempts = isMobile ? 50 : 100;
 
         // Ensure non-overlapping positions
         do {
           maskWidth = generateRandomWidth();
           position = generateRandomPosition(maskWidth, maskHeight);
           attempts++;
-        } while (positions.some(p => Math.abs(p.x - position.x) < maskWidth && Math.abs(p.y - position.y) < maskHeight) && attempts < 100);
+        } while (
+          positions.some(p => Math.abs(p.x - position.x) < maskWidth && Math.abs(p.y - position.y) < maskHeight) &&
+          attempts < maxAttempts
+        );
 
         positions.push({ ...position, width: maskWidth });
         gsap.to(mask, {
           x: position.x,
           y: position.y,
           width: maskWidth,
-          duration: 0.5,
+          duration: 1,
           ease: "expo.inOut",
         });
       });
     };
 
-    // Gradual color shift for filters
     const startColorShift = () => {
+      if (isMobile) return;
+
       const randomColorMatrix = () => {
-        return `${Math.random()} ${Math.random()} ${Math.random()} 0 0  ${Math.random()} ${Math.random()} ${Math.random()} 0 0  ${Math.random()} ${Math.random()} ${Math.random()} 0 0  0 0 0 1 0`;
+        const randomValue = () => (Math.random() - 0.5).toFixed(2); // Random value between -0.5 and 0.5
+
+        // return `
+        //   ${randomValue()} 0 0 0 0
+        //   0 ${randomValue()} 0 0 0
+        //   0 0 ${randomValue()} 0 0
+        //   0 0 0 1 0`;
+        return `
+        ${randomValue()} ${randomValue()} ${randomValue()} 0 0 
+        ${randomValue()} ${randomValue()} ${randomValue()} 0 0  
+        ${randomValue()} ${randomValue()} ${randomValue()} 0 0  
+        0 0 0 1 0`;
       };
 
       gsap.to("#Rfilter feColorMatrix", {
         attr: { values: randomColorMatrix() },
-        duration: 5,
+        duration: 10,
         repeat: -1,
         yoyo: true,
       });
       gsap.to("#Gfilter feColorMatrix", {
         attr: { values: randomColorMatrix() },
-        duration: 5,
+        duration: 10,
         delay: 1,
 
         repeat: -1,
@@ -70,7 +91,7 @@ const Bio = () => {
       });
       gsap.to("#Bfilter feColorMatrix", {
         attr: { values: randomColorMatrix() },
-        duration: 5,
+        duration: 10,
         delay: 3,
         repeat: -1,
         yoyo: true,
@@ -78,6 +99,8 @@ const Bio = () => {
     };
 
     const addParallaxEffect = () => {
+      if (isMobile) return; // Disable parallax on mobile
+
       const handleMouseMove = e => {
         const { clientX, clientY } = e;
         const { innerWidth, innerHeight } = window;
@@ -104,6 +127,7 @@ const Bio = () => {
     };
 
     const handleMaskIntersections = () => {
+      if (isMobile) return;
       svgRef.current.forEach((mask1, i) => {
         svgRef.current.forEach((mask2, j) => {
           if (i !== j) {
@@ -131,7 +155,12 @@ const Bio = () => {
       });
     };
 
-    updateMaskPositions();
+    setTimeout(
+      () => {
+        updateMaskPositions();
+      },
+      isMobile ? 2000 : 100
+    );
     startColorShift();
     const cleanupParallax = addParallaxEffect();
     handleMaskIntersections();
@@ -142,11 +171,9 @@ const Bio = () => {
       clearInterval(interval);
       cleanupParallax();
     };
-  }, []);
+  }, [isMobile]);
 
-  const { loading, data, error } = useFetch(
-    "http://localhost:1337/api/bios?"
-  );
+  const { loading, data, error } = useFetch("http://localhost:1337/api/bios?");
 
   return (
     <section className='bio'>
@@ -189,30 +216,11 @@ const Bio = () => {
         {/* Masks */}
         {[0, 1, 2, 3].map((_, index) => (
           <mask id={`mask-${index}`} key={index}>
-            <rect
-              x='0'
-              y='0'
-              height='50%'
-              width='40%'
-              rx='2'
-              // stroke="gray"
-              // strokeWidth={10}
-              fill='#fff'
-              ref={el => (svgRef.current[index] = el)}
-            />
+            <rect x='0' y='0' height='50%' width='40%' rx='2' fill='gray' ref={el => (svgRef.current[index] = el)} />
           </mask>
         ))}
         <mask id='staticMask'>
-          <rect
-            x='25%'
-            y='50%'
-            height='10%'
-            width='50%'
-            rx='2'
-            // stroke="gray"
-            // strokeWidth={10}
-            fill='#fff'
-          />
+          <rect x='25%' y={`${isMobile ? "65%" : "50%"}`} height='10%' width='50%' rx='2' fill='#fff' />
         </mask>
         {/* Images */}
         <image
@@ -252,16 +260,12 @@ const Bio = () => {
       <div>
         <div className='bDetail'>
           <span>
-          {data?.map((bio) => (
-            <p>
-              {bio?.bioHead}
-            </p>
-          ))}
+            {data?.map(bio => (
+              <p>{bio?.bioHead}</p>
+            ))}
           </span>
-          {data?.map((bio) => (
-            <p>
-              {bio?.bioBody}
-            </p>
+          {data?.map(bio => (
+            <p>{bio?.bioBody}</p>
           ))}
           {/* <p>
             As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the
