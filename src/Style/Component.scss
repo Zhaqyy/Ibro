@@ -149,7 +149,7 @@
         --b: 0.125rem;
         --c: 0.25rem;
         --r: 1rem;
-        
+
         a {
           border: solid var(--b) transparent;
           padding: 2px;
@@ -212,7 +212,11 @@
     inset: 0;
     overflow: hidden;
     display: none;
-
+    outline: hsl(0deg 0% 100% / 25%) 2px solid;
+    outline-offset: -2rem;
+    align-content: center;
+    background: var(--accent);
+    z-index: 1000;
     // horizontal
     // clip-path: polygon(50% 0%,0% 0%,0% 100%,50% 100%,50% 0%,100% 0%,100% 100%,50% 100%);
 
@@ -223,8 +227,10 @@
     // -webkit-mask: radial-gradient(20% 40%,#0000 100%,#000) 0 0;
     // mask: radial-gradient(20% 40%,#0000 100%,#000) 0 0;
 
-    background: var(--accent);
-    z-index: 1000;
+    h1 {
+      font-size: clamp(1rem, 10vw, 10vw);
+      justify-self: center;
+    }
   }
 
   &Text {

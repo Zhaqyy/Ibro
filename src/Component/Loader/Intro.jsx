@@ -3,6 +3,7 @@ import "../../Style/Component.scss";
 import gsap from "gsap";
 import Logo from "../Logo";
 import useIsMobile from "../../Util/isMobile";
+import TextSplit from "../../Util/TextSplit";
 
 const Intro = ({ timeline, onComplete }) => {
   const loaderRef = useRef(null);
@@ -20,7 +21,22 @@ const Intro = ({ timeline, onComplete }) => {
     return () => context.revert(); // Cleanup on unmount
   }, [timeline, onComplete]);
 
-  return <div className={"loaderWrapper"} ref={loaderRef}></div>;
+  return (
+    <div className={"loaderWrapper"} ref={loaderRef}>
+      <TextSplit
+        as='h1'
+        animateInView={true}
+        hover={false}
+        // animationConfig={{
+        //   options: {
+        //     stagger: 0.2,
+        //   }
+        // }}
+      >
+        IBRAHIM SHUAIB
+      </TextSplit>
+    </div>
+  );
 };
 
 export default Intro;
@@ -43,7 +59,8 @@ export const progressAnimation = (loaderRef, onComplete) => {
       ease: "sine.in",
     },
     "<"
-  ).call(onComplete, null, ">");
+  )
+  .call(onComplete, null, ">");
 
   tl.set(loaderRef.current, {
     display: "none",
