@@ -5,33 +5,31 @@ import Logo from "../Logo";
 import useIsMobile from "../../Util/isMobile";
 import TextSplit from "../../Util/TextSplit";
 
+const FONT_CLASSES = ["font1", "font2", "font3", "font4"];
+
 const Intro = ({ timeline, onComplete }) => {
   const loaderRef = useRef(null);
-  // const eyeRef = useRef(null);
-  // const progressNumberRef = useRef(null);
-  // const isMobile = useIsMobile(800);
+  const textSplitRef = useRef(null);
 
   useEffect(() => {
     const context = gsap.context(() => {
       if (timeline) {
-        timeline.add(progressAnimation(loaderRef, onComplete), 0);
+        timeline.add(introAnimation(loaderRef, textSplitRef, onComplete), 0);
       }
     }, loaderRef);
 
-    return () => context.revert(); // Cleanup on unmount
+    return () => context.revert();
   }, [timeline, onComplete]);
 
   return (
     <div className={"loaderWrapper"} ref={loaderRef}>
       <TextSplit
+        ref={textSplitRef}
         as='h1'
-        animateInView={true}
+        animateInView={false} // We'll handle animation manually
         hover={false}
-        // animationConfig={{
-        //   options: {
-        //     stagger: 0.2,
-        //   }
-        // }}
+        splitBy='char'
+        unitAs='span'
       >
         IBRAHIM SHUAIB
       </TextSplit>
@@ -41,25 +39,68 @@ const Intro = ({ timeline, onComplete }) => {
 
 export default Intro;
 
-export const progressAnimation = (loaderRef, onComplete) => {
+export const introAnimation = (loaderRef, textSplitRef, onComplete) => {
   const tl = gsap.timeline();
-
+  const chars = textSplitRef.current?.querySelectorAll(".animated-unit") || [];
+  const randomFont = FONT_CLASSES[Math.floor(Math.random() * FONT_CLASSES.length)];
   tl.set(loaderRef.current, {
     display: "block",
   });
 
-  tl.fromTo(
-    loaderRef.current,
+  chars.forEach((char, index) => {
+    const randomFonts = FONT_CLASSES[Math.floor(Math.random() * FONT_CLASSES.length)];
+    tl.set(char, { className: `${randomFonts} animated-unit`, autoAlpha: 0, y: 25 }, 0);
+
+    tl.to(
+      char,
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "back.out(2)",
+        delay: index * 0.05,
+      },
+      0
+    );
+  });
+
+  // Unify fonts after all chars are visible
+  tl.to(
+    chars,
     {
-      autoAlpha: 0,
+      className: `${randomFont} animated-unit`,
+      duration: 1.5,
+      ease: "power4.inOut",
+      stagger: 0.1,
     },
-    {
-      autoAlpha: 1,
-      duration: 0.05,
-      ease: "sine.in",
-    },
-    "<"
-  )
+    ">+=0.5"
+  );
+
+  // Zoom effect
+  tl.to(loaderRef.current, {
+    scale: 5,
+    opacity:0,
+    filter: 'blur(100px)',
+    duration: 1,
+    ease: "expo.in"
+  }, ">")
+
+  // tl.fromTo(
+  //   loaderRef.current,
+  //   {
+  //     autoAlpha: 0,
+  //   },
+  //   {
+  //     autoAlpha: 1,
+  //     duration: 0.05,
+  //     ease: "sine.in",
+  //   },
+  //   "<"
+  // )
+  // tl.to(loaderRef.current, {
+  //   autoAlpha: 0,
+  //   duration: 0.5,
+  // })
   .call(onComplete, null, ">");
 
   tl.set(loaderRef.current, {

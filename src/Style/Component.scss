@@ -228,8 +228,41 @@
     // mask: radial-gradient(20% 40%,#0000 100%,#000) 0 0;
 
     h1 {
-      font-size: clamp(1rem, 10vw, 10vw);
+      font-size: clamp(1rem, 10vw, 6vw);
       justify-self: center;
+      font-variant-numeric: tabular-nums;
+      font-size-adjust: from-font;
+      text-transform: uppercase;
+      width: calc(100% - 4rem);
+      height: 100%;
+      text-align: center;
+      align-content: center;
+    }
+
+    .font1 {
+      font-family: "bian";
+    }
+
+    .font2 {
+      font-family: "Pilowlava";
+    }
+
+    .font3 {
+      font-family: "icode";
+      font-size: clamp(1rem, 9vw, 9vw);
+    }
+
+    .font4 {
+      font-family: "Mourier";
+    }
+
+    .animated-unit {
+      display: inline-block !important;
+      will-change: transform, opacity;
+      // width: 1ch;
+      // min-width: 70px;
+      opacity: 0;
+      visibility: hidden;
     }
   }
 
@@ -277,6 +310,14 @@
     svg {
       max-width: 50%;
       rotate: 0deg;
+    }
+  }
+  .loaderWrapper {
+    .font3 {
+      font-size: clamp(1rem, 9vw, 12vw);
+    }
+    h1 {
+      font-size: clamp(1rem, 6vw, 8vw);
     }
   }
 }

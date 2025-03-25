@@ -62,6 +62,38 @@ html.lenis body {
   src: url("/Font/Syne.woff2") format("woff2");
 }
 
+@font-face {
+  font-display: swap;
+  font-family: "bian";
+  font-style: normal;
+  /* // font-weight: 400; */
+  src: url("/Font/bian.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Mourier";
+  font-style: normal;
+  /* // font-weight: 400; */
+  src: url("/Font/Mourier.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "icode";
+  font-style: normal;
+  /* // font-weight: 400; */
+  src: url("/Font/icode.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Pilowlava";
+  font-style: normal;
+  /* // font-weight: 400; */
+  src: url("/Font/Pilowlava.woff2") format("woff2");
+}
+
 /* //   @font-face {
 //     font-family: 'Syne';
 //     src:
