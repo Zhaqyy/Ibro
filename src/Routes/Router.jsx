@@ -24,10 +24,10 @@ const Router = () => {
 
   return (
     <>
-      {/* <Loader onComplete={() => setLoaderFinished(true)} /> */}
+      <Loader onComplete={() => setLoaderFinished(true)} />
 
       {/* Render routes only after the loader signals completion */}
-      {/* {loaderFinished && ( */}
+      {loaderFinished && (
         <>
           {/* Conditionally render Header based on the route */}
           {!excludedRoutes.includes(location.pathname) && <Header />}
@@ -85,7 +85,7 @@ const Router = () => {
             /> */}
           </Routes>
         </>
-      {/* )} */}
+      )}
     </>
   );
 };
