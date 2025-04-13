@@ -13,12 +13,6 @@ const Cursor = () => {
   const excludedRoutes = ["/"];
   useEffect(() => {
     const isExcluded = excludedRoutes.includes(location.pathname);
-    // if (ref.current) return;
-    // gsap.set(ref.current, {
-    //   xPercent: -50,
-    //   yPercent: -50,
-    // });
-    // gsap.set(ref.current, { x: -100, y: -100, xPercent: -50, yPercent: -50 });
     // start from center
     gsap.set(ref.current, { x: window.innerWidth / 2, y: window.innerHeight / 2, xPercent: -50, yPercent: -50 });
 
@@ -55,8 +49,8 @@ const Cursor = () => {
     // };
 
     const handleMouseMove = e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.pageX;
+      mouseY = e.pageY;
 
       // Calculate distance and rotation on each mouse move
       //   calculateDistance();

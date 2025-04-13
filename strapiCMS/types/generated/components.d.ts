@@ -9,7 +9,9 @@ export interface GroupitemGroupitem extends Struct.ComponentSchema {
   attributes: {
     gPlace: Schema.Attribute.Text;
     gTitle: Schema.Attribute.String;
-    Year: Schema.Attribute.BigInteger & Schema.Attribute.DefaultTo<"2004">;
+    link: Schema.Attribute.String;
+    range: Schema.Attribute.String;
+    Year: Schema.Attribute.BigInteger;
   };
 }
 

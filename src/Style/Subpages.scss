@@ -146,7 +146,7 @@
     position: sticky;
     top: 0;
     left: 0;
-    translate: 0 -2.5vh;
+    translate: 0 -10.5vh;
     overflow: visible;
 
     img {
@@ -154,7 +154,7 @@
       object-fit: cover;
       width: 100%;
       // add 3% to offset image height
-      height: 103%;
+      height: 103vh;
       overflow: visible;
       rotate: 180deg;
       //to make the image start outta sight
@@ -186,10 +186,30 @@
 
         .gItemTitle {
           min-width: 20%;
+          width: 100%;
+          align-self: end;
+          text-transform: capitalize;
         }
 
         .gItemPlace {
           width: 100%;
+          align-self: end;
+        }
+        .gItemLink {
+          min-width: -webkit-fit-content;
+          min-width: -moz-fit-content;
+          min-width: fit-content;
+          transition: all 0.25s ease-in-out;
+          
+          &:hover {
+            color: hsl(252, 100%, 86%);
+            text-decoration: overline;
+          }
+        }
+        p.gItemYear {
+          min-width: -webkit-fit-content;
+          min-width: -moz-fit-content;
+          min-width: fit-content;
         }
       }
     }

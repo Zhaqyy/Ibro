@@ -13,8 +13,13 @@
       "type": "text"
     },
     "Year": {
-      "type": "biginteger",
-      "default": "2004"
+      "type": "biginteger"
+    },
+    "range": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
     }
   }
 }
