@@ -4,7 +4,7 @@ import useFetch from "../Hooks/useFetch";
 
 const CV = () => {
   const { loading, data, error } = useFetch(
-    "http://localhost:1337/api/cv-groups?populate=*"
+    "http://localhost:1337/api/cv-groups?populate=*&sort=createdAt"
   );
 
   const handRef = useRef(null);
@@ -32,7 +32,7 @@ const CV = () => {
           duration: 1,
           opacity: 0,
           y: 15,
-          stagger: 0.2,
+          stagger: 0.25,
           ease: "power3.out",
         });
 
