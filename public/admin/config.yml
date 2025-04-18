@@ -6,20 +6,20 @@ media_folder: "public/images/uploads" # Media files will be stored in the repo u
 public_folder: "/images/uploads"
 
 display_url: https://ibrahimshuaib.netlify.app
-
 collections:
-  - name: "bio" # Used in routes, e.g., /admin/collections/bio
-    label: "Bio" # Used in the UI
-    folder: "Pages/bio" # The path to the folder where the documents are stored
-    extension: json
-    format: json
-    create: false
-    file: "src/Data/bio.json"
-    slug: "bio" # Filename template
-    fields:
-      - { name: "bioHead", label: "Bio Heading", widget: "string" }
-      - name: "bioBody"
-        label: "Bio Paragraphs"
-        widget: "list"
-        fields:
-          - { name: "paragraph", label: "Paragraph", widget: "text" }
+  - name: "pages"
+    label: "Pages"
+    files:
+    - label: "Bio"
+      name: "bio"
+      extension: json
+      format: json
+      file: "src/Data/bio.json"
+      slug: "bio"
+      fields:
+        - { name: "bioHead", label: "Bio Heading", widget: "string" }
+        - name: "bioBody"
+          label: "Bio Paragraphs"
+          widget: "list"
+          fields:
+            - { name: "paragraph", label: "Paragraph", widget: "text" }
