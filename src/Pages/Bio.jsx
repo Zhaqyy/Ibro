@@ -3,6 +3,7 @@ import "../Style/Subpages.scss";
 import gsap from "gsap";
 import useFetch from "../Hooks/useFetch";
 import useIsMobile from "../Util/isMobile";
+import bioData from "../Data/bio.json";
 
 const Bio = () => {
   const svgRef = useRef([]);
@@ -173,8 +174,6 @@ const Bio = () => {
     };
   }, [isMobile]);
 
-  const { loading, data, error } = useFetch("http://localhost:1337/api/bios?");
-
   return (
     <section className='bio'>
       <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' id='bImage' ref={bImageRef}>
@@ -259,27 +258,35 @@ const Bio = () => {
       <hr />
       <div>
         <div className='bDetail'>
-          <span>
-            {data?.map(bio => (
-              <p>{bio?.bioHead}</p>
-            ))}
-          </span>
-          {data?.map(bio => (
-            <p>{bio?.bioBody}</p>
-          ))}
-          {/* <p>
-            As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the
-            existential questions of life to better understand them and help ease the difficulties of life's journeys.
-            <br />
-            <br />
-            Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most
-            consistent and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium he
-            works with to create works that are both thought-provoking and aesthetically pleasing.
-            <br />
-            <br />
-            Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a
-            unique and impactful way.
-          </p> */}
+          {bioData?.bio?.length > 0 && bioData.bio[0]?.bioHead ? (
+            <span>
+              <p>{bioData.bio[0]?.bioHead}</p>
+            </span>
+          ) : (
+            <span>
+              <p>About Ibrahim Shuaib</p>
+            </span>
+          )}
+
+          {bioData?.bio?.length > 0 && bioData.bio[0]?.bioBody ? (
+            bioData.bio[0].bioBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)
+          ) : (
+            <>
+              <p>
+                As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify
+                the existential questions of life to better understand them and help ease the difficulties of life's journeys.
+                <br />
+                <br />
+                Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most
+                consistent and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium
+                he works with to create works that are both thought-provoking and aesthetically pleasing.
+                <br />
+                <br />
+                Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a
+                unique and impactful way.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </section>

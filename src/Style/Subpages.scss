@@ -120,6 +120,9 @@
     }
     & > p {
       white-space: pre-line;
+      &:not(:last-of-type){
+        margin-bottom: 1rem;
+      }
     }
   }
 }
