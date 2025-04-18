@@ -8,7 +8,8 @@
     "build": "strapi build",
     "start": "strapi start",
     "deploy": "strapi deploy",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "strapig": "strapi configuration:restore|config:restore"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.10.3",

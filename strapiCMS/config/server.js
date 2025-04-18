@@ -4,6 +4,12 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
+  
+  url: process.env.HEROKU_URL,
+  admin: {
+    url: '/dashboard',
+    secret: 'zVjfvgfS6Zi+iyRKIJq9LQ=='
+  },
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
