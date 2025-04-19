@@ -1,11 +1,13 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import useFetch from "../Hooks/useFetch";
+import cvData from "../Data/CV.json";
 
 const CV = () => {
-  const { loading, data, error } = useFetch(
-    "http://localhost:1337/api/cv-groups?populate=*&sort=createdAt"
-  );
+  // const { loading, data, error } = useFetch(
+  //   "http://localhost:1337/api/cv-groups?populate=*&sort=createdAt"
+  // );
+  const data = cvData.cvGroups || [];
 
   const handRef = useRef(null);
   const cvWrapperRef = useRef(null);
@@ -25,7 +27,7 @@ const CV = () => {
 
   // Content entry animation
   useEffect(() => {
-    if (!loading && data && cvWrapperRef.current) {
+    if ( data && cvWrapperRef.current) {
       const ctx = gsap.context(() => {
         // Animate groups
         gsap.from(".cvGroup", {
@@ -49,10 +51,10 @@ const CV = () => {
 
       return () => ctx.revert();
     }
-  }, [loading, data]);
+  }, [data]);
 
   // if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
+  // if (error) return <p>Error!</p>;
 // console.log(data);
 
 
@@ -63,24 +65,27 @@ const CV = () => {
       </div>
 
       <div className='cvWrapper' ref={cvWrapperRef}>
-      {data?.map((group) => (
-        
-          <div className='cvGroup' key={group.documentId}>
-            <h2 className='gTitle'>{group.gItemTitle}</h2>
-            <hr />
-            <ul className='gItemList'>
-              {group?.item?.map((item) => (
-                <li className='gItem' key={item.id}>
-                  <h4 className='gItemTitle'>{item.gTitle}</h4>
-                  {item.gPlace ? <p className='gItemPlace'>{item.gPlace}</p> : null}
-                  {item.link ? <a href='item.link' className='gItemLink'>🌐{item.gTitle}🌐</a> : null}
-                  {item.Year ? <p className='gItemYear'>{item.Year}</p> : null}
-                  {item.range ? <p className='gItemYear'>{item.range}</p> : null}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      {data.map((group) => (
+        <div className='cvGroup' key={group.documentId}>
+          <h2 className='gTitle'>{group.gItemTitle}</h2>
+          <hr />
+          <ul className='gItemList'>
+            {group?.item?.map((item) => (
+              <li className='gItem' key={item.id}>
+                <h4 className='gItemTitle'>{item.gTitle}</h4>
+                {item.gPlace ? <p className='gItemPlace'>{item.gPlace}</p> : null}
+                {item.link ? (
+                  <a href={item.link} className='gItemLink'>
+                    🌐{item.gTitle}🌐
+                  </a>
+                ) : null}
+                {item.Year ? <p className='gItemYear'>{item.Year}</p> : null}
+                {item.range ? <p className='gItemYear'>{item.range}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
       </div>
     </section>
   );

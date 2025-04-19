@@ -1,0 +1,184 @@
+{
+    "cvGroups": [
+      {
+        "documentId": "exhibitions",
+        "gItemTitle": "Exhibition/Installation",
+        "item": [
+          {
+            "id": "exh1",
+            "gTitle": "Momentary voices",
+            "gPlace": "Alternator Centre for Contemporary Art (Forthcoming Solo)",
+            "Year": "2025"
+          },
+          {
+            "id": "exh2",
+            "gTitle": "Cartography of emotions",
+            "gPlace": "Plugin ICA",
+            "Year": "2024"
+          },
+          {
+            "id": "exh3",
+            "gTitle": "Prairie fever",
+            "gPlace": "Videopool MAC",
+            "Year": "2024"
+          },
+          {
+            "id": "exh4",
+            "gTitle": "Momentary voices",
+            "gPlace": "Ace Art Gallery",
+            "Year": "2024"
+          },
+          {
+            "id": "exh5",
+            "gTitle": "Weaving threads of time",
+            "gPlace": "Prairie fusion Art Gallery (Solo)",
+            "Year": "2024"
+          },
+          {
+            "id": "exh6",
+            "gTitle": "Members show",
+            "gPlace": "Ace Art Gallery",
+            "Year": "2023"
+          },
+          {
+            "id": "exh7",
+            "gTitle": "Salon",
+            "gPlace": "158H Tache Arts Complex",
+            "Year": "2023"
+          },
+          {
+            "id": "exh8",
+            "gTitle": "Symphony",
+            "gPlace": "School of Art Student Gallery (Solo)",
+            "Year": "2022"
+          },
+          {
+            "id": "exh9",
+            "gTitle": "Fleet gallery",
+            "gPlace": "Fleet Gallery",
+            "Year": "2022"
+          },
+          {
+            "id": "exh10",
+            "gTitle": "Juxt",
+            "gPlace": "Tache Gallery",
+            "Year": "2019"
+          },
+          {
+            "id": "exh11",
+            "gTitle": "Nuit blanche",
+            "gPlace": "Flux Gallery",
+            "Year": "2019"
+          },
+          {
+            "id": "exh12",
+            "gTitle": "Women of color",
+            "gPlace": "School of Art Gallery",
+            "Year": "2018"
+          }
+        ]
+      },
+      {
+        "documentId": "residencies",
+        "gItemTitle": "Residencies",
+        "item": [
+          {
+            "id": "res1",
+            "gTitle": "Cartography of emotions",
+            "gPlace": "Plugin ICA summer institute",
+            "Year": "2024"
+          },
+          {
+            "id": "res2",
+            "gTitle": "Prairie fever",
+            "gPlace": "Videopool MAC",
+            "Year": "2024"
+          }
+        ]
+      },
+      {
+        "documentId": "education",
+        "gItemTitle": "Education",
+        "item": [
+          {
+            "id": "edu1",
+            "gTitle": "Bachelor of fine art",
+            "gPlace": "University of Manitoba"
+          }
+        ]
+      },
+      {
+        "documentId": "volunteer",
+        "gItemTitle": "Arts and culture volunteer history",
+        "item": [
+          {
+            "id": "vol1",
+            "gTitle": "ArtCity",
+            "range": "2019 – 2022"
+          },
+          {
+            "id": "vol2",
+            "gTitle": "Altered mind",
+            "range": "2021 – 2023"
+          },
+          {
+            "id": "vol3",
+            "gTitle": "Band aid for soul university of manitoba",
+            "range": "2019 – 2020"
+          }
+        ]
+      },
+      {
+        "documentId": "affiliations",
+        "gItemTitle": "Professional membership/affiliations",
+        "item": [
+          {
+            "id": "aff1",
+            "gTitle": "Ace art gallery",
+            "range": "2020 – Present"
+          },
+          {
+            "id": "aff2",
+            "gTitle": "Media crib",
+            "range": "2019 – 2021"
+          }
+        ]
+      },
+      {
+        "documentId": "publications",
+        "gItemTitle": "Publications",
+        "item": [
+          {
+            "id": "pub1",
+            "gTitle": "School of art student gallery",
+            "link": "https://umanitoba.ca/art/student-gallery"
+          },
+          {
+            "id": "pub2",
+            "gTitle": "Weaving threads of time",
+            "link": "https://www.prairiefusion.ca/events-all/weaving-threads-of-time"
+          },
+          {
+            "id": "pub3",
+            "gTitle": "Symphony exhibition",
+            "link": "https://www.gallerieswest.ca/events/ibrahim-schuaib-%7C-symphony/"
+          },
+          {
+            "id": "pub4",
+            "gTitle": "Portage events",
+            "link": "https://portage.awevents.ca/events/147991"
+          },
+          {
+            "id": "pub5",
+            "gTitle": "Videopool residency",
+            "link": "https://videopool.org/video-commission-residency-vol-2-recipients/"
+          },
+          {
+            "id": "pub6",
+            "gTitle": "Plugin ICA summer institute",
+            "link": "https://plugin.org/exhibitions/summer-institute-2024-cartography-of-emotions/"
+          }
+        ]
+      }
+    ]
+  }
