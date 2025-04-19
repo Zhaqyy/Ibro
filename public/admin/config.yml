@@ -23,6 +23,7 @@ collections:
           widget: "list"
           fields:
             - { name: "paragraph", label: "Paragraph", widget: "text" }
+
     - label: "CV"
       name: "cv"
       file: "src/data/cv.json"

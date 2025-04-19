@@ -1,24 +1,14 @@
 {
-  "bio": [
-    {
-      "bioHead": "About Ibrahim Shuaib",
-      "bioBody": [
-        "As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the existential questions of life to better understand them and help ease the difficulties of life's journeys.",
-        "Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most consistent and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium he works with to create works that are both thought-provoking and aesthetically pleasing.",
-        "Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a unique and impactful way."
-      ]
-    }
-  ],
-  "bioHead": "Ibro ibro",
+  "bioHead": "About Ibrahim Shuaib",
   "bioBody": [
     {
-      "paragraph": "Rosco nih deeperlife "
+      "paragraph": "As a self-taught artist, he finds inspiration in the interplay of chaos and tranquility within himself and seeks to simplify the existential questions of life to better understand them and help ease the difficulties of life's journeys."
     },
     {
-      "paragraph": "iwo sinner man"
+      "paragraph": "Throughout his artistic career, Ibrahim has explored various forms of self-expression, but has found art to be his most consistent and stable medium. He is constantly experimenting with different techniques and pushing the limits of each medium he works with to create works that are both thought-provoking and aesthetically pleasing."
     },
     {
-      "paragraph": "tile batimo ma pe dealer mih"
+      "paragraph": "Ibrahim's art often tackles topics that are commonly avoided, using direction and misdirection to convey his messages in a unique and impactful way."
     }
   ]
 }

@@ -173,7 +173,6 @@ const Bio = () => {
       cleanupParallax();
     };
   }, [isMobile]);
-
   return (
     <section className='bio'>
       <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' id='bImage' ref={bImageRef}>
@@ -258,18 +257,18 @@ const Bio = () => {
       <hr />
       <div>
         <div className='bDetail'>
-          {bioData?.bio?.length > 0 && bioData.bio[0]?.bioHead ? (
+          {bioData?.bioHead ? (
             <span>
-              <p>{bioData.bio[0]?.bioHead}</p>
+              <p>{bioData?.bioHead}</p>
             </span>
           ) : (
             <span>
-              <p>About Ibrahim Shuaib</p>
+              <p>About Ibrahim Shuaib...</p>
             </span>
           )}
 
-          {bioData?.bio?.length > 0 && bioData.bio[0]?.bioBody ? (
-            bioData.bio[0].bioBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)
+          {bioData?.bioBody ? (
+           bioData.bioBody.map(({ paragraph }, index) => <p key={index}>{paragraph}</p>)
           ) : (
             <>
               <p>
