@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import useFetch from "../Hooks/useFetch";
-import cvData from "../Data/CV.json";
+import cvData from "../Data/cv.json";
 
 const CV = () => {
   // const { loading, data, error } = useFetch(
