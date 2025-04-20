@@ -4,7 +4,7 @@ import useFetch from "../Hooks/useFetch";
 import cvData from "../Data/cv.json";
 
 const CV = () => {
-  const data = cvData || [];
+  const data = cvData.cvGroups || [];
 
   const handRef = useRef(null);
   const cvWrapperRef = useRef(null);
@@ -58,7 +58,7 @@ const CV = () => {
       </div>
 
       <div className='cvWrapper' ref={cvWrapperRef}>
-      {data.map((group) => (
+      {data?.map((group) => (
         <div className='cvGroup' key={crypto.randomUUID()}>
           <h2 className='gTitle'>{group.gItemTitle}</h2>
           <hr />
