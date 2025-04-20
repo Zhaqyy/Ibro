@@ -1,0 +1,152 @@
+{
+    "cvGroups": [
+      {
+        "gItemTitle": "Exhibition/Installation",
+        "item": [
+          {
+            "gTitle": "Momentary voices",
+            "gPlace": "Alternator Centre for Contemporary Art (Forthcoming Solo)",
+            "Year": "2025"
+          },
+          {
+            "gTitle": "Cartography of emotions",
+            "gPlace": "Plugin ICA",
+            "Year": "2024"
+          },
+          {
+            "gTitle": "Prairie fever",
+            "gPlace": "Videopool MAC",
+            "Year": "2024"
+          },
+          {
+            "gTitle": "Momentary voices",
+            "gPlace": "Ace Art Gallery",
+            "Year": "2024"
+          },
+          {
+            "gTitle": "Weaving threads of time",
+            "gPlace": "Prairie fusion Art Gallery (Solo)",
+            "Year": "2024"
+          },
+          {
+            "gTitle": "Members show",
+            "gPlace": "Ace Art Gallery",
+            "Year": "2023"
+          },
+          {
+            "gTitle": "Salon",
+            "gPlace": "158H Tache Arts Complex",
+            "Year": "2023"
+          },
+          {
+            "gTitle": "Symphony",
+            "gPlace": "School of Art Student Gallery (Solo)",
+            "Year": "2022"
+          },
+          {
+            "gTitle": "Fleet gallery",
+            "gPlace": "Fleet Gallery",
+            "Year": "2022"
+          },
+          {
+            "gTitle": "Juxt",
+            "gPlace": "Tache Gallery",
+            "Year": "2019"
+          },
+          {
+            "gTitle": "Nuit blanche",
+            "gPlace": "Flux Gallery",
+            "Year": "2019"
+          },
+          {
+            "gTitle": "Women of color",
+            "gPlace": "School of Art Gallery",
+            "Year": "2018"
+          }
+        ]
+      },
+      {
+        "gItemTitle": "Residencies",
+        "item": [
+          {
+            "gTitle": "Cartography of emotions",
+            "gPlace": "Plugin ICA summer institute",
+            "Year": "2024"
+          },
+          {
+            "gTitle": "Prairie fever",
+            "gPlace": "Videopool MAC",
+            "Year": "2024"
+          }
+        ]
+      },
+      {
+        "gItemTitle": "Education",
+        "item": [
+          {
+            "gTitle": "Bachelor of fine art",
+            "gPlace": "University of Manitoba"
+          }
+        ]
+      },
+      {
+        "gItemTitle": "Arts and culture volunteer history",
+        "item": [
+          {
+            "gTitle": "ArtCity",
+            "range": "2019 – 2022"
+          },
+          {
+            "gTitle": "Altered mind",
+            "range": "2021 – 2023"
+          },
+          {
+            "gTitle": "Band aid for soul university of manitoba",
+            "range": "2019 – 2020"
+          }
+        ]
+      },
+      {
+        "gItemTitle": "Professional membership/affiliations",
+        "item": [
+          {
+            "gTitle": "Ace art gallery",
+            "range": "2020 – Present"
+          },
+          {
+            "gTitle": "Media crib",
+            "range": "2019 – 2021"
+          }
+        ]
+      },
+      {
+        "gItemTitle": "Publications",
+        "item": [
+          {
+            "gTitle": "School of art student gallery",
+            "link": "https://umanitoba.ca/art/student-gallery"
+          },
+          {
+            "gTitle": "Weaving threads of time",
+            "link": "https://www.prairiefusion.ca/events-all/weaving-threads-of-time"
+          },
+          {
+            "gTitle": "Symphony exhibition",
+            "link": "https://www.gallerieswest.ca/events/ibrahim-schuaib-%7C-symphony/"
+          },
+          {
+            "gTitle": "Portage events",
+            "link": "https://portage.awevents.ca/events/147991"
+          },
+          {
+            "gTitle": "Videopool residency",
+            "link": "https://videopool.org/video-commission-residency-vol-2-recipients/"
+          },
+          {
+            "gTitle": "Plugin ICA summer institute",
+            "link": "https://plugin.org/exhibitions/summer-institute-2024-cartography-of-emotions/"
+          }
+        ]
+      }
+    ]
+  }
