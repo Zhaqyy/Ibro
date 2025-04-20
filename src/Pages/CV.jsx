@@ -4,10 +4,7 @@ import useFetch from "../Hooks/useFetch";
 import cvData from "../Data/cv.json";
 
 const CV = () => {
-  // const { loading, data, error } = useFetch(
-  //   "http://localhost:1337/api/cv-groups?populate=*&sort=createdAt"
-  // );
-  const data = cvData.cvGroups || [];
+  const data = cvData || [];
 
   const handRef = useRef(null);
   const cvWrapperRef = useRef(null);
@@ -53,10 +50,6 @@ const CV = () => {
     }
   }, [data]);
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error!</p>;
-// console.log(data);
-
 
   return (
     <section className='cv'>
@@ -66,12 +59,12 @@ const CV = () => {
 
       <div className='cvWrapper' ref={cvWrapperRef}>
       {data.map((group) => (
-        <div className='cvGroup' key={group.documentId}>
+        <div className='cvGroup' key={crypto.randomUUID()}>
           <h2 className='gTitle'>{group.gItemTitle}</h2>
           <hr />
           <ul className='gItemList'>
             {group?.item?.map((item) => (
-              <li className='gItem' key={item.id}>
+              <li className='gItem' key={crypto.randomUUID()}>
                 <h4 className='gItemTitle'>{item.gTitle}</h4>
                 {item.gPlace ? <p className='gItemPlace'>{item.gPlace}</p> : null}
                 {item.link ? (

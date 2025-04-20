@@ -34,13 +34,11 @@ collections:
           label: "CV Sections"
           widget: "list"
           fields:
-            - { name: "documentId", label: "Document ID", widget: "string" }
             - { name: "gItemTitle", label: "Section Title", widget: "string" }
             - name: "item"
               label: "Items"
               widget: "list"
               fields:
-                - { name: "id", label: "Unique ID", widget: "string" }
                 - { name: "gTitle", label: "Title", widget: "string" }
                 - { name: "gPlace", label: "Place/Organization", widget: "string", required: false }
                 - { name: "Year", label: "Year", widget: "string", required: false }
