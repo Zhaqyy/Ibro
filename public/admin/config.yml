@@ -55,13 +55,11 @@ collections:
       file: "src/Data/workData.json"
       extension: json
       format: json
-      fields:
-        - name: "categories"
-          label: "Work Categories"
+     fields:
+        - { name: "bioHead", label: "Bio Heading", widget: "string" }
+        - name: "bioBody"
+          label: "Bio Paragraphs"
           widget: "list"
           fields:
-                - { name: "gTitle", label: "Title", widget: "string" }
-                - { name: "gPlace", label: "Place/Organization", widget: "string", required: false }
-                - { name: "Year", label: "Year", widget: "string", required: false }
-                - { name: "range", label: "Year Range", widget: "string", required: false }
-                - { name: "link", label: "Link URL", widget: "string", required: false }   
+            - { name: "paragraph", label: "Paragraph", widget: "text" }
+  
