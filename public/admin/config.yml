@@ -50,16 +50,22 @@ collections:
   - name: "workpage"
     label: "Work/Projects"
     files:
-    - name: "work"
-      label: "Work Data"
-      file: "src/Data/workData.json"
-      extension: json
-      format: json
-      fields:
-        - { name: "bioHead", label: "Bio Heading", widget: "string" }
-        - name: "bioBody"
-          label: "Bio Paragraphs"
-          widget: "list"
-          fields:
-            - { name: "paragraph", label: "Paragraph", widget: "text" }
-  
+      - name: "work"
+        label: "Work Data"
+        file: "src/Data/workData.json"
+        extension: json
+        format: json
+        fields:
+          - name: "categories"
+            label: "Work Categories"
+            widget: "list"
+            fields:
+              - { name: "category", label: "Category Name", widget: "string" }
+              - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
+              - name: "items"
+                label: "Items"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Item Title", widget: "string" }
+                  - { name: "src", label: "Image Path", widget: "string", required: false }
+                  - { name: "content", label: "Text Content", widget: "markdown", required: false }   
