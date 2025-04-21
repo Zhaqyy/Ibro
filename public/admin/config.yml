@@ -55,7 +55,7 @@ collections:
       file: "src/Data/workData.json"
       extension: json
       format: json
-     fields:
+      fields:
         - { name: "bioHead", label: "Bio Heading", widget: "string" }
         - name: "bioBody"
           label: "Bio Paragraphs"
