@@ -60,12 +60,8 @@ collections:
           label: "Work Categories"
           widget: "list"
           fields:
-            - { name: "category", label: "Category Name", widget: "string" }
-            - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
-            - name: "items"
-              label: "Items"
-              widget: "list"
-              fields:
-                - { name: "title", label: "Item Title", widget: "string" }
-                - { name: "src", label: "Image Path", widget: "string", required: false }
-                - { name: "content", label: "Text Content", widget: "markdown", required: false }   
+                - { name: "gTitle", label: "Title", widget: "string" }
+                - { name: "gPlace", label: "Place/Organization", widget: "string", required: false }
+                - { name: "Year", label: "Year", widget: "string", required: false }
+                - { name: "range", label: "Year Range", widget: "string", required: false }
+                - { name: "link", label: "Link URL", widget: "string", required: false }   
