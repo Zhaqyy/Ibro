@@ -47,22 +47,22 @@ collections:
                 - { name: "range", label: "Year Range", widget: "string", required: false }
                 - { name: "link", label: "Link URL", widget: "string", required: false }
 
-    - label: "Work Data"
-      name: "work"
-      file: "src/Data/workData.json"
-      extension: json
-      format: json
+  - name: "work"
+    label: "Work Data"
+    file: "src/Data/workData.json"
+    extension: json
+    format: json
+    fields:
+    - name: "categories"
+      label: "Work Categories"
+      widget: "list"
       fields:
-      - name: "categories"
-        label: "Work Categories"
-        widget: "list"
-        fields:
-          - { name: "category", label: "Category Name", widget: "string" }
-          - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
-          - name: "items"
-            label: "Items"
-            widget: "list"
-            fields:
-              - { name: "title", label: "Item Title", widget: "string" }
-              - { name: "src", label: "Image Path", widget: "string", required: false }
-              - { name: "content", label: "Text Content", widget: "markdown", required: false }   
+        - { name: "category", label: "Category Name", widget: "string" }
+        - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
+        - name: "items"
+          label: "Items"
+          widget: "list"
+          fields:
+            - { name: "title", label: "Item Title", widget: "string" }
+            - { name: "src", label: "Image Path", widget: "string", required: false }
+            - { name: "content", label: "Text Content", widget: "markdown", required: false }   
