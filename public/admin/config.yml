@@ -2,10 +2,12 @@ backend:
   name: git-gateway
   branch: decap # Branch to update (optional; defaults to master)
 
-media_folder: "public/images/uploads" # Media files will be stored in the repo under static/images/uploads
-public_folder: "/images/uploads"
+media_folder: "public/media/uploads" # Media files will be stored in the repo under 
+public_folder: "/media/uploads"
 
 display_url: https://ibrahimshuaib.netlify.app
+site_url: https://ibrahimshuaib.netlify.app
+
 collections:
   - name: "pages"
     label: "Pages"
@@ -44,3 +46,23 @@ collections:
                 - { name: "Year", label: "Year", widget: "string", required: false }
                 - { name: "range", label: "Year Range", widget: "string", required: false }
                 - { name: "link", label: "Link URL", widget: "string", required: false }
+
+    - label: "Work Data"
+      name: "work"
+      file: "src/Data/workData.json"
+      extension: json
+      format: json
+      fields:
+      - name: "categories"
+        label: "Work Categories"
+        widget: "list"
+        fields:
+          - { name: "category", label: "Category Name", widget: "string" }
+          - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
+          - name: "items"
+            label: "Items"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Item Title", widget: "string" }
+              - { name: "src", label: "Image Path", widget: "string", required: false }
+              - { name: "content", label: "Text Content", widget: "markdown", required: false }   

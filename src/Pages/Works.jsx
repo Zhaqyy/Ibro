@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
-import { workData } from "../Data/WorkData";
+// import { workData } from "../Data/WorkData";
+import workData from "../Data/workData.json";
 import "../Style/Subpages.scss";
 
 const Work = () => {
