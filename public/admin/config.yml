@@ -1,5 +1,7 @@
 backend:
   name: git-gateway
+  # name: proxy
+  # proxy_url: http://localhost:8081/api/v1
   branch: decap # Branch to update (optional; defaults to master)
 
 media_folder: "public/media/uploads" # Media files will be stored in the repo under 
@@ -61,4 +63,11 @@ collections:
             widget: "list"
             fields:
               - { name: "category", label: "Category Name", widget: "string" }
-              
+              - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
+              - name: "items"
+                label: "Items"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Item Title", widget: "string" }
+                  - { name: "src", label: "Image Path", widget: "string", required: false }
+                  - { name: "content", label: "Text Content", widget: "markdown", required: false }   

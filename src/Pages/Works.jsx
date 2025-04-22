@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
 // import { workData } from "../Data/WorkData";
-import workData from "../Data/workData.json";
+import wData from "../Data/workData.json";
 import "../Style/Subpages.scss";
 
 const Work = () => {
   const gridRef = useRef(null);
   const navigate = useNavigate();
 
+  const workData = wData.categories || []; 
   // category image randomizer
   const [randomSelections] = useState(() => {
     const selections = { text: {}, images: {} };
