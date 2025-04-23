@@ -260,7 +260,7 @@
 
       &:has(img):not(.categoryTitle)::after {
         content: "";
-        background-image: url("./cross.png");
+        background-image: url("/cross.png");
         width: 100%;
         height: 100%;
         position: absolute;
@@ -566,6 +566,8 @@
           font-size: 0.9rem;
           -moz-column-gap: 10%;
           column-gap: 10%;
+          overflow-x: hidden;
+          
           & > * {
             position: relative;
             // &::before,

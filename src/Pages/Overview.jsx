@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { workData } from "../Data/WorkData";
+// import { workData } from "../Data/WorkData";
+import wData from "../Data/workData.json";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { useLocation } from "react-router-dom";
@@ -15,6 +16,8 @@ const Overview = () => {
   const containerRef = useRef(null);
   const infoRef = useRef(null);
   const isMobile = useIsMobile(900);
+
+  const workData = wData.categories || []; 
 
   const currentCategory = workData[activeCategory];
   const itemCount = currentCategory.items.length;
@@ -299,14 +302,14 @@ const Overview = () => {
 
             <h3>`-` {currentCategory.items[safeActiveItem].title}</h3>
             <div className='poemBody'>
-              <pre ref={preRef}>{currentCategory.items[safeActiveItem].content}</pre>
+              <pre ref={preRef}>{renderPoemContent(currentCategory.items[safeActiveItem].content)}</pre>
             </div>
           </div>
         ) : (
           <div className='image-info'>
             <span>
               <div className='image-title'>{currentCategory.items[safeActiveItem].title}</div>
-              <img src={`/${currentCategory.items[safeActiveItem].src}`} alt={currentCategory.items[safeActiveItem].title} />
+              <img src={`${currentCategory.items[safeActiveItem].src}`} alt={currentCategory.items[safeActiveItem].title} />
             </span>
           </div>
         )}
@@ -326,7 +329,7 @@ const Overview = () => {
               {currentCategory.type === "text" ? (
                 <div className='poem-title'>{item.title}</div>
               ) : (
-                <img src={`/${item.src}`} alt={item.title} />
+                <img src={`${item.src}`} alt={item.title} />
               )}
             </div>
           ))}
@@ -338,3 +341,23 @@ const Overview = () => {
 };
 
 export default Overview;
+
+  // Helper function to parse HTML content
+const renderPoemContent = (htmlString) => {
+  if (!htmlString) return null;
+
+  return (
+    <>
+      {htmlString.split('<p>').filter(Boolean).map((paragraph, i) => (
+        <p key={i} className="poem-line">
+          {paragraph.replace('</p>', '').split('<br />').map((line, j) => (
+            <React.Fragment key={j}>
+              {line}
+              {j < paragraph.split('<br />').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </p>
+      ))}
+    </>
+  );
+};

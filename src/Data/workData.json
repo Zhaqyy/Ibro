@@ -1,114 +1,114 @@
 {
-    "categories": [
+  "categories": [
+    {
+      "category": "Installations",
+      "type": "images",
+      "items": [
         {
-            "category": "Installations",
-            "type": "images",
-            "items": [
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Organic Forms I"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Metallic Dreams"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Metallic Dreams"
-                },
-                {
-                    "src": "/media/uploads/hand.png",
-                    "title": "Human Touch"
-                },
-                {
-                    "src": "/media/uploads/hand.png",
-                    "title": "Human Touch"
-                },
-                {
-                    "src": "/media/uploads/hand.png",
-                    "title": "Human Touch"
-                }
-            ]
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Organic Forms I"
         },
         {
-            "category": "Sculpture",
-            "type": "images",
-            "items": [
-                {
-                    "src": "/media/uploads/scene.webp",
-                    "title": "Urban Landscape"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Abstract Emotions"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Abstract Emotions"
-                },
-                {
-                    "src": "/media/uploads/ibroAscii.png",
-                    "title": "Digital Fusion"
-                }
-            ]
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Metallic Dreams"
         },
         {
-            "category": "Spoken Words",
-            "type": "text",
-            "items": [
-                {
-                    "title": "Flowing Rivers",
-                    "content": "<p>Beneath the moon's soft silver gaze,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Shape the stones of yesteryear.</p><p>Beneath the moon's soft silver gaze,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Shape the stones of yesteryear.<br />Shape the stones of yesteryear.<br />Shape the stones of yesteryear.</p>"
-                },
-                {
-                    "title": "Chaos Theory",
-                    "content": "<p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p><p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p><p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p>"
-                }
-            ]
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Metallic Dreams"
         },
         {
-            "category": "Painting",
-            "type": "images",
-            "items": [
-                {
-                    "src": "/media/uploads/ibroAscii.png",
-                    "title": "Digital Fusion"
-                },
-                {
-                    "src": "/media/uploads/scene.webp",
-                    "title": "Urban Landscape"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Abstract Emotions"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Abstract Emotions"
-                }
-            ]
+          "src": "/media/uploads/hand.png",
+          "title": "Human Touch"
         },
         {
-            "category": "Video Work",
-            "type": "images",
-            "items": [
-                {
-                    "src": "/media/uploads/hand.png",
-                    "title": "Urban Landscape"
-                },
-                {
-                    "src": "/media/uploads/scene.webp",
-                    "title": "Urban Landscape"
-                },
-                {
-                    "src": "/media/uploads/ibro.jpg",
-                    "title": "Abstract Emotions"
-                },
-                {
-                    "src": "/media/uploads/ibroAscii.png",
-                    "title": "Digital Fusion"
-                }
-            ]
+          "src": "/media/uploads/hand.png",
+          "title": "Human Touch"
+        },
+        {
+          "src": "/media/uploads/hand.png",
+          "title": "Human Touch"
         }
-    ]
+      ]
+    },
+    {
+      "category": "Sculpture",
+      "type": "images",
+      "items": [
+        {
+          "src": "/media/uploads/scene.webp",
+          "title": "Urban Landscape"
+        },
+        {
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Abstract Emotions"
+        },
+        {
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Abstract Emotions"
+        },
+        {
+          "src": "/media/uploads/ibroAscii.png",
+          "title": "Digital Fusion"
+        }
+      ]
+    },
+    {
+      "category": "Spoken Words",
+      "type": "text",
+      "items": [
+        {
+          "title": "Flowing Rivers",
+          "content": "<p>Beneath the moon's soft silver gaze,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Shape the stones of yesteryear.</p><p>Beneath the moon's soft silver gaze,<br />Rivers carve their winding ways.<br />Words like water, cool and clear,<br />Shape the stones of yesteryear.<br />Shape the stones of yesteryear.<br />Shape the stones of yesteryear.</p>"
+        },
+        {
+          "title": "Chaos Theory",
+          "content": "<p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p><p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p><p>From tangled threads, patterns emerge,<br />Chaos dances, galaxies converge.<br />In randomness we find our course,<br />Nature's unforgiving force.</p>"
+        }
+      ]
+    },
+    {
+      "category": "Painting",
+      "type": "images",
+      "items": [
+        {
+          "src": "/media/uploads/ibroAscii.png",
+          "title": "Digital Fusion"
+        },
+        {
+          "src": "/media/uploads/scene.webp",
+          "title": "Urban Landscape"
+        },
+        {
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Abstract Emotions"
+        },
+        {
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Abstract Emotions"
+        }
+      ]
+    },
+    {
+      "category": "Video Work",
+      "type": "images",
+      "items": [
+        {
+          "src": "/media/uploads/hand.png",
+          "title": "Urban Landscape"
+        },
+        {
+          "src": "/media/uploads/scene.webp",
+          "title": "Urban Landscape"
+        },
+        {
+          "src": "/media/uploads/ibro.jpg",
+          "title": "Abstract Emotions"
+        },
+        {
+          "src": "/media/uploads/ibroAscii.png",
+          "title": "Digital Fusion"
+        }
+      ]
+    }
+  ]
 }

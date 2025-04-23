@@ -1,10 +1,10 @@
 backend:
-  name: git-gateway
-  # name: proxy
-  # proxy_url: http://localhost:8081/api/v1
+  # name: git-gateway
+  name: proxy
+  proxy_url: http://localhost:8081/api/v1
   branch: decap # Branch to update (optional; defaults to master)
 
-media_folder: "public/media/uploads" # Media files will be stored in the repo under 
+media_folder: "public/media/uploads" # Media files will be stored in the repo under
 public_folder: "/media/uploads"
 
 display_url: https://ibrahimshuaib.netlify.app
@@ -14,40 +14,40 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-    - label: "Bio"
-      name: "bio"
-      extension: json
-      format: json
-      file: "src/Data/bio.json"
-      slug: "bio"
-      fields:
-        - { name: "bioHead", label: "Bio Heading", widget: "string" }
-        - name: "bioBody"
-          label: "Bio Paragraphs"
-          widget: "list"
-          fields:
-            - { name: "paragraph", label: "Paragraph", widget: "text" }
+      - label: "Bio"
+        name: "bio"
+        extension: json
+        format: json
+        file: "src/Data/bio.json"
+        slug: "bio"
+        fields:
+          - { name: "bioHead", label: "Bio Heading", widget: "string" }
+          - name: "bioBody"
+            label: "Bio Paragraphs"
+            widget: "list"
+            fields:
+              - { name: "paragraph", label: "Paragraph", widget: "text" }
 
-    - label: "CV"
-      name: "cv"
-      file: "src/Data/cv.json"
-      extension: json
-      format: json
-      fields:
-        - name: "cvGroups"
-          label: "CV Sections"
-          widget: "list"
-          fields:
-            - { name: "gItemTitle", label: "Section Title", widget: "string" }
-            - name: "item"
-              label: "Items"
-              widget: "list"
-              fields:
-                - { name: "gTitle", label: "Title", widget: "string" }
-                - { name: "gPlace", label: "Place/Organization", widget: "string", required: false }
-                - { name: "Year", label: "Year", widget: "string", required: false }
-                - { name: "range", label: "Year Range", widget: "string", required: false }
-                - { name: "link", label: "Link URL", widget: "string", required: false }
+      - label: "CV"
+        name: "cv"
+        file: "src/Data/cv.json"
+        extension: json
+        format: json
+        fields:
+          - name: "cvGroups"
+            label: "CV Sections"
+            widget: "list"
+            fields:
+              - { name: "gItemTitle", label: "Section Title", widget: "string" }
+              - name: "item"
+                label: "Items"
+                widget: "list"
+                fields:
+                  - { name: "gTitle", label: "Title", widget: "string" }
+                  - { name: "gPlace", label: "Place/Organization", widget: "string", required: false }
+                  - { name: "Year", label: "Year", widget: "string", required: false }
+                  - { name: "range", label: "Year Range", widget: "string", required: false }
+                  - { name: "link", label: "Link URL", widget: "string", required: false }
 
   - name: "workpage"
     label: "Work/Projects"
@@ -63,11 +63,18 @@ collections:
             widget: "list"
             fields:
               - { name: "category", label: "Category Name", widget: "string" }
-              - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"] }
+              - { name: "type", label: "Content Type", widget: "select", options: ["images", "text"], default: "images" }
               - name: "items"
                 label: "Items"
                 widget: "list"
                 fields:
                   - { name: "title", label: "Item Title", widget: "string" }
-                  - { name: "src", label: "Image Path", widget: "string", required: false }
-                  - { name: "content", label: "Text Content", widget: "markdown", required: false }   
+                  - { name: "content", label: "Text Content", widget: "markdown", required: false }
+                  - label: "Image"
+                    name: "src"
+                    widget: "image"
+                    required: false
+                    choose_url: true
+                    media_library:
+                      config:
+                        multiple: false
