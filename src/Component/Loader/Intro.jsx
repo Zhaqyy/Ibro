@@ -11,16 +11,17 @@ const Intro = ({ timeline, onComplete }) => {
   const loaderRef = useRef(null);
   const textSplitRef = useRef(null);
   const waveformRef = useRef(null);
-
+  const isMobile = useIsMobile(800);
+  
   useEffect(() => {
     const context = gsap.context(() => {
       if (timeline) {
-        timeline.add(introAnimation(loaderRef, textSplitRef, waveformRef, onComplete), 0);
+        timeline.add(introAnimation(loaderRef, textSplitRef, waveformRef, onComplete, isMobile), 0);
       }
     }, loaderRef);
 
     return () => context.revert();
-  }, [timeline, onComplete]);
+  }, [timeline, onComplete, isMobile]);
 
   // Create waveform bars
   const renderWaveform = () => {
@@ -32,7 +33,11 @@ const Intro = ({ timeline, onComplete }) => {
   };
 
   return (
-    <div className={"loaderWrapper"} ref={loaderRef} style={{maskImage: 'linear-gradient(90deg, rgba(0,0,0,1) 0% 100%)'}}>
+    <div 
+      className={"loaderWrapper"} 
+      ref={loaderRef} 
+      style={{maskImage: `linear-gradient(${isMobile ? '0deg' : '90deg'}, rgba(0,0,0,1) 0% 100%)`}}
+    >
       <div className='wrap'>
         <TextSplit ref={textSplitRef} as='h1' animateInView={false} hover={false} splitBy='char' unitAs='span'>
           IBRAHIM SHUAIB
@@ -47,7 +52,7 @@ const Intro = ({ timeline, onComplete }) => {
 
 export default Intro;
 
-export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete) => {
+export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete, isMobile) => {
   const tl = gsap.timeline();
   const chars = textSplitRef.current?.querySelectorAll(".animated-unit") || [];
   const bars = waveformRef.current?.querySelectorAll(".waveform-bar") || [];
@@ -59,6 +64,7 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
   const createGradient = (progress) => {
     const gradient = [];
     const center = 50; // Center point (50%)
+    const gradientDirection = isMobile ? '0deg' : '90deg';
     
     for(let i = 0; i < MAX_GRADIENT_BREAK; i++) {
       const position = (i / MAX_GRADIENT_BREAK) * 100;
@@ -88,45 +94,30 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
       }
     }
     
-    return `linear-gradient(90deg, ${gradient.join(', ')})`;
+    return `linear-gradient(${gradientDirection}, ${gradient.join(', ')})`;
   };
-
 
   // Initial setup
   tl.set(loaderRef.current, { display: "block" });
+  
+  // Set initial properties based on mobile/desktop
   tl.set(bars, {
-    height: "0%",
-    y: "0%",
+    [isMobile ? 'width' : 'height']: "0%",
+    // [isMobile ? 'height' : 'width']: "100%",
+    [isMobile ? 'x' : 'y']: "0%",
     transformOrigin: "center center",
   });
 
-  // Animate text
+  // Animate text (unchanged)
   chars.forEach((char, index) => {
     const randomFonts = FONT_CLASSES[Math.floor(Math.random() * FONT_CLASSES.length)];
-    tl.set(char, { className: `${randomFonts} animated-unit`, autoAlpha: 0, y: 25 }, 0);
-
-    // tl.to(
-    //   char,
-    //   {
-    //     autoAlpha: 1,
-    //     y: 0,
-    //     duration: 0.5,
-    //     ease: "back.out(2)",
-    //     delay: index * 0.05,
-    //     stagger: {
-    //       each: 0.05,
-    //       from: "edges", // Randomize which bars move first
-    //     },
-    //   },
-    //   0
-    // );
+    tl.set(char, { className: `${randomFonts} animated-unit`, autoAlpha: 0, y: isMobile ? 0 : 25 }, 0);
   });
+
+  // text entry
   tl.to(
     chars,
     {
-      // y: "100%",
-      // duration: 1.5,
-      // ease: "power4.inOut",
       autoAlpha: 1,
       y: 0,
       duration: 0.5,
@@ -138,37 +129,24 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
     },
     "<"
   );
-  // Animate waveform bars - grow from center to random heights
+
+  // Animate waveform bars - grow from center to random heights/widths
   tl.to(
     bars,
     {
-      height: () => `${Math.random() * 80 + 20}%`, // Random height between 20-100%
+      [isMobile ? 'width' : 'height']: () => `${Math.random() * 80 + 20}%`, // Random between 20-100%
       duration: 1,
       ease: "expo.out",
       stagger: {
         each: 0.015,
-        from: "center", // Animate outwards from center
+        from: "center",
       },
     },
     "<"
   );
 
   // Unify fonts
-  // tl.to(
-  //   chars,
-  //   {
-  //     className: `${randomFont} animated-unit`,
-  //     duration: 1.5,
-  //     ease: "power2.inOut",
-  //     stagger: {
-  //       each: 0.1,
-  //       from: "edges",
-  //     },
-  //   },
-  //   ">+=0.5"
-  // );
   chars.forEach((char, index) => {
-
     tl.to(
       char,
       {
@@ -184,6 +162,7 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
       0
     );
   });
+
   // Random bar translations every 0.25s for 2 seconds
   const randomBarAnimations = () => {
     const animTl = gsap.timeline({ yoyo: true, repeat: 1 });
@@ -191,12 +170,12 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
     animTl.to(
       bars,
       {
-        y: () => gsap.utils.random(-50, 50) + "%", // Random vertical position
+        [isMobile ? 'x' : 'y']: () => gsap.utils.random(-50, 50) + "%", // Random position
         duration: 1,
         ease: "expo.inOut",
         stagger: {
           each: 0.01,
-          from: "edges", // Randomize which bars move first
+          from: "edges",
         },
       },
       0
@@ -207,20 +186,20 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
 
   tl.add(randomBarAnimations(), "<");
 
-  // expand all bars to full height
+  // expand all bars to full height/width
   tl.to(
     bars,
     {
-      height: "100%",
-      y: "0%", // Reset any vertical translation
+      [isMobile ? 'width' : 'height']: "100%",
+      [isMobile ? 'x' : 'y']: "0%", // Reset any translation
       duration: 1,
       ease: "expo.in",
       stagger: {
         each: 0.015,
-        from: "edges", // Randomize which bars move first
+        from: "edges",
       },
     },
-    ">+=0.5" // After 2 seconds of random movements
+    ">+=0.5"
   );
 
   // exit text
@@ -228,7 +207,7 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
     chars,
     {
       autoAlpha: 0,
-      y: 50,
+      y: isMobile ? 0 : 50,
       duration: 1,
       ease: "back.out(2)",
       stagger: {
@@ -238,17 +217,18 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
     },
     ">"
   );
-  // Bar Final exit animation - retract all bars height
+
+  // Bar Final exit animation - retract all bars height/width
   tl.to(
     bars,
     {
-      height: "0%",
-      y: "0%", // Reset any vertical translation
+      [isMobile ? 'width' : 'height']: "0%",
+      [isMobile ? 'x' : 'y']: "0%", // Reset any translation
       duration: 1,
       ease: "expo.in",
       stagger: {
         each: 0.015,
-        from: "center", // Randomize which bars move first
+        from: "center",
       },
     },
     "<"
@@ -260,17 +240,16 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete)
     },
     { 
       maskImage: createGradient(0),
-      duration: 1.5,
+      duration: isMobile ? 1:1.5,
       onUpdate: function() {
         const progress = 1 - this.progress();
         loaderRef.current.style.maskImage = createGradient(progress);
       }
     },
-    "<+=1"
+    isMobile ? '<+=1.5' : "<+=1"
   )
   .call(onComplete, null, ">-=1.5");
   tl.set(loaderRef.current, { display: "none" });
-
 
   return tl;
 };
