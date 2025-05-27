@@ -4,8 +4,9 @@ import gsap from "gsap";
 import Logo from "../Logo";
 import useIsMobile from "../../Util/isMobile";
 import TextSplit from "../../Util/TextSplit";
+import bowser from "bowser";
 
-const FONT_CLASSES = ["font1", "font2", "font4"];
+const FONT_CLASSES = ["font1", "font4"];
 
 const Intro = ({ timeline, onComplete }) => {
   const loaderRef = useRef(null);
@@ -13,15 +14,20 @@ const Intro = ({ timeline, onComplete }) => {
   const waveformRef = useRef(null);
   const isMobile = useIsMobile(800);
   
+ // Detect Safari/iOS
+ const parser = bowser.getParser(window.navigator.userAgent);
+ const isSafari = parser.getBrowserName() === "Safari" || parser.getOS().name === "iOS";
+
+
   useEffect(() => {
     const context = gsap.context(() => {
       if (timeline) {
-        timeline.add(introAnimation(loaderRef, textSplitRef, waveformRef, onComplete, isMobile), 0);
+        timeline.add(introAnimation(loaderRef, textSplitRef, waveformRef, onComplete, isMobile, isSafari), 0);
       }
     }, loaderRef);
 
     return () => context.revert();
-  }, [timeline, onComplete, isMobile]);
+  }, [timeline, onComplete, isMobile, isSafari]);
 
   // Create waveform bars
   const renderWaveform = () => {
@@ -52,7 +58,7 @@ const Intro = ({ timeline, onComplete }) => {
 
 export default Intro;
 
-export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete, isMobile) => {
+const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete, isMobile, isSafari) => {
   const tl = gsap.timeline();
   const chars = textSplitRef.current?.querySelectorAll(".animated-unit") || [];
   const bars = waveformRef.current?.querySelectorAll(".waveform-bar") || [];
@@ -96,6 +102,49 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete,
     
     return `linear-gradient(${gradientDirection}, ${gradient.join(', ')})`;
   };
+
+  const createClipPath = (progress) => {
+    const center = 50; // Center point (50%)
+    const points = [];
+    
+    // Start with top-left corner
+    points.push('0% 0%');
+    
+    for (let i = 0; i < MAX_GRADIENT_BREAK; i++) {
+      const position = (i / MAX_GRADIENT_BREAK) * 100;
+      const width = (1 / MAX_GRADIENT_BREAK) * 100;
+      
+      // Calculate distance from center (0-50)
+      const distanceFromCenter = Math.abs(position - center);
+      
+      // Normalize distance (0-1)
+      const normalizedDistance = distanceFromCenter / center;
+      
+      // Apply progress with easing - bands closer to center animate first
+      const bandProgress = Math.min(progress / (1 - normalizedDistance * 0.75), 1);
+      
+      // For bands on the left side
+      if (position < center) {
+        const visibleEnd = position + (width * bandProgress);
+        points.push(`${visibleEnd}% 0%`);
+        points.push(`${visibleEnd}% 100%`);
+      } 
+      // For bands on the right side
+      else {
+        const visibleStart = position + (width * (1 - bandProgress));
+        points.push(`${visibleStart}% 100%`);
+        points.push(`${visibleStart}% 0%`);
+      }
+    }
+    
+    // Close the polygon
+    points.push('100% 0%');
+    points.push('100% 100%');
+    points.push('0% 100%');
+    
+    return `polygon(${points.join(', ')})`;
+  };
+  
 
   // Initial setup
   tl.set(loaderRef.current, { display: "block" });
@@ -164,43 +213,43 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete,
   });
 
   // Random bar translations every 0.25s for 2 seconds
-  const randomBarAnimations = () => {
-    const animTl = gsap.timeline({ yoyo: true, repeat: 1 });
+  // const randomBarAnimations = () => {
+  //   const animTl = gsap.timeline({ yoyo: true, repeat: 1 });
 
-    animTl.to(
-      bars,
-      {
-        [isMobile ? 'x' : 'y']: () => gsap.utils.random(-50, 50) + "%", // Random position
-        duration: 1,
-        ease: "expo.inOut",
-        stagger: {
-          each: 0.01,
-          from: "edges",
-        },
-      },
-      0
-    );
+  //   animTl.to(
+  //     bars,
+  //     {
+  //       [isMobile ? 'x' : 'y']: () => gsap.utils.random(-50, 50) + "%", // Random position
+  //       duration: 1,
+  //       ease: "expo.inOut",
+  //       stagger: {
+  //         each: 0.01,
+  //         from: "edges",
+  //       },
+  //     },
+  //     0
+  //   );
 
-    return animTl;
-  };
+  //   return animTl;
+  // };
 
-  tl.add(randomBarAnimations(), "<");
+  // tl.add(randomBarAnimations(), "<");
 
   // expand all bars to full height/width
-  tl.to(
-    bars,
-    {
-      [isMobile ? 'width' : 'height']: "100%",
-      [isMobile ? 'x' : 'y']: "0%", // Reset any translation
-      duration: 1,
-      ease: "expo.in",
-      stagger: {
-        each: 0.015,
-        from: "edges",
-      },
-    },
-    ">+=0.5"
-  );
+  // tl.to(
+  //   bars,
+  //   {
+  //     [isMobile ? 'width' : 'height']: "100%",
+  //     [isMobile ? 'x' : 'y']: "0%", // Reset any translation
+  //     duration: 1,
+  //     ease: "expo.in",
+  //     stagger: {
+  //       each: 0.015,
+  //       from: "edges",
+  //     },
+  //   },
+  //   ">+=0.5"
+  // );
 
   // exit text
   tl.to(
@@ -234,6 +283,30 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete,
     "<"
   );
 
+  // if (isSafari) {
+    // tl.fromTo(
+    //   loaderRef.current,
+    //   { 
+    //     // clipPath: 'polygon(0% 0%, 20% 0%, 20% 100%, 20% 100%, 20% 0%, 40% 0%, 40% 100%, 40% 100%, 40% 0%, 60% 0%, 60% 100%, 60% 100%, 60% 0%, 80% 0%, 80% 100%, 80% 100%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)',
+    //     clipPath: createClipPath(1),
+    //     webkitClipPath: createClipPath(1) 
+    //   },
+    //   { 
+    //     clipPath: createClipPath(0),
+    //     webkitClipPath: createClipPath(0),
+    //     // clipPath: 'polygon(20% 0%, 20% 0%, 20% 100%, 40% 100%, 40% 0%, 40% 0%, 40% 100%, 60% 100%, 60% 0%, 60% 0%, 60% 100%, 80% 100%, 80% 0%, 80% 0%, 80% 100%, 100% 100%, 100% 0%, 100% 0%, 100% 100%, 20% 100%)',
+    //     // clipPath: 'polygon(0% 0%, 20% 0%, 20% 100%, 20% 100%, 20% 0%, 40% 0%, 40% 100%, 40% 100%, 40% 0%, 60% 0%, 60% 100%, 60% 100%, 60% 0%, 80% 0%, 80% 100%, 80% 100%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)',
+    //     duration: isMobile ? 1 : 1.5,
+    //     // onUpdate: function() {
+    //     //   const progress = 1 - this.progress();
+    //     //   const path = createClipPath(progress);
+    //     //   loaderRef.current.style.clipPath = path;
+    //     //   loaderRef.current.style.webkitClipPath = path;
+    //     // }
+    //   },
+    //   isMobile ? '<+=1.5' : "<+=1"
+    // );
+  // } else {
   tl.fromTo(loaderRef.current, 
     { 
       maskImage: createGradient(1),
@@ -248,7 +321,8 @@ export const introAnimation = (loaderRef, textSplitRef, waveformRef, onComplete,
     },
     isMobile ? '<+=1.5' : "<+=1"
   )
-  .call(onComplete, null, ">-=1.5");
+// }
+  tl.call(onComplete, null, "<");
   tl.set(loaderRef.current, { display: "none" });
 
   return tl;

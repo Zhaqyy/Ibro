@@ -11,8 +11,11 @@ function Home() {
   const textPathRef = useRef(null);
   const [currentText, setCurrentText] = useState("      ");
   const marqueeTween = useRef(null);
+  
   // Mouse follow animation
   useEffect(() => {
+    if (!svgRef.current || !maskRef.current) return;
+
     gsap.set([svgRef.current, maskRef.current], {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
@@ -35,6 +38,8 @@ function Home() {
 
   // Text path animation on hover
   useEffect(() => {
+    if (!textPathRef.current) return;
+
     const textPath = textPathRef.current;
 
     if (currentText.trim() !== "") {
@@ -45,43 +50,87 @@ function Home() {
       gsap.to(textPath, { filter: "blur(2px)", opacity: 0, duration: 1, ease: "power2.in" });
     }
   }, [currentText]);
+  let textLength;
 
-  useEffect(() => {
-    const textPath = textPathRef.current;
-    const pathElement = document.getElementById("textPath");
 
-    const pathLength = Math.round(pathElement.getTotalLength());
+ useEffect(() => {
+  if (!textPathRef.current) return;
+  const textPath = textPathRef.current;
+  const pathElement = document.getElementById("textPath");
 
-    // Calculate dynamic repetitions based on text length
-    const baseText = currentText.trim();
-    const textLength = textPath.getComputedTextLength(); // Get the length of the base text
-    const repetitions = Math.ceil(pathLength / textLength);
-    const dynamicText = baseText.repeat(repetitions);
+  if (!textPath || !pathElement) return;
 
-    // Update text content
-    textPath.textContent = dynamicText;
+  const pathLength = Math.round(pathElement.getTotalLength());
+  const baseText = currentText.trim();
+   textLength = textPath.getComputedTextLength();
+  const repetitions = Math.ceil(pathLength / textLength);
+  const dynamicText = baseText.repeat(repetitions);
 
-    // Set textLength to match the path length
-    textPath.setAttributeNS(null, "textLength", pathLength);
+  // Update text content
+  textPath.textContent = dynamicText;
+  textPath.setAttribute("textLength", pathLength);
+  
+  // Ensure startOffset is set before animation
+  textPath.setAttribute("startOffset", "0%");
 
-    // GSAP marquee animation
+  // GSAP marquee animation
+  if (marqueeTween.current) marqueeTween.current.kill();
+
+  marqueeTween.current = gsap.fromTo(
+    textPath,
+    { attr: { startOffset: "0%" } },
+    {
+      attr: { startOffset: "-100%" },  // Changed to -100% for smoother loop
+      duration: 25,
+      ease: "none",
+      repeat: -1,
+    }
+  );
+
+  return () => {
     if (marqueeTween.current) marqueeTween.current.kill();
+  };
+}, [currentText]);
 
-    marqueeTween.current = gsap.fromTo(
-      textPath,
-      { attr: { startOffset: "0%" } },
-      {
-        attr: { startOffset: "50%" },
-        duration: 25,
-        ease: "none",
-        repeat: -1,
-      }
-    );
+// useEffect(() => {
+//   if (!textPathRef.current) return;
+  
+//   const textPath = textPathRef.current;
+//   const pathElement = document.getElementById("textPath");
+  
+//   if (!textPath || !pathElement) return;
+//   const pathLength = Math.round(pathElement.getTotalLength());
 
-    return () => {
-      if (marqueeTween.current) marqueeTween.current.kill();
-    };
-  }, [currentText]);
+//   // Calculate dynamic repetitions based on text length
+//   const baseText = currentText.trim();
+//   const textLength = textPath.getComputedTextLength(); // Get the length of the base text
+//   const repetitions = Math.ceil(pathLength / textLength);
+//   const dynamicText = baseText.repeat(repetitions);
+
+//   // Update text content
+//   textPath.textContent = dynamicText;
+
+//   // Set textLength to match the path length
+//   textPath.setAttributeNS(null, "textLength", pathLength);
+
+//   // GSAP marquee animation
+//   if (marqueeTween.current) marqueeTween.current.kill();
+
+//   marqueeTween.current = gsap.fromTo(
+//     textPath,
+//     { attr: { startOffset: "0%" } },
+//     {
+//       attr: { startOffset: "50%" },
+//       duration: 25,
+//       ease: "none",
+//       repeat: -1,
+//     }
+//   );
+
+//   return () => {
+//     if (marqueeTween.current) marqueeTween.current.kill();
+//   };
+// }, [currentText]);
 
   const handleHover = text => {
     setCurrentText(`${text} •`);
@@ -141,14 +190,15 @@ function Home() {
               whiteSpace: "pre",
             }}
           >
-            <textPath
+            {/* <textPath
               ref={textPathRef}
               href='#textPath'
               spacing='auto'
-              // textLength='2712'
+              textLength={textLength}
+              startOffset="0%"
             >
               {currentText}
-            </textPath>
+            </textPath> */}
           </text>
         </g>
         <mask id='blur-mask'>

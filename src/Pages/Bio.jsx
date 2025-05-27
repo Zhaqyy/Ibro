@@ -218,7 +218,7 @@ const Bio = () => {
           </mask>
         ))}
         <mask id='staticMask'>
-          <rect x='25%' y={`${isMobile ? "65%" : "50%"}`} height='10%' width='50%' rx='2' fill='#fff' />
+          <rect x='25%' y={`${isMobile ? "20%" : "50%"}`} height='10%' width='50%' rx='2' fill='#fff' />
         </mask>
         {/* Images */}
         <image
