@@ -11,7 +11,7 @@ function Home() {
   const textPathRef = useRef(null);
   const [currentText, setCurrentText] = useState("      ");
   const marqueeTween = useRef(null);
-  
+
   // Mouse follow animation
   useEffect(() => {
     if (!svgRef.current || !maskRef.current) return;
@@ -52,91 +52,177 @@ function Home() {
   }, [currentText]);
   let textLength;
 
+  useEffect(() => {
+    if (!textPathRef.current) return;
+    const textPath = textPathRef.current;
+    const pathElement = document.getElementById("textPath");
 
- useEffect(() => {
-  if (!textPathRef.current) return;
-  const textPath = textPathRef.current;
-  const pathElement = document.getElementById("textPath");
+    if (!textPath || !pathElement) return;
 
-  if (!textPath || !pathElement) return;
+    const pathLength = Math.round(pathElement.getTotalLength());
+    const baseText = currentText.trim();
+    textLength = textPath.getComputedTextLength();
+    const repetitions = Math.ceil(pathLength / textLength);
+    const dynamicText = baseText.repeat(repetitions);
 
-  const pathLength = Math.round(pathElement.getTotalLength());
-  const baseText = currentText.trim();
-   textLength = textPath.getComputedTextLength();
-  const repetitions = Math.ceil(pathLength / textLength);
-  const dynamicText = baseText.repeat(repetitions);
+    // Update text content
+    textPath.textContent = dynamicText;
+    textPath.setAttribute("textLength", pathLength);
 
-  // Update text content
-  textPath.textContent = dynamicText;
-  textPath.setAttribute("textLength", pathLength);
-  
-  // Ensure startOffset is set before animation
-  textPath.setAttribute("startOffset", "0%");
+    // Ensure startOffset is set before animation
+    textPath.setAttribute("startOffset", "0%");
 
-  // GSAP marquee animation
-  if (marqueeTween.current) marqueeTween.current.kill();
-
-  marqueeTween.current = gsap.fromTo(
-    textPath,
-    { attr: { startOffset: "0%" } },
-    {
-      attr: { startOffset: "-100%" },  // Changed to -100% for smoother loop
-      duration: 25,
-      ease: "none",
-      repeat: -1,
-    }
-  );
-
-  return () => {
+    // GSAP marquee animation
     if (marqueeTween.current) marqueeTween.current.kill();
+
+    marqueeTween.current = gsap.fromTo(
+      textPath,
+      { attr: { startOffset: "0%" } },
+      {
+        attr: { startOffset: "-100%" }, // Changed to -100% for smoother loop
+        duration: 25,
+        ease: "none",
+        repeat: -1,
+      }
+    );
+
+    return () => {
+      if (marqueeTween.current) marqueeTween.current.kill();
+    };
+  }, [currentText]);
+
+  // useEffect(() => {
+  //   if (!textPathRef.current) return;
+
+  //   const textPath = textPathRef.current;
+  //   const pathElement = document.getElementById("textPath");
+
+  //   if (!textPath || !pathElement) return;
+  //   const pathLength = Math.round(pathElement.getTotalLength());
+
+  //   // Calculate dynamic repetitions based on text length
+  //   const baseText = currentText.trim();
+  //   const textLength = textPath.getComputedTextLength(); // Get the length of the base text
+  //   const repetitions = Math.ceil(pathLength / textLength);
+  //   const dynamicText = baseText.repeat(repetitions);
+
+  //   // Update text content
+  //   textPath.textContent = dynamicText;
+
+  //   // Set textLength to match the path length
+  //   textPath.setAttributeNS(null, "textLength", pathLength);
+
+  //   // GSAP marquee animation
+  //   if (marqueeTween.current) marqueeTween.current.kill();
+
+  //   marqueeTween.current = gsap.fromTo(
+  //     textPath,
+  //     { attr: { startOffset: "0%" } },
+  //     {
+  //       attr: { startOffset: "50%" },
+  //       duration: 25,
+  //       ease: "none",
+  //       repeat: -1,
+  //     }
+  //   );
+
+  //   return () => {
+  //     if (marqueeTween.current) marqueeTween.current.kill();
+  //   };
+  // }, [currentText]);
+
+  const menuItems = useRef([]);
+  const menuWraps = useRef([]);
+
+  // Initialize GSAP and event listeners
+  useEffect(() => {
+    const wraps = menuWraps.current;
+    
+    // Set initial position for all menu items
+    gsap.set(menuItems.current, {
+      xPercent: -50,
+      yPercent: -50
+    });
+
+    // Add event listeners to each wrap
+    wraps.forEach(wrap => {
+      if (wrap) {
+        wrap.addEventListener('mousemove', onMove);
+        wrap.addEventListener('mouseleave', onLeave);
+      }
+    });
+
+    return () => {
+      // Clean up event listeners
+      wraps.forEach(wrap => {
+        if (wrap) {
+          wrap.removeEventListener('mousemove', onMove);
+          wrap.removeEventListener('mouseleave', onLeave);
+        }
+      });
+    };
+  }, []);
+
+  const onMove = (e) => {
+    const wrap = e.currentTarget;
+    const index = menuWraps.current.indexOf(wrap);
+    const menuItem = menuItems.current[index];
+    
+    if (!menuItem) return;
+    
+    const { left, top, width, height } = wrap.getBoundingClientRect();
+    
+    const halfW = width / 2;
+    const halfH = height / 2;  
+    const mouseX = e.clientX - left;
+    const mouseY = e.clientY - top;
+    
+    const x = gsap.utils.interpolate(-halfW, halfW, mouseX / width);
+    const y = gsap.utils.interpolate(-halfH, halfH, mouseY / height);
+    
+    gsap.to(menuItem, {
+      x: x,
+      y: y,
+      duration: 0.2,
+      ease: "power3.out",
+      overwrite: true
+    });  
   };
-}, [currentText]);
 
-// useEffect(() => {
-//   if (!textPathRef.current) return;
-  
-//   const textPath = textPathRef.current;
-//   const pathElement = document.getElementById("textPath");
-  
-//   if (!textPath || !pathElement) return;
-//   const pathLength = Math.round(pathElement.getTotalLength());
+  const onLeave = (e) => {
+    const wrap = e.currentTarget;
+    const index = menuWraps.current.indexOf(wrap);
+    const menuItem = menuItems.current[index];
+    
+    if (menuItem) {
+      gsap.to(menuItem, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.5)"
+      });
+    }
+  };
 
-//   // Calculate dynamic repetitions based on text length
-//   const baseText = currentText.trim();
-//   const textLength = textPath.getComputedTextLength(); // Get the length of the base text
-//   const repetitions = Math.ceil(pathLength / textLength);
-//   const dynamicText = baseText.repeat(repetitions);
+  // Add ref to the arrays
+  const addToItems = (el) => {
+    if (el && !menuItems.current.includes(el)) {
+      menuItems.current.push(el);
+    }
+  };
 
-//   // Update text content
-//   textPath.textContent = dynamicText;
+  const addToWraps = (el) => {
+    if (el && !menuWraps.current.includes(el)) {
+      menuWraps.current.push(el);
+    }
+  };
 
-//   // Set textLength to match the path length
-//   textPath.setAttributeNS(null, "textLength", pathLength);
-
-//   // GSAP marquee animation
-//   if (marqueeTween.current) marqueeTween.current.kill();
-
-//   marqueeTween.current = gsap.fromTo(
-//     textPath,
-//     { attr: { startOffset: "0%" } },
-//     {
-//       attr: { startOffset: "50%" },
-//       duration: 25,
-//       ease: "none",
-//       repeat: -1,
-//     }
-//   );
-
-//   return () => {
-//     if (marqueeTween.current) marqueeTween.current.kill();
-//   };
-// }, [currentText]);
 
   const handleHover = text => {
     setCurrentText(`${text} •`);
   };
 
-  const handleleave = () => {
+  const handleLeave = () => {
     setCurrentText(`      `);
   };
 
@@ -209,22 +295,50 @@ function Home() {
       <h1 className='bigName'>IBRAHIM SHUAIB</h1>
 
       <div className='menu'>
-        <div className='menuCol'>
-          <Link to='/bio' onMouseEnter={() => handleHover("BIO ")} onMouseLeave={() => handleleave()}>
-            Bio
-          </Link>
-          <Link to='/cv' onMouseEnter={() => handleHover("CV")} onMouseLeave={() => handleleave()}>
-            CV
-          </Link>
-        </div>
-        <div className='menuCol'>
-          <Link to='/works' onMouseEnter={() => handleHover("WORKS")} onMouseLeave={() => handleleave()}>
-            Works
-          </Link>
-          <Link to='/contact' onMouseEnter={() => handleHover("CONTACT")} onMouseLeave={() => handleleave()}>
-            Contact
-          </Link>
-        </div>
+      <div className='menuCol'>
+      <div className='proxWrap' ref={addToWraps}>
+        <Link 
+          to='/bio' 
+          ref={addToItems} 
+          onMouseEnter={() => handleHover("BIO ")} 
+          onMouseLeave={() => handleLeave()}
+        >
+          Bio
+        </Link>
+      </div>
+      <div className='proxWrap' ref={addToWraps}>
+        <Link 
+          to='/cv' 
+          ref={addToItems} 
+          onMouseEnter={() => handleHover("CV")} 
+          onMouseLeave={() => handleLeave()}
+        >
+          CV
+        </Link>
+      </div>
+    </div>
+    <div className='menuCol'>
+      <div className='proxWrap' ref={addToWraps}>
+        <Link 
+          to='/works' 
+          ref={addToItems} 
+          onMouseEnter={() => handleHover("WORKS")} 
+          onMouseLeave={() => handleLeave()}
+        >
+          Works
+        </Link>
+      </div>
+      <div className='proxWrap' ref={addToWraps}>
+        <Link 
+          to='/contact' 
+          ref={addToItems} 
+          onMouseEnter={() => handleHover("CONTACT")} 
+          onMouseLeave={() => handleLeave()}
+        >
+          Contact
+        </Link>
+      </div>
+    </div>
       </div>
     </section>
   );

@@ -63,7 +63,21 @@
     font-size: 1.5rem;
     font-weight: 700;
     text-transform: uppercase;
+    .proxWrap {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      align-content: center;
+      text-align: center;
+      overflow: hidden;
 
+      a {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        pointer-events: auto;
+      }
+    }
     .menuCol {
       display: flex;
       flex-direction: column;
@@ -75,8 +89,7 @@
 
 @media (width <= 500px) {
   .hero {
-
-    .bigName{
+    .bigName {
       font-size: clamp(2rem, 10vw + 0.333rem, 3rem);
     }
     .menu {
